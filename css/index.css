@@ -1,0 +1,368 @@
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    html {
+        scroll-behavior: smooth;
+        font-family: 'Montserrat', sans-serif !important;
+    }
+    
+    html,
+    body,
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: 0;
+        -webkit-font-smoothing: antialiased;
+    }
+    
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    
+    button {
+        cursor: pointer;
+    }
+    
+    input {
+        width: 100%;
+        border: none;
+        color: #138FCE;
+    }
+    
+    .rec {
+        border: none !important;
+        box-shadow: none!important;
+    }
+    
+    .rec-dot {
+        width: 5px!important;
+        height: 5px!important;
+        background: #DADADA!important;
+        border: none!important;
+        box-shadow: none!important;
+    }
+    
+    .rec-dot_active {
+        background: #138FCE!important;
+        border: none!important;
+        box-shadow: none!important;
+    }
+    
+    .rec-slider-container {
+        margin: 0!important;
+    }
+    
+    input:-webkit-autofill,
+    select:-webkit-autofill {
+        box-shadow: rgb(255, 255, 255) 0px 0px 0px 30px inset;
+        -webkit-text-fill-color: rgb(19, 143, 206) !important;
+    }
+    
+    .select-cinza {
+        background-image: url("data:image/svg+xml;utf8,<svg fill='%23C8CDD1' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    }
+    
+    .select-azul {
+        background-image: url("data:image/svg+xml;utf8,<svg fill='%23138FCE' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    }
+    
+    .select-vermelho {
+        background-image: url("data:image/svg+xml;utf8,<svg fill='%23E2202C' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    }
+    
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: transparent;
+        background-repeat: no-repeat;
+        background-position-x: 100%;
+        background-position-y: -4px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-right: 2rem;
+    }
+    /*** Styles added to fix the issue with zoom in on iphone ***/
+    /* iPhone < 5: */
+    
+    @media screen and (device-aspect-ratio: 2/3) {
+        select,
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="date"],
+        input[type="month"],
+        input[type="time"],
+        input[type="week"],
+        input[type="number"],
+        input[type="email"],
+        input[type="url"] {
+            font-size: 16px;
+        }
+    }
+    /* iPhone 5, 5C, 5S, iPod Touch 5g */
+    
+    @media screen and (device-aspect-ratio: 40/71) {
+        select,
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="date"],
+        input[type="month"],
+        input[type="time"],
+        input[type="week"],
+        input[type="number"],
+        input[type="email"],
+        input[type="url"] {
+            font-size: 16px;
+        }
+    }
+    /* iPhone 6, iPhone 6s, iPhone 7 portrait/landscape */
+    
+    @media screen and (device-aspect-ratio: 375/667) {
+        select,
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="date"],
+        input[type="month"],
+        input[type="time"],
+        input[type="week"],
+        input[type="number"],
+        input[type="email"],
+        input[type="url"] {
+            font-size: 16px;
+        }
+    }
+    /* iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus portrait/landscape */
+    
+    @media screen and (device-aspect-ratio: 9/16) {
+        select,
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="date"],
+        input[type="month"],
+        input[type="time"],
+        input[type="week"],
+        input[type="number"],
+        input[type="email"],
+        input[type="url"] {
+            font-size: 16px;
+        }
+    }
+    
+    h1 {
+        font-size: 2em;
+        font-weight: bold;
+        line-height: 3em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+        line-height: 2em;
+    }
+    
+    h3 {
+        font-size: 1.17em;
+        font-weight: bold;
+        line-height: 1.5em;
+    }
+    
+    h4 {
+        font-size: 1.00em;
+        font-weight: bold;
+        line-height: 1.17em;
+    }
+    
+    h5 {
+        font-size: 0.83em;
+        font-weight: bold;
+        line-height: 1.00em;
+    }
+    
+    h6 {
+        font-size: 0.67em;
+        font-weight: bold;
+        line-height: 0.83em;
+    }
+    /* CUSTOM Scroll bar  */
+    
+     ::-webkit-scrollbar {
+        width: 5px !important;
+    }
+    
+     ::-webkit-scrollbar-track {
+        background: #f3f4f6 !important;
+    }
+    
+     ::-webkit-scrollbar-thumb {
+        background: #011339;
+        border-radius: 12px !important;
+    }
+    
+     ::-webkit-scrollbar-thumb:hover {
+        background: #011339 !important;
+    }
+    
+    .image-cover {
+        object-fit: cover;
+    }
+    /* CSS REACT CALENDAR */
+    
+    .react-calendar {
+        width: 350px;
+        max-width: 100%;
+        background: white;
+        line-height: 1.125em;
+    }
+    
+    .react-calendar--doubleView {
+        width: 700px;
+    }
+    
+    .react-calendar--doubleView .react-calendar__viewContainer {
+        display: flex;
+        margin: -0.5em;
+    }
+    
+    .react-calendar--doubleView .react-calendar__viewContainer>* {
+        width: 50%;
+        margin: 0.5em;
+    }
+    
+    .react-calendar,
+    .react-calendar *,
+    .react-calendar *:before,
+    .react-calendar *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-radius: 4px;
+        margin: 1px;
+    }
+    
+    .react-calendar button {
+        margin: 0;
+        border: 0;
+        outline: none;
+    }
+    
+    .react-calendar button:enabled:hover {
+        cursor: pointer;
+    }
+    
+    .react-calendar__navigation {
+        height: 44px;
+        margin-bottom: 1em;
+    }
+    
+    .react-calendar__navigation button {
+        min-width: 44px;
+        background: none;
+    }
+    
+    .react-calendar__navigation button:enabled:hover,
+    .react-calendar__navigation button:enabled:focus {
+        background-color: #e6e6e6;
+    }
+    
+    .react-calendar__navigation button[disabled] {
+        background-color: #f0f0f0;
+    }
+    
+    .react-calendar__month-view__weekdays {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 0.75em;
+    }
+    
+    .react-calendar__month-view__weekdays__weekday {
+        padding: 0.5em;
+    }
+    
+    .react-calendar__month-view__weekNumbers {
+        font-weight: bold;
+    }
+    
+    .react-calendar__month-view__weekNumbers .react-calendar__tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75em;
+        padding: calc(0.75em / 0.75) calc(0.5em / 0.75);
+    }
+    
+    .react-calendar__month-view__days__day--weekend {
+        color: #d10000;
+    }
+    
+    .react-calendar__month-view__days__day--neighboringMonth {
+        color: #757575;
+    }
+    
+    .react-calendar__year-view .react-calendar__tile,
+    .react-calendar__decade-view .react-calendar__tile,
+    .react-calendar__century-view .react-calendar__tile {
+        padding: 2em 0.5em;
+    }
+    
+    .react-calendar__tile {
+        max-width: 100%;
+        text-align: center;
+        padding: 0.75em 0.5em;
+        background: none;
+    }
+    
+    .react-calendar__tile:disabled {
+        background-color: #f0f0f0;
+    }
+    
+    .react-calendar__tile:enabled:hover,
+    .react-calendar__tile:enabled:focus {
+        background-color: #e6e6e6;
+    }
+    
+    .react-calendar__tile--now {
+        background: #ffff76;
+    }
+    
+    .react-calendar__tile--now:enabled:hover,
+    .react-calendar__tile--now:enabled:focus {
+        background: #ffffa9;
+    }
+    
+    .react-calendar__tile--hasActive {
+        background: #76baff;
+    }
+    
+    .react-calendar__tile--hasActive:enabled:hover,
+    .react-calendar__tile--hasActive:enabled:focus {
+        background: #a9d4ff;
+    }
+    
+    .react-calendar__tile--active {
+        background: #006edc;
+        color: white;
+    }
+    
+    .react-calendar__tile--active:enabled:hover,
+    .react-calendar__tile--active:enabled:focus {
+        background: #1087ff;
+    }
+    
+    .react-calendar--selectRange .react-calendar__tile--hover {
+        background-color: #e6e6e6;
+    }
