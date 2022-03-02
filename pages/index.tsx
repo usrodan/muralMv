@@ -15,18 +15,26 @@ const IndexPage = ({ buildTimestamp }) => {
   const { search, city, type } = router.query
   useEffect(() => { 
     Configs.update(s => {
-      s.search = String(search)
-      s.city = String(city)
-      s.type = String(type)
-    })
-   
+      s.search = search && String(search)
+      s.city = city && String(city)
+      s.type = type && String(type)
+    }) 
   }, [search, city, type])
-
-
+ 
   useEffect(() => {
+
+    var queries = []
+    ConfigsStore.search && queries.push(`"search": "${ConfigsStore.search}"`)
+    ConfigsStore.city && queries.push(`"city": "${ConfigsStore.city}"`)
+    ConfigsStore.type && queries.push(`"type": "${ConfigsStore.type}"`)
+
+     
+    console.log()
+  
+
     router.push({
       pathname: '/',
-      query: { search: ConfigsStore.search, city: ConfigsStore.city, type: ConfigsStore.type },
+      query: JSON.parse(`{${queries.join(",")}}`),
     })
     getData()
   }, [ConfigsStore])
@@ -55,7 +63,7 @@ const IndexPage = ({ buildTimestamp }) => {
       }
     `,
     });
-    console.log(data.murals.data)
+    //console.log(data.murals.data)
     setMural(data.murals.data)
   }
   return (

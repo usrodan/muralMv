@@ -21,8 +21,7 @@ const Sidebar: React.FC = () => {
         tipos{data{attributes{Tipo}}}
       }
     `,
-    });
-    console.log(data)
+    }); 
     setTipos(data.tipos.data)
     setCidades(data.cidades.data)
   } 
