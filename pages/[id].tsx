@@ -1,9 +1,6 @@
 
-import React, { useEffect, useState } from 'react';
 import SEO from '@/components/SEO';
 import Sidebar from '@/components/Sidebar';
-import { useRouter } from 'next/router';
-import { Configs } from '@/configs'
 import client from '@/utils/apollo'
 import { gql } from "@apollo/client";
 import Image from "next/image"
@@ -12,8 +9,10 @@ import { InfoCircle } from "@styled-icons/boxicons-regular/InfoCircle"
 import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
+import {format} from 'date-fns'
 
 const IndexPage = ({ buildTimestamp,mural }) => {  
+  const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z' ),"dd/MM/yyy")
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
@@ -33,7 +32,7 @@ const IndexPage = ({ buildTimestamp,mural }) => {
                 <div className="flex flex-col justify-between p-5 ">
                   <section className="flex flex-col gap-3">
                     <strong className="text-blue-500 uppercase text-3xl ">{mural.cargo}</strong>
-                    <span className="text-base uppercase font-semibold">{mural.cidade} • {mural.data}</span>
+                    <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
                     <span className="text-base uppercase font-semibold">{mural.tipo}</span>
 
                     <div className="flex  hover:opacity-60 cursor-pointer gap-2 border p-2 border-gray-800 rounded-lg text-center justify-center w-full">
@@ -44,9 +43,9 @@ const IndexPage = ({ buildTimestamp,mural }) => {
 
                   <section className="flex flex-col gap-5">
                     <div className="w-full flex items-center">
-                      <div className="w-full flex mr-2 h-0.5 bg-gray-800" />
-                      <span className="w-full text-center">quer mais vagas?</span>
-                      <div className="w-full flex ml-2 h-0.5 bg-gray-800" />
+                      <div className="flex flex-1 mr-2 h-0.5 border-t border-dashed border-gray-800" />
+                      <span style={{fontFamily: 'Pacifico'}} className="text-center text-2xl ">quer mais vagas?</span>
+                      <div className="flex flex-1 ml-2 h-0.5  border-t border-dashed border-gray-800" />
                     </div>
 
                     <div className="bg-teal-100 border-t-4 flex p-3 text-teal-900 gap-2 border-teal-500">
