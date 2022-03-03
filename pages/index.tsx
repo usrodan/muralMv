@@ -21,21 +21,8 @@ const IndexPage = ({ buildTimestamp }) => {
     }) 
   }, [search, city, type])
  
-  useEffect(() => {
+  useEffect(() => { 
 
-    var queries = []
-    ConfigsStore.search && queries.push(`"search": "${ConfigsStore.search}"`)
-    ConfigsStore.city && queries.push(`"city": "${ConfigsStore.city}"`)
-    ConfigsStore.type && queries.push(`"type": "${ConfigsStore.type}"`)
-
-     
-    console.log()
-  
-
-    router.push({
-      pathname: '/',
-      query: JSON.parse(`{${queries.join(",")}}`),
-    })
     getData()
   }, [ConfigsStore])
 
@@ -55,7 +42,9 @@ const IndexPage = ({ buildTimestamp }) => {
               Cargo
               cidade{data{attributes{Cidade}}}
               data
-              Imagem{data{attributes{url}}}
+              Imagem{data{attributes{
+                url
+              }}}
               tipo{data{attributes{Tipo}}}
             }
           }
@@ -73,11 +62,14 @@ const IndexPage = ({ buildTimestamp }) => {
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2  border-t-2 border-white">
           <strong className="text-center w-full py-4">Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.</strong>
 
-          <section className="flex flex-col md:flex-row gap-10 ">
-            <Sidebar /> 
+          <section className="grid md:grid-cols-12 gap-8 ">
+            <div className="col-span-3">
+              <Sidebar />
+            </div>
+            <div className="col-span-9 ">
             {mural.length ? <div className="w-full gap-5 grid sm:grid-cols-2 md:grid-cols-3">
               {mural.map(item=>{
-                return(<CardJob image={item.attributes.Imagem.data.attributes.url} title={item.attributes.Cargo} city={item.attributes.cidade.data.attributes.Cidade} date={item.attributes.data} type={item.attributes.tipo.data.attributes.Tipo} />)
+                return(<CardJob key={item.id} id={item.id}  image={item.attributes.Imagem.data.attributes.url} title={item.attributes.Cargo} city={item.attributes.cidade.data.attributes.Cidade} date={item.attributes.data} type={item.attributes.tipo.data.attributes.Tipo} />)
               })} 
             </div>
             :
@@ -92,6 +84,7 @@ const IndexPage = ({ buildTimestamp }) => {
               }}>Limpar Filtros</strong>
               </div>
             }
+            </div>
  
             
 
@@ -102,6 +95,8 @@ const IndexPage = ({ buildTimestamp }) => {
 }
 
 export const getStaticProps = () => {
+
+
   return {
     props: {
       buildTimestamp: Date.now()

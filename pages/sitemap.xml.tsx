@@ -5,18 +5,11 @@ const Sitemap = () => {};
 export const getServerSideProps = ({ res }) => {
   const baseUrl = {
     development: "http://localhost:3000",
-    production: "https://www.pousadasaolourenco-es.com.br",
+    production: "https://mural.maisvagases.com.br",
   }[process.env.NODE_ENV];
 
   const staticPages = [
-    "",
-    "servicos",
-    "lazer", 
-    "como-chegar",
-    "cartao-fidelidade",
-    "circuito-caravaggio",
-    "acomodacoes"
-    
+    "",    
   ]
 
     .map((staticPagePath) => {
