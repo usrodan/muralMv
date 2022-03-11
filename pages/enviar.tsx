@@ -1,13 +1,10 @@
 
 import SEO from '@/components/SEO';
-import Image from "next/image"
 import { SendPlane } from "@styled-icons/remix-fill/SendPlane"
 import { AddPhotoAlternate } from "@styled-icons/material-outlined/AddPhotoAlternate"
 import Dropzone from 'react-dropzone-uploader'
-import { useState } from 'react';
 
 const IndexPage = () => {
-
   const getUploadParams = () => {
     return { url: '/api/upload' }
   }

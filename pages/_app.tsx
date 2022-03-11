@@ -8,7 +8,8 @@ import client from "@/utils/apollo";
 function MyApp({ Component, pageProps }) {
   return (
     <Layout>
-      <Head children={""} />
+      <Head>
+      </Head>
       <ApolloProvider client={client}>
         <Component {...pageProps} />
       </ApolloProvider>

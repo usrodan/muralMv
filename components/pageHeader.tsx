@@ -8,7 +8,7 @@ export default function PageHeader() {
   return (
     <header className={"flex font-semibold border-b border-gray-200  w-full bg-white justify-center"}>
       <section className="flex flex-col md:flex-row gap-4 w-full max-w-7xl p-2">
-        <a href="/" className="flex hover:opacity-60 justify-center"><Image src="/Mural.svg" width={97} height={29} /></a>
+        <a href="/" className="flex hover:opacity-60 justify-center"><Image src="/Mural.svg" alt="Mural MaisVagasES" width={97} height={29} /></a>
         <div className="w-full text-gray-400 flex p-3 gap-2 items-center rounded-md bg-gray-100">
           <Search size={16} />
           <input placeholder="Pesquise uma vaga" className="w-full text-gray-400 bg-gray-100" />
