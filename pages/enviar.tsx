@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
   const [cargo, setCargo] = useState(null)
-  const [cidade, setCidade] = useState({ id: 0, attributes:{ Cidade: "Cidade Não Informada" ,slug: ""} })
+  const [cidade, setCidade] = useState({ id: 0, attributes:{ Cidade: "Selecione uma cidade" ,slug: ""} })
   const [tipo, setTipo] = useState({ id: 0, attributes:{ Tipo: "Selecione um tipo" ,slug: ""} })
 
   const [cidades, setCidades] = useState([])
@@ -32,6 +32,7 @@ const EnviarPage = () => {
   function EnviarVaga(){
     !cargo && toast.error("Erro: Peencha o nome do cargo!")
     !image && toast.error("Erro: Envie uma imagem!")
+    !cidade.attributes.slug && toast.error("Erro: Selecione uma Cidade!!")
     !tipo.attributes.slug && toast.error("Erro: Selecione o tipo de vaga!") 
 
     if( cargo && image && tipo){
@@ -59,9 +60,8 @@ const EnviarPage = () => {
         toast.success("Vaga enviada e postada no mural com sucesso !");
         setImage(null)
         setCargo("")
-        setCidade({ id: 0, attributes:{ Cidade: "Cidade Não Informada" ,slug: ""} })
+        setCidade({ id: 0, attributes:{ Cidade: "Selecione uma cidade" ,slug: ""} })
         setTipo({ id: 0, attributes:{ Tipo: "Selecione um tipo" ,slug: ""} }) 
-    
       })
       .catch(function (error) {
         toast.error("Erro ao enviar a vaga tente novamente!");
