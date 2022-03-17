@@ -19,8 +19,9 @@ const formatedData = format(new Date(date || '2022-03-03T10:00:38.765Z' ),"dd/MM
       <div className="w-full flex text-sm flex-col p-2">
         <span className="text-primary uppercase">{title}</span>
         <div className="flex uppercase justify-between w-full">
-          <span>{city}<br/> {formatedData}</span>
-          <span>{type}</span>
+          <span>{city}<br/> 
+          <span className="text-xs text-gray-500">{formatedData}</span></span>
+          <span >{type}</span>
         </div>
       </div>
     </a>
