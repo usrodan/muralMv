@@ -35,13 +35,14 @@ const IndexPage = ({ buildTimestamp }) => {
     const { data } = await client.query({
       query: gql` 
       query {
-        murals(filters:{${allQueries.join(",")}}) {
+        murals(sort: ["createdAt:desc"],filters:{${allQueries.join(",")}}) {
           data {
             id
+            
             attributes {
               Cargo
               cidade{data{attributes{Cidade}}}
-              data
+              createdAt
               Imagem{data{attributes{
                 url
               }}}
@@ -69,7 +70,7 @@ const IndexPage = ({ buildTimestamp }) => {
             <div className="col-span-9 ">
             {mural.length ? <div className="w-full gap-5 grid sm:grid-cols-2 md:grid-cols-3">
               {mural.map(item=>{
-                return(<CardJob key={item.id} id={item.id}  image={item.attributes.Imagem.data.attributes.url} title={item.attributes.Cargo} city={item.attributes.cidade.data.attributes.Cidade} date={item.attributes.data} type={item.attributes.tipo.data.attributes.Tipo} />)
+                return(<CardJob key={item.id} id={item.id}  image={item.attributes.Imagem.data.attributes.url} title={item.attributes.Cargo} city={item.attributes.cidade.data.attributes.Cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.Tipo} />)
               })} 
             </div>
             :
