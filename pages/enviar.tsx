@@ -6,7 +6,7 @@ import Dropzone from 'react-dropzone-uploader'
 
 const IndexPage = () => {
   const getUploadParams = () => {
-    return { url: '/api/upload' }
+    return { url: '/api/up' }
   }
 
   const handleChangeStatus = ({ meta, remove }, status) => {
