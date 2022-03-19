@@ -15,9 +15,27 @@ const Sidebar: React.FC = () => {
     const { data } = await client.query({
       query: gql` 
       query {
-        cidades{data{attributes{cidade}}}
-        tipos{data{attributes{tipo}}}
+        cidades {
+          data {
+            attributes {
+              cidade
+              murais {
+                data {
+                  id
+                }
+              }
+            }
+          }
+        }
+        tipos {
+          data {
+            attributes {
+              tipo
+            }
+          }
+        }
       }
+      
     `,
     });
     setTipos(data.tipos.data)
@@ -63,7 +81,7 @@ const Sidebar: React.FC = () => {
         <section>
           <strong className="text-blue-500 text-lg">CIDADE</strong>
           <ul className="pl-2 mt-2">
-            {cidades.map(cidade => <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
+            {cidades.map(cidade => cidade.attributes.murais.data && <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
           </ul>
         </section>
         <section>
