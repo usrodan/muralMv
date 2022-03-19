@@ -81,7 +81,7 @@ const Sidebar: React.FC = () => {
         <section>
           <strong className="text-blue-500 text-lg">CIDADE</strong>
           <ul className="pl-2 mt-2">
-            {cidades.map(cidade => cidade.attributes.murais.data && <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
+            {cidades.map(cidade => cidade.attributes.murais.data != [] && <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
           </ul>
         </section>
         <section>
