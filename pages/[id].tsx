@@ -25,16 +25,17 @@ const IndexPage = ({ buildTimestamp, mural }) => {
               <Sidebar />
             </div>
             <div className="col-span-12 md:col-span-9 ">
-              {mural ? <div className="w-full grid sm:grid-cols-2 bg-white rounded-lg border border-gray-300">
-                <div className='flex flex-col p-4'>
+              {mural ? 
+              <section className='flex flex-col bg-white rounded-lg border border-gray-300'>
+                <div className='flex flex-col p-5'>
                   <strong className="text-blue-500 uppercase text-3xl ">{mural.cargo}</strong>
                   <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
                   <span className="text-base uppercase font-semibold mb-4">{mural.tipo}</span>
+                  </div>
+              <div className="w-full grid sm:grid-cols-2 p-5 "> 
                   <Image className="rounded-lg  " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
-
-                </div>
-               
-                <div className="flex flex-col justify-between p-5 ">
+  
+                <div className="flex flex-col justify-between  ">
                   <section className="flex flex-col gap-3">
 
 
@@ -82,6 +83,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                   </section>
                 </div>
               </div>
+              </section>
                 :
                 <div className="w-full  ">
                   <p>Nenhuma vaga encontrada.</p>
