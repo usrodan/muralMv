@@ -33,12 +33,13 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                     <span className="text-base uppercase font-semibold">{mural.tipo}</span>
                   </div>
                   <div className="w-full grid sm:grid-cols-2 p-5 pt-0 gap-5 ">
+                    <div className="flex flex-col">
+                      {mural.imgW < mural.imgH && "Vertical"}
+                      <Image className="rounded-lg  " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+                      {mural.imgW > mural.imgH && "Horizontal"}
+                      {mural.imgW == mural.imgH && "Quadrada"}
+                    </div>
 
-                    {mural.imgW < mural.imgH && "Vertical"}
-                    <Image className="rounded-lg  " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
-                    {mural.imgW > mural.imgH && "Horizontal"}
-                    {mural.imgW == mural.imgH && "Quadrada"}
-                    
                     <div className="flex flex-col justify-between  ">
                       <section className="flex flex-col gap-3">
 
