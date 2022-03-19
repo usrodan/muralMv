@@ -72,7 +72,7 @@ const IndexPage = ({ buildTimestamp }) => {
               <Sidebar />
             </div>
             <div className="md:col-span-9 ">
-              {loading &&
+              {loading ?
                 <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (
                     <div key={i} className="flex  animate-pulse h-72 lg:h-80 xl:h-96 border border-gray-200   font-bold flex-col  rounded-lg bg-white">
@@ -91,9 +91,7 @@ const IndexPage = ({ buildTimestamp }) => {
                     </div>)
                   )}
                 </div>
-              }
-
-              {!loading && mural.length ? <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
+             : mural.length ? <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
                 {mural.map(item => {
                   return (<CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
                 })}
