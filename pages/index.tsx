@@ -30,22 +30,21 @@ const IndexPage = ({ buildTimestamp }) => {
   async function getData() {
     setLoading(true)
     var allQueries = []
-    ConfigsStore.search && allQueries.push(`Cargo:{contains: "${ConfigsStore.search}"}`)
-    ConfigsStore.city && allQueries.push(`cidade:{Cidade:{eq:"${ConfigsStore.city}"}}`)
-    ConfigsStore.type && allQueries.push(`tipo:{Tipo:{eq:"${ConfigsStore.type}"}}`)
+    ConfigsStore.search && allQueries.push(`cargo:{contains: "${ConfigsStore.search}"}`)
+    ConfigsStore.city && allQueries.push(`cidade:{cidade:{eq:"${ConfigsStore.city}"}}`)
+    ConfigsStore.type && allQueries.push(`tipo:{cipo:{eq:"${ConfigsStore.type}"}}`)
 
     const { data } = await client.query({
       query: gql` 
       query {
         murals(sort: ["createdAt:desc"],filters:{${allQueries.join(",")}}) {
           data {
-            id
-            
+            id 
             attributes {
-              Cargo
+              cargo
               cidade{data{attributes{Cidade}}}
               createdAt
-              Imagem{data{attributes{
+              imagem{data{attributes{
                 url
               }}}
               tipo{data{attributes{Tipo}}}

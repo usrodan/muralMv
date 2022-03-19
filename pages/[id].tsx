@@ -121,13 +121,13 @@ export async function  getServerSideProps ({ params })  {
   return {
     props: {
       mural: {
-        image: data.mural.data.attributes.Imagem.data.attributes.url,
-        cargo: data.mural.data.attributes.Cargo,
+        image: data.mural.data.attributes.imagem.data.attributes.url,
+        cargo: data.mural.data.attributes.cargo,
         cidade:data.mural.data.attributes.cidade.data.attributes.Cidade,
         tipo: data.mural.data.attributes.tipo.data.attributes.Tipo,
         data: data.mural.data.attributes.data,
-        imgH: Number(data.mural.data.attributes.Imagem.data.attributes.height),
-        imgW: Number(data.mural.data.attributes.Imagem.data.attributes.width),
+        imgH: Number(data.mural.data.attributes.imagem.data.attributes.height),
+        imgW: Number(data.mural.data.attributes.imagem.data.attributes.width),
       },
       buildTimestamp: Date.now()
     }
