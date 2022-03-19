@@ -161,10 +161,12 @@ const IndexPage = ({ buildTimestamp, mural }) => {
 
 export async function getServerSideProps({ params }) {
 
+  var newId = params.id.split("-")[0]
+
   const { data } = await client.query({
     query: gql` 
     query {
-      mural(id: "${params.id}") {
+      mural(id: "${newId}") {
         data {
           id
           attributes {
