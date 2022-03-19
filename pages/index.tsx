@@ -42,12 +42,12 @@ const IndexPage = ({ buildTimestamp }) => {
             id 
             attributes {
               cargo
-              cidade{data{attributes{Cidade}}}
+              cidade{data{attributes{cidade}}}
               createdAt
               imagem{data{attributes{
                 url
               }}}
-              tipo{data{attributes{Tipo}}}
+              tipo{data{attributes{tipo}}}
             }
           }
         }
@@ -95,7 +95,7 @@ const IndexPage = ({ buildTimestamp }) => {
 
               {!loading && mural.length ? <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
                 {mural.map(item => {
-                  return (<CardJob key={item.id} id={item.id} image={item.attributes.Imagem.data.attributes.url} title={item.attributes.Cargo} city={item.attributes.cidade.data.attributes.Cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.Tipo} />)
+                  return (<CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
                 })}
               </div>
                 :

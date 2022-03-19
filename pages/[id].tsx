@@ -102,15 +102,15 @@ export async function  getServerSideProps ({ params })  {
         data {
           id
           attributes {
-            Cargo
-            cidade{data{attributes{Cidade}}}
-            data
-            Imagem{data{attributes{
+            cargo
+            createdAt
+            cidade{data{attributes{cidade}}}
+            imagem{data{attributes{
               url
               height
               width
             }}}
-            tipo{data{attributes{Tipo}}}
+            tipo{data{attributes{tipo}}}
           }
         }
       }
@@ -123,9 +123,8 @@ export async function  getServerSideProps ({ params })  {
       mural: {
         image: data.mural.data.attributes.imagem.data.attributes.url,
         cargo: data.mural.data.attributes.cargo,
-        cidade:data.mural.data.attributes.cidade.data.attributes.Cidade,
-        tipo: data.mural.data.attributes.tipo.data.attributes.Tipo,
-        data: data.mural.data.attributes.data,
+        cidade:data.mural.data.attributes.cidade.data.attributes.cidade,
+        tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
         imgH: Number(data.mural.data.attributes.imagem.data.attributes.height),
         imgW: Number(data.mural.data.attributes.imagem.data.attributes.width),
       },

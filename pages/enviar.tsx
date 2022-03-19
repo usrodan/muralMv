@@ -17,8 +17,8 @@ import { toast } from 'react-toastify';
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
   const [cargo, setCargo] = useState(null)
-  const [cidade, setCidade] = useState({ id: 0, attributes:{ Cidade: "Selecione uma cidade" ,slug: ""} })
-  const [tipo, setTipo] = useState({ id: 0, attributes:{ Tipo: "Selecione um tipo" ,slug: ""} })
+  const [cidade, setCidade] = useState({ id: 0, attributes:{ cidade: "Selecione uma cidade" ,slug: ""} })
+  const [tipo, setTipo] = useState({ id: 0, attributes:{ tipo: "Selecione um tipo" ,slug: ""} })
 
   const [cidades, setCidades] = useState([])
   const [tipos, setTipos] = useState([])
@@ -39,8 +39,8 @@ const EnviarPage = () => {
       var axios = require('axios');
       var data = JSON.stringify({
         data: {
-          Cargo: String(cargo),
-          Imagem: [ Number(image.id) ],
+          cargo: String(cargo),
+          imagem: [ Number(image.id) ],
           cidade: [Number(cidade.id) ],
           tipo: [ Number(tipo.id) ]
         }
@@ -60,8 +60,8 @@ const EnviarPage = () => {
         toast.success("Vaga enviada e postada no mural com sucesso !");
         setImage(null)
         setCargo("")
-        setCidade({ id: 0, attributes:{ Cidade: "Selecione uma cidade" ,slug: ""} })
-        setTipo({ id: 0, attributes:{ Tipo: "Selecione um tipo" ,slug: ""} }) 
+        setCidade({ id: 0, attributes:{ cidade: "Selecione uma cidade" ,slug: ""} })
+        setTipo({ id: 0, attributes:{ tipo: "Selecione um tipo" ,slug: ""} }) 
       })
       .catch(function (error) {
         toast.error("Erro ao enviar a vaga tente novamente!");
@@ -77,13 +77,13 @@ const EnviarPage = () => {
         cidades{
           data{
             id
-            attributes{Cidade,slug}
+            attributes{cidade,slug}
           }}
 
         tipos{
           data{
             id
-            attributes{Tipo,slug}
+            attributes{tipo,slug}
           }}
       }
     `,
@@ -137,7 +137,7 @@ const EnviarPage = () => {
                   <>
                     <div className="flex relative">
                       <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-lg shadow-sm  mt-3 p-2 px-4   text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ">
-                        <span className="block truncate">{cidade.attributes.Cidade}</span>
+                        <span className="block truncate">{cidade.attributes.cidade}</span>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                           <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>
@@ -165,7 +165,7 @@ const EnviarPage = () => {
                               {({ selected, active }) => (
                                 <>
                                   <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                    {person.attributes.Cidade}
+                                    {person.attributes.cidade}
                                   </span>
 
                                   {selected ? (
@@ -198,7 +198,7 @@ const EnviarPage = () => {
                   <>
                     <div className="flex relative">
                       <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-lg shadow-sm  mt-3 p-2 px-4   text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ">
-                        <span className="block truncate">{tipo.attributes.Tipo}</span>
+                        <span className="block truncate">{tipo.attributes.tipo}</span>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                           <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>
@@ -226,7 +226,7 @@ const EnviarPage = () => {
                               {({ selected, active }) => (
                                 <>
                                   <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                    {person.attributes.Tipo}
+                                    {person.attributes.tipo}
                                   </span>
 
                                   {selected ? (
