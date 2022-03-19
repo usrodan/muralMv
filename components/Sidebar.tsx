@@ -81,13 +81,13 @@ const Sidebar: React.FC = () => {
         <section>
           <strong className="text-blue-500 text-lg">CIDADE</strong>
           <ul className="pl-2 mt-2">
-            {cidades.map(cidade => cidade.attributes.murais.data.length != 0 && <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
+            {cidades.map(cidade => cidade.attributes.murais.data.length != 0 && <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
           </ul>
         </section>
         <section>
           <strong className="text-blue-500 text-lg ">TIPO DE VAGA</strong>
           <ul className="pl-2 mt-2">
-            {tipos.map(tipo => <li key={tipo.attributes.tipo} onClick={() => changeType(tipo.attributes.tipo)} className={`rounded-lg cursor-pointer p-2 uppercase ${configsState.type == tipo.attributes.tipo ? "bg-gray-300" : ""}`}>{tipo.attributes.tipo}</li>)}
+            {tipos.map(tipo => <li key={tipo.attributes.tipo} onClick={() => changeType(tipo.attributes.tipo)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out${configsState.type == tipo.attributes.tipo ? "bg-gray-300" : ""}`}>{tipo.attributes.tipo}</li>)}
           </ul>
         </section>
 
