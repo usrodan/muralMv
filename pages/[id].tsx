@@ -9,10 +9,10 @@ import { InfoCircle } from "@styled-icons/boxicons-regular/InfoCircle"
 import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
-import {format} from 'date-fns'
+import { format } from 'date-fns'
 
-const IndexPage = ({ buildTimestamp,mural }) => {  
-  const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z' ),"dd/MM/yyy")
+const IndexPage = ({ buildTimestamp, mural }) => {
+  const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z'), "dd/MM/yyy")
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
@@ -26,25 +26,30 @@ const IndexPage = ({ buildTimestamp,mural }) => {
             </div>
             <div className="col-span-12 md:col-span-9 ">
               {mural ? <div className="w-full grid sm:grid-cols-2 bg-white rounded-lg border border-gray-300">
+                <div className='flex flex-col p-4'>
+                  <strong className="text-blue-500 uppercase text-3xl ">{mural.cargo}</strong>
+                  <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
+                  <span className="text-base uppercase font-semibold mb-4">{mural.tipo}</span>
+                  <Image className="rounded-lg  " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+
+                </div>
                
-                  <Image className="rounded-l-lg  " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
-                 
                 <div className="flex flex-col justify-between p-5 ">
                   <section className="flex flex-col gap-3">
-                    <strong className="text-blue-500 uppercase text-3xl ">{mural.cargo}</strong>
-                    <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
-                    <span className="text-base uppercase font-semibold">{mural.tipo}</span>
+
 
                     <div className="flex  hover:opacity-60 cursor-pointer gap-2 border p-2 border-gray-800 rounded-lg text-center justify-center w-full">
                       <ShareIos size={24} />
                       <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
                     </div>
+
+                    {mural.imgW > mural.imgH ? "Horizontal" : "Vertical"}
                   </section>
 
                   <section className="flex flex-col gap-5">
                     <div className="w-full flex items-center">
                       <div className="flex flex-1 mr-2 h-0.5 border-t border-dashed border-gray-800" />
-                      <span style={{fontFamily: 'Pacifico'}} className="text-center text-2xl ">quer mais vagas?</span>
+                      <span style={{ fontFamily: 'Pacifico' }} className="text-center text-2xl ">quer mais vagas?</span>
                       <div className="flex flex-1 ml-2 h-0.5  border-t border-dashed border-gray-800" />
                     </div>
 
@@ -93,8 +98,8 @@ const IndexPage = ({ buildTimestamp,mural }) => {
     </>);
 }
 
-export async function  getServerSideProps ({ params })  {
- 
+export async function getServerSideProps({ params }) {
+
   const { data } = await client.query({
     query: gql` 
     query {
@@ -116,14 +121,14 @@ export async function  getServerSideProps ({ params })  {
       }
     }
   `,
-  }); 
+  });
 
   return {
     props: {
       mural: {
         image: data.mural.data.attributes.imagem.data.attributes.url,
         cargo: data.mural.data.attributes.cargo,
-        cidade:data.mural.data.attributes.cidade.data.attributes.cidade,
+        cidade: data.mural.data.attributes.cidade.data.attributes.cidade,
         tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
         imgH: Number(data.mural.data.attributes.imagem.data.attributes.height),
         imgW: Number(data.mural.data.attributes.imagem.data.attributes.width),
@@ -132,5 +137,5 @@ export async function  getServerSideProps ({ params })  {
     }
   }
 }
- 
+
 export default IndexPage;
