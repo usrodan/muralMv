@@ -22,13 +22,11 @@ class MyDocument extends Document {
           
           <script nonce='8JViWmwJBu' dangerouslySetInnerHTML={{
             __html: `
-          setTimeout(function(){ 
             window.addEventListener("load",function(){
               const script = document.createElement("script");
               script.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6873518969054710";
               document.body.appendChild(script);
-            })
-          }, 3000); `}} /> 
+            }) `}} /> 
           
         </Head>
         <body>
