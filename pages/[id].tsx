@@ -30,7 +30,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                 <div className='flex flex-col p-5'>
                   <strong className="text-blue-500 uppercase text-3xl ">{mural.cargo}</strong>
                   <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
-                  <span className="text-base uppercase font-semibold mb-4">{mural.tipo}</span>
+                  <span className="text-base uppercase font-semibold">{mural.tipo}</span>
                   </div>
               <div className="w-full grid sm:grid-cols-2 p-5 gap-5 "> 
                   <Image className="rounded-lg  " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
