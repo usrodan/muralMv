@@ -9,13 +9,34 @@ import { InfoCircle } from "@styled-icons/boxicons-regular/InfoCircle"
 import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
+import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline'
 import { format } from 'date-fns'
+import { useState } from 'react';
+import AdSense from 'react-adsense';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
   const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z'), "dd/MM/yyy")
+  const [imgOpen, setImageOpen] = useState(null)
+  const AdsCaPub = "ca-pub-6873518969054710"
+  const AdsHorizontal = "5735692231"
+  const AdsQuadrado = "4865463693"
+
+  var sizeConfiguration =
+    mural.imgW == mural.imgH ? "sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl" :
+      mural.imgW < mural.imgH ? "max-w-lg" : "sm:max-w-2xl w-full lg:max-w-6xl"
+
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
+      {imgOpen &&
+        <div className='fixed top-0 left-0 z-20 bg-black bg-opacity-70 flex w-screen h-screen  justify-center items-center'>
+
+          <CloseOutline onClick={() => setImageOpen(null)} className='text-white hover:opacity-70 hover:animate-ping  cursor-pointer top-2 right-2 fixed' size="50" />
+          <figure className={`p-5 ${sizeConfiguration}`}>
+            <Image onClick={() => setImageOpen(null)} className="cursor-pointer " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+          </figure>
+        </div>
+      }
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2  border-t-2 border-white">
           <strong className="text-center w-full py-4">Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.</strong>
@@ -34,10 +55,34 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                   </div>
                   <div className="w-full grid sm:grid-cols-2 p-5 pt-0 gap-5 ">
                     <div className="flex flex-col">
-                      {mural.imgW < mural.imgH && "Vertical"}
-                      <Image className="rounded-lg  " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
-                      {mural.imgW > mural.imgH && "Horizontal"}
-                      {mural.imgW == mural.imgH && "Quadrada"}
+                      {//IMG QUADRADA
+                        mural.imgW == mural.imgH &&
+                        <AdSense.Google
+                          client={AdsCaPub}
+                          slot={AdsHorizontal}
+                          format=''
+                        />}
+
+                      {//IMG VERTICAL
+                        mural.imgW < mural.imgH &&
+
+                        <AdSense.Google
+                          client={AdsCaPub}
+                          slot={AdsHorizontal}
+                          format=''
+                        />
+                      } 
+                      <Image className="rounded-lg cursor-pointer" onClick={() => setImageOpen(mural.image)} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+
+                      {//IMG HORIZONTAL
+                        mural.imgW > mural.imgH &&
+
+                        <AdSense.Google
+                          client={AdsCaPub}
+                          slot={AdsHorizontal}
+                          format=''
+                        />
+                      }
                     </div>
 
                     <div className="flex flex-col justify-between  ">
@@ -49,9 +94,15 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
                         </div>
 
-                        {mural.imgW < mural.imgH && "Vertical"}
-                        {mural.imgW > mural.imgH && "Horizontal"}
-                        {mural.imgW == mural.imgH && "Quadrada"}
+                        <div className='text-center'>
+                          <AdSense.Google
+                            client={AdsCaPub}
+                            slot={AdsQuadrado}
+                            style={{ width: 350, height: 350, float: 'center' }}
+                            format=''
+                          />
+                          </div>
+
 
                       </section>
 
