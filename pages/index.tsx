@@ -22,8 +22,14 @@ const IndexPage = ({ buildTimestamp }) => {
     })
   }, [search, city, type])
 
-  useEffect(() => {
 
+  useEffect(() => { 
+    Configs.update(s => {
+      s.pageType="home"
+    })
+  }, [])
+
+  useEffect(() => { 
     getData()
   }, [ConfigsStore])
 
@@ -32,7 +38,7 @@ const IndexPage = ({ buildTimestamp }) => {
     var allQueries = []
     ConfigsStore.search && allQueries.push(`cargo:{contains: "${ConfigsStore.search}"}`)
     ConfigsStore.city && allQueries.push(`cidade:{cidade:{eq:"${ConfigsStore.city}"}}`)
-    ConfigsStore.type && allQueries.push(`tipo:{cipo:{eq:"${ConfigsStore.type}"}}`)
+    ConfigsStore.type && allQueries.push(`tipo:{tipo:{eq:"${ConfigsStore.type}"}}`)
 
     const { data } = await client.query({
       query: gql` 
@@ -64,7 +70,7 @@ const IndexPage = ({ buildTimestamp }) => {
     <>
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
       <main className="flex w-full justify-center">
-        <div className="flex flex-col gap-4 w-full max-w-7xl p-2  border-t-2 border-white">
+        <div className="flex flex-col gap-4 w-full max-w-7xl p-2 ">
           <strong className="text-center w-full py-4">Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.</strong>
 
           <section className="grid md:grid-cols-12 gap-8 ">

@@ -15,7 +15,7 @@ const Sidebar: React.FC = () => {
     const { data } = await client.query({
       query: gql` 
       query {
-        cidades {
+        cidades( sort: "cidade:asc") {
           data {
             attributes {
               cidade
@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
             }
           }
         }
-        tipos {
+        tipos( sort: "tipo:asc") {
           data {
             attributes {
               tipo
@@ -43,18 +43,24 @@ const Sidebar: React.FC = () => {
   }
   useEffect(() => {
     getData()
-  }, []) 
+  }, [])
 
-  function changeCity(str){
+  useEffect(() => {     
+     router.pathname == "/" && refreshPage()  
+  }, [configsState.type, configsState.city])
+
+
+
+  function changeCity(str) {
     Configs.update(s => { s.city = str })
-    refreshPage()
+    router.pathname != "/"  && router.push(`/?city=${str}`)
   }
-  function changeType(str){
+  function changeType(str) {
     Configs.update(s => { s.type = str })
-    refreshPage()
+    router.pathname != "/"  && router.push(`/?type=${str}`)
   }
 
-  function refreshPage(){
+  function refreshPage() {
     var queries = []
     configsState.search && queries.push(`"search": "${configsState.search}"`)
     configsState.city && queries.push(`"city": "${configsState.city}"`)
@@ -80,14 +86,14 @@ const Sidebar: React.FC = () => {
       <div id="Filtros" className="flex flex-col gap-8 font-semibold ">
         <section>
           <strong className="text-blue-500 text-lg">CIDADE</strong>
-          <ul className="pl-2 mt-2">
+          <ul className="pl-2 mt-2 overflow-auto h-52 ">
             {cidades.map(cidade => cidade.attributes.murais.data.length != 0 && <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
           </ul>
         </section>
         <section>
-          <strong className="text-blue-500 text-lg ">TIPO DE VAGA</strong>
-          <ul className="pl-2 mt-2">
-            {tipos.map(tipo => <li key={tipo.attributes.tipo} onClick={() => changeType(tipo.attributes.tipo)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out${configsState.type == tipo.attributes.tipo ? "bg-gray-300" : ""}`}>{tipo.attributes.tipo}</li>)}
+          <strong className="text-blue-500 text-lg">TIPO DE VAGA</strong>
+          <ul className="pl-2 mt-2  h-52 overflow-auto ">
+            {tipos.map(tipo => <li key={tipo.attributes.tipo} onClick={() => changeType(tipo.attributes.tipo)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.type == tipo.attributes.tipo ? "bg-gray-300" : ""}`}>{tipo.attributes.tipo}</li>)}
           </ul>
         </section>
 

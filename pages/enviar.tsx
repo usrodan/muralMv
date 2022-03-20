@@ -3,11 +3,12 @@ import SEO from '@/components/SEO';
 import { SendPlane } from "@styled-icons/remix-fill/SendPlane"
 import { AddPhotoAlternate } from "@styled-icons/material-outlined/AddPhotoAlternate"
 import { Trash } from "@styled-icons/boxicons-regular/Trash"
+import { SearchAlt } from "@styled-icons/boxicons-regular/SearchAlt"
 import Dropzone from 'react-dropzone-uploader'
 import { Fragment, useEffect, useState } from 'react';
 import client from '@/utils/apollo'
 import { gql } from "@apollo/client";
-
+import { Configs } from '@/configs'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { toast } from 'react-toastify';
@@ -17,8 +18,11 @@ import { toast } from 'react-toastify';
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
   const [cargo, setCargo] = useState(null)
-  const [cidade, setCidade] = useState({ id: 0, attributes:{ cidade: "Selecione uma cidade" ,slug: ""} })
-  const [tipo, setTipo] = useState({ id: 0, attributes:{ tipo: "Selecione um tipo" ,slug: ""} })
+
+  const [searchCity, setSearchCity] = useState("")
+
+  const [cidade, setCidade] = useState({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
+  const [tipo, setTipo] = useState({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
 
   const [cidades, setCidades] = useState([])
   const [tipos, setTipos] = useState([])
@@ -29,44 +33,50 @@ const EnviarPage = () => {
     return classes.filter(Boolean).join(' ')
   }
 
-  function EnviarVaga(){
+  useEffect(() => { 
+    Configs.update(s => {
+      s.pageType="send"
+    })
+  }, [])
+
+  function EnviarVaga() {
     !cargo && toast.error("Erro: Peencha o nome do cargo!")
     !image && toast.error("Erro: Envie uma imagem!")
     !cidade.attributes.slug && toast.error("Erro: Selecione uma Cidade!!")
-    !tipo.attributes.slug && toast.error("Erro: Selecione o tipo de vaga!") 
+    !tipo.attributes.slug && toast.error("Erro: Selecione o tipo de vaga!")
 
-    if( cargo && image && tipo){
+    if (cargo && image && tipo) {
       var axios = require('axios');
       var data = JSON.stringify({
         data: {
           cargo: String(cargo),
-          imagem: [ Number(image.id) ],
-          cidade: [Number(cidade.id) ],
-          tipo: [ Number(tipo.id) ]
+          imagem: [Number(image.id)],
+          cidade: [Number(cidade.id)],
+          tipo: [Number(tipo.id)]
         }
       });
-      
+
       var config = {
         method: 'post',
         url: 'https://maisvagases.herokuapp.com/api/murals',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json'
         },
-        data : data
+        data: data
       };
-      
+
       axios(config)
-      .then(function (response) {
-        toast.success("Vaga enviada e postada no mural com sucesso !");
-        setImage(null)
-        setCargo("")
-        setCidade({ id: 0, attributes:{ cidade: "Selecione uma cidade" ,slug: ""} })
-        setTipo({ id: 0, attributes:{ tipo: "Selecione um tipo" ,slug: ""} }) 
-      })
-      .catch(function (error) {
-        toast.error("Erro ao enviar a vaga tente novamente!");
-      });
-      
+        .then(function (response) {
+          toast.success("Vaga enviada e postada no mural com sucesso !");
+          setImage(null)
+          setCargo("")
+          setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
+          setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
+        })
+        .catch(function (error) {
+          toast.error("Erro ao enviar a vaga tente novamente!");
+        });
+
     }
   }
 
@@ -74,13 +84,13 @@ const EnviarPage = () => {
     const { data } = await client.query({
       query: gql` 
       query {
-        cidades{
+        cidades( sort: "cidade:asc"){
           data{
             id
             attributes{cidade,slug}
           }}
 
-        tipos{
+        tipos( sort: "tipo:asc"){
           data{
             id
             attributes{tipo,slug}
@@ -99,6 +109,22 @@ const EnviarPage = () => {
   useEffect(() => {
     console.log(image)
   }, [image])
+
+  useEffect(() => {
+    setSearchCity("")
+  }, [cidade])
+
+  function removeAcento (text)
+{       
+    text = text.toLowerCase();                                                         
+    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
+    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
+    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
+    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
+    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
+    text = text.replace(new RegExp('[Ç]','gi'), 'c');
+    return text;                 
+}
 
   const getUploadParams = () => {
     return { url: '/api/up' }
@@ -125,7 +151,7 @@ const EnviarPage = () => {
             <div className="md:col-span-4">
               <span className="text-blue-500 font-bold text-lg ">CARGO</span>
               <div className='mt-3 p-2 px-4 bg-white text-gray-800 rounded-lg border border-gray-300   focus:ring-1 focus:ring-blue-500 focus:border-blue-500 '>
-                <input onChange={event => setCargo(event.target.value)} className="text-gray-800 " type="text" placeholder="Ex: Auxiliar Administrativo" name="" id="" />
+                <input value={cargo} onChange={event => setCargo(event.target.value)} className="text-gray-800 " type="text" placeholder="Ex: Auxiliar Administrativo" name="" id="" />
               </div>
             </div>
 
@@ -150,18 +176,36 @@ const EnviarPage = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                       >
-                        <Listbox.Options className="absolute z-10 mt-2 w-full p-2 bg-white shadow-lg max-h-60 rounded-xl   ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                          {cidades.map((person) => (
-                            <Listbox.Option
+
+                        <Listbox.Options className="absolute z-10 mt-2 w-full p-2 bg-white shadow-lg rounded-xl   ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+
+                          <div className='flex p-2 rounded-lg w-full  border text-gray-800 border-gray-300'>
+                            <input value={searchCity} onChange={(e)=> setSearchCity(e.target.value)} className='text-gray-800'/>
+                            <SearchAlt className="text-gray-300" size="24"/>
+
+                            </div>
+                          <div className='overflow-auto mt-2 max-h-60'>
+                          {cidades.map((person) => {
+                            var exibir = true
+                            if(searchCity){
+                              if(removeAcento(person.attributes.cidade.toLowerCase()).includes(removeAcento(searchCity.toLowerCase()))){
+                                exibir = true
+                              }
+                              else{
+                                exibir = false
+                            }
+                            }
+
+                            return(exibir && <Listbox.Option
                               key={person.slug}
                               className={({ active }) =>
                                 classNames(
                                   active ? 'text-white bg-blue-600 ' : 'text-gray-900',
-                                  'cursor-default select-none rounded-md relative py-2 pl-3 pr-9'
+                                  'cursor-default select-none rounded-md relative py-2 pl-3 pr-9 '
                                 )
                               }
                               value={person}
-                            > 
+                            >
                               {({ selected, active }) => (
                                 <>
                                   <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
@@ -180,8 +224,10 @@ const EnviarPage = () => {
                                   ) : null}
                                 </>
                               )}
-                            </Listbox.Option>
-                          ))}
+                            </Listbox.Option>)
+                          })}
+                          </div>
+                         
                         </Listbox.Options>
                       </Transition>
                     </div>
@@ -222,7 +268,7 @@ const EnviarPage = () => {
                                 )
                               }
                               value={person}
-                            > 
+                            >
                               {({ selected, active }) => (
                                 <>
                                   <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>

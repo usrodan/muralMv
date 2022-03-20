@@ -4,6 +4,7 @@ import Sidebar from '@/components/Sidebar';
 import client from '@/utils/apollo'
 import { gql } from "@apollo/client";
 import Image from "next/image"
+import { Configs } from '@/configs'
 import { ShareIos } from "@styled-icons/fluentui-system-filled/ShareIos"
 import { InfoCircle } from "@styled-icons/boxicons-regular/InfoCircle"
 import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
@@ -11,7 +12,7 @@ import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
 import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline'
 import { format } from 'date-fns'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdSense from 'react-adsense';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
@@ -19,7 +20,13 @@ const IndexPage = ({ buildTimestamp, mural }) => {
   const [imgOpen, setImageOpen] = useState(null)
   const AdsCaPub = "ca-pub-6873518969054710"
   const AdsHorizontal = "5735692231"
-  const AdsQuadrado = "4865463693"
+  const AdsQuadrado = "4865463693" 
+
+  useEffect(() => { 
+    Configs.update(s => {
+      s.pageType="single"
+    })
+  }, [])
 
   var sizeConfiguration =
     mural.imgW == mural.imgH ? "sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl" :
