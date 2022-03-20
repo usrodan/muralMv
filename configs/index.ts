@@ -15,6 +15,7 @@ interface iConfig {
   pageType:string;
 
   filterIsOpen:boolean;
+  searchIsOpen:boolean;
 
 }
 
@@ -31,7 +32,8 @@ export const Configs = new Store<iConfig>({
   type:"",
   search:"",
   pageType:"home",
-  filterIsOpen:false,
+  filterIsOpen:false, 
+  searchIsOpen:false,
 });
  
 

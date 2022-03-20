@@ -11,8 +11,7 @@ import { gql } from "@apollo/client";
 import { Configs } from '@/configs'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import { toast } from 'react-toastify';
-
+import { toast } from 'react-toastify'; 
 
 
 const EnviarPage = () => {
@@ -114,8 +113,7 @@ const EnviarPage = () => {
     setSearchCity("")
   }, [cidade])
 
-  function removeAcento (text)
-{       
+  function removeAcento(text) {       
     text = text.toLowerCase();                                                         
     text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
     text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
@@ -126,11 +124,11 @@ const EnviarPage = () => {
     return text;                 
 }
 
+
   const getUploadParams = () => {
     return { url: '/api/up' }
   }
-
-
+ 
   const handleChangeStatus = ({ meta, file, xhr }, status) => {
     setUploading(true)
     if (status === 'done') {
