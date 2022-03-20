@@ -76,7 +76,7 @@ const IndexPage = ({ buildTimestamp }) => {
 
     var newMural = mural
 
-    !data.murals.data  && setHasMore(false)
+    data.murals.data.length < limit ? setHasMore(false) : setHasMore(false)
 
     data.murals.data.forEach(m => {
       if(newMural.indexOf(m) === -1) {
@@ -133,9 +133,10 @@ const IndexPage = ({ buildTimestamp }) => {
                         </div>
                     }
                     endMessage={
-                      <p style={{ textAlign: "center" }}>
-                        <b>Yay! You have seen it all</b>
-                      </p>
+                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3 left-0 -bottom-10 flex justify-center w-full">
+                      Não há mais vagas por enquanto! Volte em breve.
+                      </div>
+                       
                     }
                   > {mural && mural.map(item => {
                     return (<CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
