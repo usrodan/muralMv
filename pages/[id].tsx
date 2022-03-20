@@ -98,7 +98,6 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           <AdSense.Google
                             client={AdsCaPub}
                             slot={AdsQuadrado}
-                            style={{ width: 350, height: 350, float: 'center' }}
                             format=''
                           />
                           </div>
