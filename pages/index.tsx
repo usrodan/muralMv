@@ -76,7 +76,7 @@ const IndexPage = ({ buildTimestamp }) => {
 
     var newMural = mural
 
-    data.murals.data.length < limit ? setHasMore(false) : setHasMore(false)
+    data.murals.data.length < limit ? setHasMore(false) : setHasMore(true)
 
     data.murals.data.forEach(m => {
       if(newMural.indexOf(m) === -1) {
