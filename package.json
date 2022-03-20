@@ -53,6 +53,7 @@
         "react-facebook": "^8.1.4",
         "react-icons": "^4.2.0",
         "react-iframe": "^1.8.0",
+        "react-infinite-scroll-component": "^6.1.0",
         "react-konami-code": "^2.2.2",
         "react-showdown": "^2.3.1",
         "react-toastify": "^8.2.0",

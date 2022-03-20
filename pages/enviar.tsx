@@ -84,7 +84,7 @@ const EnviarPage = () => {
     const { data } = await client.query({
       query: gql` 
       query {
-        cidades( sort: "cidade:asc"){
+        cidades( sort: "cidade:asc",pagination:{limit:1000}){
           data{
             id
             attributes{cidade,slug}

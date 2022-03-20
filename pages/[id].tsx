@@ -36,11 +36,11 @@ const IndexPage = ({ buildTimestamp, mural }) => {
     <>
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
       {imgOpen &&
-        <div className='fixed top-0 left-0 z-20 bg-black bg-opacity-70 flex w-screen h-screen  justify-center items-center'>
+        <div onClick={() => setImageOpen(null)} className='fixed top-0 left-0 z-20 bg-black bg-opacity-70 flex w-screen h-screen  justify-center items-center'>
 
-          <CloseOutline onClick={() => setImageOpen(null)} className='text-white hover:opacity-70 hover:animate-ping  cursor-pointer top-2 right-2 fixed' size="50" />
+          <CloseOutline  className='text-white hover:opacity-70 hover:animate-ping  cursor-pointer top-2 right-2 fixed' size="50" />
           <figure className={`p-5 ${sizeConfiguration}`}>
-            <Image onClick={() => setImageOpen(null)} className="cursor-pointer " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+            <Image  className="cursor-pointer " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
           </figure>
         </div>
       }

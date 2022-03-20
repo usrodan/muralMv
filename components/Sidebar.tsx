@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { useEffect, useState } from 'react'
 import { Configs } from '@/configs'
 import client from '@/utils/apollo'
@@ -15,7 +14,7 @@ const Sidebar: React.FC = () => {
     const { data } = await client.query({
       query: gql` 
       query {
-        cidades( sort: "cidade:asc") {
+        cidades( sort: "cidade:asc", pagination:{limit:1000}) {
           data {
             attributes {
               cidade
@@ -47,9 +46,7 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {     
      router.pathname == "/" && refreshPage()  
-  }, [configsState.type, configsState.city])
-
-
+  }, [configsState.type, configsState.city])  
 
   function changeCity(str) {
     Configs.update(s => { s.city = str })

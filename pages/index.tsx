@@ -1,12 +1,15 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SEO from '@/components/SEO';
 import Sidebar from '@/components/Sidebar';
 import CardJob from '@/components/CardJob';
 import { useRouter } from 'next/router';
 import { Configs } from '@/configs'
 import client from '@/utils/apollo'
-import { gql } from "@apollo/client";
+import { gql } from "@apollo/client"; 
+import InfiniteScroll from "react-infinite-scroll-component";
+import { SpinnerCircularFixed } from "spinners-react";
+
 
 const IndexPage = ({ buildTimestamp }) => {
   const router = useRouter()
@@ -14,6 +17,11 @@ const IndexPage = ({ buildTimestamp }) => {
   const [mural, setMural] = useState([])
   const [loading, setLoading] = useState(true)
   const { search, city, type } = router.query
+  const [limit, setLimit] = useState(9)
+  const [start, setStart] = useState(0)
+  const [hasMore, setHasMore] = useState(true)
+ 
+
   useEffect(() => {
     Configs.update(s => {
       s.search = search && String(search)
@@ -23,27 +31,32 @@ const IndexPage = ({ buildTimestamp }) => {
   }, [search, city, type])
 
 
-  useEffect(() => { 
+  useEffect(() => {
     Configs.update(s => {
-      s.pageType="home"
+      s.pageType = "home"
     })
   }, [])
 
-  useEffect(() => { 
+  useEffect(() => {
     getData()
   }, [ConfigsStore])
 
+  function loadMore() {
+    setStart(start + limit)
+    getData()
+  }
   async function getData() {
     setLoading(true)
     var allQueries = []
     ConfigsStore.search && allQueries.push(`cargo:{contains: "${ConfigsStore.search}"}`)
     ConfigsStore.city && allQueries.push(`cidade:{cidade:{eq:"${ConfigsStore.city}"}}`)
     ConfigsStore.type && allQueries.push(`tipo:{tipo:{eq:"${ConfigsStore.type}"}}`)
+    var pagination = `pagination:{limit:${limit},start:${start}} ,`
 
     const { data } = await client.query({
       query: gql` 
       query {
-        murals(sort: ["createdAt:desc"],filters:{${allQueries.join(",")}}) {
+        murals(${pagination} sort: ["createdAt:desc"],filters:{${allQueries.join(",")}}) {
           data {
             id 
             attributes {
@@ -60,9 +73,19 @@ const IndexPage = ({ buildTimestamp }) => {
       }
     `,
     });
-    //console.log(data.murals.data)
-    setMural(data.murals.data)
-    setTimeout(() => { 
+
+    var newMural = mural
+
+    !data.murals.data  && setHasMore(false)
+
+    data.murals.data.forEach(m => {
+      if(newMural.indexOf(m) === -1) {
+        newMural.push(m)
+      }
+    })
+    setMural(newMural)
+
+    setTimeout(() => {
       setLoading(false)
     }, 1000);
   }
@@ -78,7 +101,8 @@ const IndexPage = ({ buildTimestamp }) => {
               <Sidebar />
             </div>
             <div className="md:col-span-9 ">
-              {loading ?
+
+              {loading && start == 0 ?
                 <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (
                     <div key={i} className="flex  animate-pulse h-72 lg:h-80 xl:h-96 border border-gray-200   font-bold flex-col  rounded-lg bg-white">
@@ -97,24 +121,43 @@ const IndexPage = ({ buildTimestamp }) => {
                     </div>)
                   )}
                 </div>
-             : mural.length ? <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
-                {mural.map(item => {
-                  return (<CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
-                })}
-              </div>
-                :
-                <div className="w-full  ">
-                  <p> Nenhuma vaga encontrada com os filtros selecionados.</p>
-                  <strong className="pt-4 cursor-pointer" onClick={() => {
-                    Configs.update(s => {
-                      s.search = ""
-                      s.city = ""
-                      s.type = ""
-                    })
-                  }}>Limpar Filtros</strong>
-                </div>
-              }
+                : mural.length ?
+                  <InfiniteScroll
+                  className="w-full relative gap-5 grid sm:grid-cols-2 lg:grid-cols-3 mb-10 overflow-hidden"
+                    dataLength={mural.length}
+                    next={loadMore}
+                    hasMore={hasMore}
+                    loader={
+                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3 left-0 -bottom-10 flex justify-center w-full">
+                        <SpinnerCircularFixed  size={40} thickness={180} speed={150} color="#3B82F6" secondaryColor="rgba(255, 255, 255, 0.15)" />
+                        </div>
+                    }
+                    endMessage={
+                      <p style={{ textAlign: "center" }}>
+                        <b>Yay! You have seen it all</b>
+                      </p>
+                    }
+                  > {mural && mural.map(item => {
+                    return (<CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
+                  })}
+                </InfiniteScroll>
+                  :
+                  <div className="w-full">
+                    <p> Nenhuma vaga encontrada com os filtros selecionados.</p>
+                    <strong className="pt-4 cursor-pointer" onClick={() => {
+                      Configs.update(s => {
+                        s.search = ""
+                        s.city = ""
+                        s.type = ""
+                      })
+                    }}>Limpar Filtros</strong>
+                  </div>
+              } 
+
+
+
             </div>
+
 
 
 

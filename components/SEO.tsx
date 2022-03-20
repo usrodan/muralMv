@@ -1,6 +1,4 @@
-import Head from 'next/head'
- 
- 
+import Head from 'next/head' 
 
 interface SEOProps {
     title: string;
@@ -9,7 +7,6 @@ interface SEOProps {
     shoudExcludeTitleSuffix?: boolean;
     notIndexPage?: boolean;
     siteName: string;
-
 }
 
 export default function SEO({
@@ -24,7 +21,6 @@ export default function SEO({
     const pageTitle = `${title} ${!shoudExcludeTitleSuffix ? `| ${siteName} ` : ''}`
     const pageImage = image ? image : null
     return (
-
         <Head>
             <title>{pageTitle}</title>
             {description && <meta name="description" content={description} />}
