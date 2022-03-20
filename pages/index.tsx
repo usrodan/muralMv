@@ -38,6 +38,12 @@ const IndexPage = ({ buildTimestamp }) => {
   }, [])
 
   useEffect(() => {
+    console.log(hasMore)
+  }, [hasMore])
+
+
+
+  useEffect(() => {
     getData()
   }, [ConfigsStore])
 
@@ -123,22 +129,22 @@ const IndexPage = ({ buildTimestamp }) => {
                 </div>
                 : mural.length ?
                   <InfiniteScroll
-                  className="w-full relative gap-5 grid sm:grid-cols-2 lg:grid-cols-3 mb-10 overflow-hidden"
+                  className="w-full relative gap-5 grid sm:grid-cols-2 lg:grid-cols-3 "
                     dataLength={mural.length}
                     next={loadMore}
                     hasMore={hasMore}
                     loader={
-                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3 left-0 -bottom-10 flex justify-center w-full">
+                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3  flex justify-center w-full">
                         <SpinnerCircularFixed  size={40} thickness={180} speed={150} color="#3B82F6" secondaryColor="rgba(255, 255, 255, 0.15)" />
                         </div>
                     }
                     endMessage={
-                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3 left-0 -bottom-10 flex justify-center w-full">
+                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3  flex justify-center w-full">
                       Não há mais vagas por enquanto! Volte em breve.
                       </div>
                        
                     }
-                  > {mural && mural.map(item => {
+                  > {mural.map(item => {
                     return (<CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
                   })}
                 </InfiniteScroll>
