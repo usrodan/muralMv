@@ -22,7 +22,9 @@ const IndexPage = ({ buildTimestamp }) => {
   const [hasMore, setHasMore] = useState(true)
  
 
-  useEffect(() => {
+  useEffect(() => { 
+    setStart(0)
+    setHasMore(true)
     Configs.update(s => {
       s.search = search && String(search)
       s.city = city && String(city)
@@ -35,22 +37,18 @@ const IndexPage = ({ buildTimestamp }) => {
     Configs.update(s => {
       s.pageType = "home"
     })
-  }, [])
-
-  useEffect(() => {
-    console.log(hasMore)
-  }, [hasMore])
+  }, []) 
 
 
-
-  useEffect(() => {
-    getData()
-  }, [ConfigsStore])
+  useEffect(() => { 
+     getData()
+  }, [ConfigsStore,start]) 
+ 
 
   function loadMore() {
     setStart(start + limit)
-    getData()
   }
+
   async function getData() {
     setLoading(true)
     var allQueries = []
@@ -80,15 +78,19 @@ const IndexPage = ({ buildTimestamp }) => {
     `,
     });
 
-    var newMural = mural
-
-    data.murals.data.length < limit ? setHasMore(false) : setHasMore(true)
+    var newMural = start == 0 ? [] : mural     
 
     data.murals.data.forEach(m => {
       if(newMural.indexOf(m) === -1) {
         newMural.push(m)
       }
     })
+
+    if ( data.murals.data.length < limit) {
+        setHasMore(false) 
+    } else {
+      setHasMore(true) 
+    }
     setMural(newMural)
 
     setTimeout(() => {
