@@ -5,13 +5,13 @@ import { useRouter } from 'next/router'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { SearchAlt } from "@styled-icons/boxicons-regular/SearchAlt"
-import {removeAcento} from "@/utils/removeAcento"
+import { removeAcento } from "@/utils/removeAcento"
 
 const Sidebar: React.FC = () => {
   const router = useRouter()
   const [cidades, setCidades] = useState([])
   const [tipos, setTipos] = useState([])
-  const configsState = Configs.useState() 
+  const configsState = Configs.useState()
   const [searchCity, setSearchCity] = useState("")
   const [cidade, setCidade] = useState({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
   const [tipo, setTipo] = useState({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
@@ -29,10 +29,10 @@ const Sidebar: React.FC = () => {
   }, [tipo])
 
   async function getData() {
-    axios.get("/api/meta").then(result => { 
+    axios.get("/api/meta").then(result => {
       setTipos(result && result.data.tipos && result.data.tipos.data)
       setCidades(result && result.data.cidades && result.data.cidades.data)
-    }) 
+    })
   }
 
   useEffect(() => {
@@ -47,13 +47,7 @@ const Sidebar: React.FC = () => {
   function changeCity(str) {
     Configs.update(s => { s.city = str })
     router.pathname != "/" && router.push(`/?city=${str}`)
-  }
-
-  function clearFilters() {
-   setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
-   setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
-   
-  }
+  } 
 
   function changeType(str) {
     Configs.update(s => { s.type = str })
@@ -102,9 +96,16 @@ const Sidebar: React.FC = () => {
       {configsState.filterIsOpen && <div id="FiltrosMobile" className="flex md:hidden  flex-col gap-2 font-semibold ">
 
         <div className='flex justify-between items-center'>
-        <span className="text-blue-500 font-bold text-lg">Cidade</span>
-        <span  onClick={clearFilters} className="text-gray-400 cursor-pointer underline font-bold text-sm">Limpar filtros ativos</span>
-          </div>
+          <span className="text-blue-500 font-bold text-lg">Cidade</span>
+          <span onClick={() => {
+            Configs.update(s => {
+              s.search = ""
+              s.city = ""
+              s.type = ""
+            })
+          }}
+            className="text-gray-400 cursor-pointer underline font-bold text-sm">Limpar filtros ativos</span>
+        </div>
 
         <Listbox value={cidade} onChange={setCidade}>
           {({ open }) => (
@@ -135,9 +136,9 @@ const Sidebar: React.FC = () => {
                     <div className='overflow-auto mt-2 max-h-60'>
                       {cidades && cidades.map((person) => {
                         var exibir = true
-                        if (searchCity && !(removeAcento(person.attributes.cidade.toLowerCase())).includes(removeAcento(searchCity.toLowerCase()))) { 
-                            exibir = false 
-                        } 
+                        if (searchCity && !(removeAcento(person.attributes.cidade.toLowerCase())).includes(removeAcento(searchCity.toLowerCase()))) {
+                          exibir = false
+                        }
                         return (exibir && <Listbox.Option
                           key={person.slug}
                           className={({ active }) =>
