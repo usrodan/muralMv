@@ -1,18 +1,17 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Configs } from '@/configs'
-import client from '@/utils/apollo'
-import { gql } from "@apollo/client";
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { SearchAlt } from "@styled-icons/boxicons-regular/SearchAlt"
+import {removeAcento} from "@/utils/removeAcento"
 
 const Sidebar: React.FC = () => {
   const router = useRouter()
   const [cidades, setCidades] = useState([])
   const [tipos, setTipos] = useState([])
-  const configsState = Configs.useState()
-
+  const configsState = Configs.useState() 
   const [searchCity, setSearchCity] = useState("")
   const [cidade, setCidade] = useState({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
   const [tipo, setTipo] = useState({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
@@ -30,37 +29,12 @@ const Sidebar: React.FC = () => {
   }, [tipo])
 
   async function getData() {
-    const { data } = await client.query({
-      query: gql` 
-      query {
-        cidades( sort: "cidade:asc", pagination:{limit:1000}) {
-          data {
-            id
-            attributes {
-              cidade
-              murais {
-                data {
-                  id
-                }
-              }
-            }
-          }
-        }
-        tipos( sort: "tipo:asc") {
-          data {
-            id
-            attributes {
-              tipo
-            }
-          }
-        }
-      }
-      
-    `,
-    });
-    setTipos(data.tipos.data)
-    setCidades(data.cidades.data)
+    axios.get("/api/meta").then(result => { 
+      setTipos(result && result.data.tipos && result.data.tipos.data)
+      setCidades(result && result.data.cidades && result.data.cidades.data)
+    }) 
   }
+
   useEffect(() => {
     getData()
   }, [])
@@ -69,16 +43,7 @@ const Sidebar: React.FC = () => {
     router.pathname == "/" && refreshPage()
   }, [configsState.type, configsState.city])
 
-  function removeAcento(text) {       
-    text = text.toLowerCase();                                                         
-    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
-    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
-    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
-    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
-    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
-    text = text.replace(new RegExp('[Ç]','gi'), 'c');
-    return text;                 
-}
+
   function changeCity(str) {
     Configs.update(s => { s.city = str })
     router.pathname != "/" && router.push(`/?city=${str}`)
@@ -110,7 +75,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className="flex-col gap-8">
-      <div id="AvisoResponsabilidade" className="hidden md:flex flex flex-col bg-blue-500 rounded-lg">
+      <div id="AvisoResponsabilidade" className="hidden md:flex flex-col bg-blue-500 rounded-lg">
         <strong className="text-white text-center text-2xl p-4">⚠️ AVISO</strong>
         <p className="bg-white bg-opacity-60 font-semibold text-black p-4 text-center">Não somos responsáveis pelas
           vagas publicadas.<br />
@@ -122,19 +87,19 @@ const Sidebar: React.FC = () => {
         <section>
           <strong className="text-blue-500 text-lg">CIDADE</strong>
           <ul className="pl-2 mt-2 overflow-auto h-52 ">
-            {cidades.map(cidade => cidade.attributes.murais.data.length != 0 && <li key={cidade.attributes.cidade} onClick={() => changeCity(cidade.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.city == cidade.attributes.cidade ? "bg-gray-300" : ""}`}>{cidade.attributes.cidade}</li>)}
+            {cidades && cidades.map(c => c.attributes.murais.data.length != 0 && <li key={c.attributes.cidade} onClick={() => changeCity(c.attributes.cidade)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.city == c.attributes.cidade ? "bg-gray-300" : ""}`}>{c.attributes.cidade}</li>)}
           </ul>
         </section>
         <section>
           <strong className="text-blue-500 text-lg">TIPO DE VAGA</strong>
           <ul className="pl-2 mt-2  h-52 overflow-auto ">
-            {tipos.map(tipo => <li key={tipo.attributes.tipo} onClick={() => changeType(tipo.attributes.tipo)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.type == tipo.attributes.tipo ? "bg-gray-300" : ""}`}>{tipo.attributes.tipo}</li>)}
+            {tipos && tipos.map(t => <li key={t.attributes.tipo} onClick={() => changeType(t.attributes.tipo)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.type == t.attributes.tipo ? "bg-gray-300" : ""}`}>{t.attributes.tipo}</li>)}
           </ul>
         </section>
 
       </div>
 
-      {configsState.filterIsOpen && <div id="FiltrosMobile" className="flex   flex-col gap-2 font-semibold ">
+      {configsState.filterIsOpen && <div id="FiltrosMobile" className="flex md:hidden  flex-col gap-2 font-semibold ">
 
         <div className='flex justify-between items-center'>
         <span className="text-blue-500 font-bold text-lg">Cidade</span>
@@ -168,19 +133,11 @@ const Sidebar: React.FC = () => {
 
                     </div>
                     <div className='overflow-auto mt-2 max-h-60'>
-                      {cidades.map((person) => {
+                      {cidades && cidades.map((person) => {
                         var exibir = true
-                        if (searchCity) {
-                          if (String(removeAcento(person.attributes.cidade.toLowerCase()))
-                            .includes(String(removeAcento(searchCity.toLowerCase())))
-                          ) {
-                            exibir = true
-                          }
-                          else {
-                            exibir = false
-                          }
-                        }
-
+                        if (searchCity && !(removeAcento(person.attributes.cidade.toLowerCase())).includes(removeAcento(searchCity.toLowerCase()))) { 
+                            exibir = false 
+                        } 
                         return (exibir && <Listbox.Option
                           key={person.slug}
                           className={({ active }) =>
@@ -243,7 +200,7 @@ const Sidebar: React.FC = () => {
                   leaveTo="opacity-0"
                 >
                   <Listbox.Options className="absolute z-10 w-full p-2 bg-white shadow-lg max-h-60 rounded-lg   ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                    {tipos.map((person) => (
+                    {tipos && tipos.map((person) => (
                       <Listbox.Option
                         key={person.slug}
                         className={({ active }) =>
@@ -287,8 +244,4 @@ const Sidebar: React.FC = () => {
   )
 }
 
-export default Sidebar
-
-function removeAcento(arg0: any) {
-  throw new Error('Function not implemented.');
-}
+export default Sidebar 

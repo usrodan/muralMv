@@ -6,26 +6,21 @@ import { Trash } from "@styled-icons/boxicons-regular/Trash"
 import { SearchAlt } from "@styled-icons/boxicons-regular/SearchAlt"
 import Dropzone from 'react-dropzone-uploader'
 import { Fragment, useEffect, useState } from 'react';
-import client from '@/utils/apollo'
-import { gql } from "@apollo/client";
+import axios from 'axios'
 import { Configs } from '@/configs'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { toast } from 'react-toastify'; 
-
+import {removeAcento} from "@/utils/removeAcento"
 
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
   const [cargo, setCargo] = useState(null)
-
   const [searchCity, setSearchCity] = useState("")
-
   const [cidade, setCidade] = useState({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
   const [tipo, setTipo] = useState({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
-
   const [cidades, setCidades] = useState([])
   const [tipos, setTipos] = useState([])
-
   const [uploading, setUploading] = useState(false)
 
   function classNames(...classes) {
@@ -75,32 +70,17 @@ const EnviarPage = () => {
         .catch(function (error) {
           toast.error("Erro ao enviar a vaga tente novamente!");
         });
-
     }
   }
 
   async function getData() {
-    const { data } = await client.query({
-      query: gql` 
-      query {
-        cidades( sort: "cidade:asc",pagination:{limit:1000}){
-          data{
-            id
-            attributes{cidade,slug}
-          }}
 
-        tipos( sort: "tipo:asc"){
-          data{
-            id
-            attributes{tipo,slug}
-          }}
-      }
-    `,
-    });
-
-    setTipos(data.tipos.data)
-    setCidades(data.cidades.data)
+    axios.get("/api/meta").then(result => { 
+      setTipos(result && result.data.tipos && result.data.tipos.data)
+      setCidades(result && result.data.cidades && result.data.cidades.data)
+    })  
   }
+
   useEffect(() => {
     getData()
   }, [])
@@ -111,18 +91,7 @@ const EnviarPage = () => {
 
   useEffect(() => {
     setSearchCity("")
-  }, [cidade])
-
-  function removeAcento(text) {       
-    text = text.toLowerCase();                                                         
-    text = text.replace(new RegExp('[ÁÀÂÃ]','gi'), 'a');
-    text = text.replace(new RegExp('[ÉÈÊ]','gi'), 'e');
-    text = text.replace(new RegExp('[ÍÌÎ]','gi'), 'i');
-    text = text.replace(new RegExp('[ÓÒÔÕ]','gi'), 'o');
-    text = text.replace(new RegExp('[ÚÙÛ]','gi'), 'u');
-    text = text.replace(new RegExp('[Ç]','gi'), 'c');
-    return text;                 
-}
+  }, [cidade]) 
 
 
   const getUploadParams = () => {
@@ -185,15 +154,9 @@ const EnviarPage = () => {
                           <div className='overflow-auto mt-2 max-h-60'>
                           {cidades.map((person) => {
                             var exibir = true
-                            if(searchCity){
-                              if(removeAcento(person.attributes.cidade.toLowerCase()).includes(removeAcento(searchCity.toLowerCase()))){
-                                exibir = true
-                              }
-                              else{
-                                exibir = false
-                            }
-                            }
-
+                            if(searchCity && !removeAcento(person.attributes.cidade.toLowerCase()).includes(removeAcento(searchCity.toLowerCase()))){ 
+                                exibir = false 
+                            } 
                             return(exibir && <Listbox.Option
                               key={person.slug}
                               className={({ active }) =>
@@ -209,7 +172,6 @@ const EnviarPage = () => {
                                   <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
                                     {person.attributes.cidade}
                                   </span>
-
                                   {selected ? (
                                     <span
                                       className={classNames(
