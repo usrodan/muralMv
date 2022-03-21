@@ -22,12 +22,11 @@ const Sidebar: React.FC = () => {
   }
 
   useEffect(() => {
-    cidade.id ? changeCity(cidade.attributes.cidade): changeCity("")
-    
+    cidade.id && changeCity(cidade.attributes.cidade)
   }, [cidade])
 
   useEffect(() => {
-    tipo.id ? changeType(tipo.attributes.tipo) : changeType("")
+    tipo.id && changeType(tipo.attributes.tipo)
   }, [tipo])
 
   async function getData() {
