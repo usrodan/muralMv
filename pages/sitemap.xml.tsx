@@ -1,45 +1,43 @@
- 
+import client from '@/utils/apollo'
+import { gql } from "@apollo/client"; 
+import slugify from '@/utils/slugify';
+
+const toUrl = (host, route) =>
+  `<url><loc>https://mural.maisvagases.com.br/${route}</loc></url>`;
+
+const createSitemap = (host, routes) =>
+  `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${routes.map((route) => toUrl(host, route)).join("")}
+    </urlset>`;
 
 const Sitemap = () => {};
+Sitemap.getInitialProps = async ({ res, req }) => {
+  const { data } = await client.query({
+    query: gql` 
+    query {
+      murals(pagination:{limit:99999}, sort: ["createdAt:desc"]) {
+        data {
+          id 
+          attributes {
+            cargo
+          }
+        }
+      }
+    }
+  `,
+  });
+  var urls = []
+  const r = (Object.values(data.murals.data))
+  //@ts-ignore
+  r.map(rr=> urls.push(`${rr.id}-${slugify(rr.attributes.cargo)}`)) 
 
-export const getServerSideProps = ({ res }) => {
-  const baseUrl = {
-    development: "http://localhost:3000",
-    production: "https://mural.maisvagases.com.br",
-  }[process.env.NODE_ENV];
-
-  const staticPages = [
-    "",    
-  ]
-
-    .map((staticPagePath) => {
-      return `${baseUrl}/${staticPagePath}`;
-    });
-
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${staticPages
-        .map((url) => {
-          return `
-            <url>
-              <loc>${url.replace(".tsx","").replace("index","")}</loc>
-              <lastmod>${new Date().toISOString()}</lastmod>
-              <changefreq>monthly</changefreq>
-              <priority>1.0</priority>
-            </url>
-          `;
-        })
-        .join("")}
-    </urlset>
-  `;
+  const sitemap = createSitemap(req.headers.host, urls);
 
   res.setHeader("Content-Type", "text/xml");
   res.write(sitemap);
   res.end();
-
-  return {
-    props: {},
-  };
+  return res;
 };
 
 export default Sitemap;
