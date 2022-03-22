@@ -4,12 +4,12 @@ import { ExclamationIcon, XIcon } from '@heroicons/react/outline'
 import { Configs } from '@/configs'
 import axios from "axios"
 import { toast } from 'react-toastify'
-
+import { SpinnerCircularFixed } from "spinners-react";
 const reasonList = [
     "A vaga não existe mais",
     "Não é uma vaga",
     "A data para se candidatar encerrou",
-    "A vaga não é para uma cidade/empresa do ES",
+    "A vaga não é de uma cidade/empresa do ES",
     "Imagem imprópria",
     "Imagem ilegível",
     "Outro"
@@ -102,11 +102,11 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
                                 </div>
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                        Reportar Vaga
+                                        Denunciar Vaga
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-sm text-gray-500">
-                                            Por favor escolha o motivo pelo qual está reportando a vaga.
+                                            Por favor escolha o motivo pelo qual está denunciando a vaga.
                                         </p>
                                     </div>
 
@@ -125,7 +125,7 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
                                                     className=" h-4 w-4 cursor-pointer text-gray-600 border-gray-300 rounded"
                                                 />
                                             </div>
-                                            <div className="ml-3 text-sm">
+                                            <div className="ml-3 text-left text-sm">
                                                 <label htmlFor="reason" onClick={(e)=> setReasonOption(r != reasonOption ? r : "")} className="font-medium cursor-pointer text-gray-700">
                                                     {r}
                                                 </label>
@@ -149,15 +149,15 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
                                     onClick={SendReport}
                                 >
                                     <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />
-                                    Reportar Vaga
+                                    Denunciar Vaga
                                 </button>
                                 :
                                 <button
                                     type="button"
-                                    className="w-full cursor-not-allowed inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-200 text-base font-medium text-white    sm:ml-3 sm:w-auto sm:text-sm"
+                                    className="w-full items-center cursor-not-allowed inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-200 text-base font-medium text-white    sm:ml-3 sm:w-auto sm:text-sm"
                                 >
-                                    {loading ?  "loading  ": <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />}
-                                    Reportar Vaga
+                                    {loading ?  <SpinnerCircularFixed className='mr-2' size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />: <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />}
+                                    Denunciar Vaga
                                 </button>
 }
 
