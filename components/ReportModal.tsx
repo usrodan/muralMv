@@ -2,6 +2,8 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon, XIcon } from '@heroicons/react/outline'
 import { Configs } from '@/configs'
+import axios from "axios"
+import { toast } from 'react-toastify'
 
 const reasonList = [
     "A vaga não existe mais",
@@ -13,12 +15,32 @@ const reasonList = [
     "Outro"
 ]
 
-const ReportModal: React.FC = () => {
+interface Props{
+    id:string;
+    cargo:string;
+    url:string
+} 
+
+const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
     const ConfigsStore = Configs.useState()
 
     const [reasonOption, setReasonOption] = useState("") 
     const [reasonText, setReasonText] = useState("")
     const [finalReason, setFinalReason] = useState("")
+    const [loading, setLoading] = useState(false)
+
+     function SendReport(){
+        setLoading(true)
+        axios.post("/api/reportVaga/",{
+            id,cargo,url,motivo:finalReason
+        }).then(response=>{
+            setLoading(false)
+            response.data == "OK" ? toast.success("Denúncia enviada com sucesso") : toast.error("Ocorreu algum erro ao enviar sua denúncia")
+        }).catch(e=>{
+            setLoading(false)
+            toast.error("Ocorreu algum erro ao enviar sua denúncia")
+        })
+    }
 
     useEffect(()=>{
         reasonOption != "Outro" ? setFinalReason(reasonOption) : setFinalReason(reasonText)
@@ -120,10 +142,10 @@ const ReportModal: React.FC = () => {
                                 </div>
                             </div>
                             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                                {finalReason ? <button
+                                {finalReason && !loading ? <button
                                     type="button"
                                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700  sm:ml-3 sm:w-auto sm:text-sm"
-                                    onClick={close}
+                                    onClick={SendReport}
                                 >
                                     <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />
                                     Reportar Vaga
@@ -133,7 +155,7 @@ const ReportModal: React.FC = () => {
                                     type="button"
                                     className="w-full cursor-not-allowed inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-200 text-base font-medium text-white    sm:ml-3 sm:w-auto sm:text-sm"
                                 >
-                                    <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />
+                                    {loading ?  "loading  ": <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />}
                                     Reportar Vaga
                                 </button>
 }

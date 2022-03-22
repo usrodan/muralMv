@@ -97,9 +97,7 @@ const EnviarPage = () => {
     getData()
   }, [])
 
-  useEffect(() => {
-    console.log(image)
-  }, [image])
+
 
   useEffect(() => {
     setSearchCity("")
@@ -113,7 +111,6 @@ const EnviarPage = () => {
   const handleChangeStatus = ({ meta, file, xhr }, status) => {
     setUploading(true)
     if (status === 'done') {
-      console.log(JSON.parse(xhr.response))
       setImage(JSON.parse(xhr.response)[0])
       setTimeout(() => {
         setUploading(false)

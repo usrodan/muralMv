@@ -21,12 +21,10 @@ const Sidebar: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(cidade)
     cidade.id && changeCity(cidade.attributes.slug)
   }, [cidade])
 
   useEffect(() => {
-    console.log(tipo)
     tipo.id && changeType(tipo.attributes.slug)
   }, [tipo])
 
