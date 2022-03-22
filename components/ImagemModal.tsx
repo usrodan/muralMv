@@ -48,19 +48,19 @@ const ReportModal: React.FC<Props> = ({src,alt,width,height}:Props) => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        <div className="inline-block align-bottom bg-black bg-opacity-75 rounded-lg  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full ">
                             <div className="block absolute top-0 right-0 pt-3 pr-3">
                                 <button
                                     type="button"
-                                    className="bg-white rounded-md text-gray-800 hover:text-gray-500"
+                                    className="bg-red-500 rounded-md text-white hover:text-gray-100"
                                     onClick={close}
                                 >
                                     <span className="sr-only">Close</span>
-                                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                                    <XIcon className="h-7 w-7" aria-hidden="true" />
                                 </button>
                             </div>
-                            <div className="sm:flex sm:items-start p-2">
-                            <Image onClick={close} className="cursor-pointer rounded-md " alt={alt} width={width} height={height} src={src} />
+                            <div className="sm:flex sm:items-start pt-12 ">
+                            <Image onClick={close} className="cursor-pointer w-full rounded-b-md " alt={alt} width={width} height={height} src={src} />
           
                             
                             </div>
