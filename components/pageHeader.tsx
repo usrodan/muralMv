@@ -6,9 +6,11 @@ import { Search } from "@styled-icons/boxicons-regular/Search"
 import { FilterAlt } from "@styled-icons/boxicons-regular/FilterAlt"
 import { FilterAlt as FilterFilled} from "@styled-icons/boxicons-solid/FilterAlt"
 import { Configs } from '@/configs'
+import {useRouter} from "next/router"
 
 export default function PageHeader() {
   const configState = Configs.useState()
+  const router = useRouter()
 
   function handleFilter(){
     Configs.update(s=>{
@@ -36,7 +38,7 @@ export default function PageHeader() {
       <section className="flex  md:hidden gap-4 w-full max-w-7xl p-4 items-center justify-between">
         <a href="/" className="flex hover:opacity-60  hover:-mt-2 transition-all duration-500 ease-in-out justify-center"><Image src="/Mural.svg" alt="Mural MaisVagasES" width={97} height={29} /></a>
         <div className='flex gap-2 text-gray-600'>
-          <button onClick={handleFilter} className='p-2' >{configState.filterIsOpen ? <FilterFilled size={32} /> : <FilterAlt size={32} />}</button>
+          {router.pathname =="/" && <button onClick={handleFilter} className='p-2' >{configState.filterIsOpen ? <FilterFilled size={32} /> : <FilterAlt size={32} />}</button>}
           <button onClick={handleSearch} className='p-2'><Search size={32} /></button>
         </div>
       </section>

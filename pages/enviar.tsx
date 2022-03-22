@@ -34,10 +34,18 @@ const EnviarPage = () => {
   }, [])
 
   function EnviarVaga() {
-    !cargo && toast.error("Erro: Peencha o nome do cargo!")
-    !image && toast.error("Erro: Envie uma imagem!")
-    !cidade.attributes.slug && toast.error("Erro: Selecione uma Cidade!!")
-    !tipo.attributes.slug && toast.error("Erro: Selecione o tipo de vaga!")
+    !cargo && toast.error("Erro: Peencha o nome do cargo!", {
+      position: toast.POSITION.BOTTOM_CENTER
+    })
+    !image && toast.error("Erro: Envie uma imagem!", {
+      position: toast.POSITION.BOTTOM_CENTER
+    })
+    !cidade.attributes.slug && toast.error("Erro: Selecione uma Cidade!!", {
+      position: toast.POSITION.BOTTOM_CENTER
+    })
+    !tipo.attributes.slug && toast.error("Erro: Selecione o tipo de vaga!", {
+      position: toast.POSITION.BOTTOM_CENTER
+    })
 
     if (cargo && image && tipo) {
       var axios = require('axios');
@@ -61,14 +69,18 @@ const EnviarPage = () => {
 
       axios(config)
         .then(function (response) {
-          toast.success("Vaga enviada e postada no mural com sucesso !");
+          toast.success("Vaga enviada e postada no mural com sucesso !", {
+            position: toast.POSITION.BOTTOM_CENTER
+          });
           setImage(null)
           setCargo("")
           setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
           setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
         })
         .catch(function (error) {
-          toast.error("Erro ao enviar a vaga tente novamente!");
+          toast.error("Erro ao enviar a vaga tente novamente!", {
+            position: toast.POSITION.BOTTOM_CENTER
+          });
         });
     }
   }

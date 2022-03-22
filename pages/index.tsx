@@ -53,8 +53,8 @@ const IndexPage = ({ buildTimestamp }) => {
     setLoading(true)
     var allQueries = []
     ConfigsStore.search && allQueries.push(`cargo:{contains: "${ConfigsStore.search}"}`)
-    ConfigsStore.city && allQueries.push(`cidade:{cidade:{eq:"${ConfigsStore.city}"}}`)
-    ConfigsStore.type && allQueries.push(`tipo:{tipo:{eq:"${ConfigsStore.type}"}}`)
+    ConfigsStore.city && allQueries.push(`cidade:{slug:{eq:"${ConfigsStore.city}"}}`)
+    ConfigsStore.type && allQueries.push(`tipo:{slug:{eq:"${ConfigsStore.type}"}}`)
     var pagination = `pagination:{limit:${limit},start:${start}} ,`
 
     const { data } = await client.query({
