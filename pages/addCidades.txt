@@ -1,0 +1,127 @@
+import slugify from "@/utils/slugify"
+ 
+import { toast } from "react-toastify"
+ 
+export default function Index() {
+  var data = [] 
+
+  const cidades = [
+    "Afonso Cláudio",
+    "Água Doce do Norte",
+    "Águia Branca",
+    "Alegre",
+    "Alfredo Chaves",
+    "Alto Rio Novo",
+    "Anchieta",
+    "Apiacá",
+    "Aracruz",
+    "Atilio Vivacqua",
+    "Baixo Guandu",
+    "Barra de São Francisco",
+    "Boa Esperança",
+    "Bom Jesus do Norte",
+    "Brejetuba",
+    "Cachoeiro de Itapemirim",
+    "Cariacica",
+    "Castelo",
+    "Colatina",
+    "Conceição da Barra",
+    "Conceição do Castelo",
+    "Divino de São Lourenço",
+    "Domingos Martins",
+    "Dores do Rio Preto",
+    "Ecoporanga",
+    "Fundão",
+    "Governador Lindenberg",
+    "Guaçuí",
+    "Guarapari",
+    "Ibatiba",
+    "Ibiraçu",
+    "Ibitirama",
+    "Iconha",
+    "Irupi",
+    "Itaguaçu",
+    "Itapemirim",
+    "Itarana",
+    "Iúna",
+    "Jaguaré",
+    "Jerônimo Monteiro",
+    "João Neiva",
+    "Laranja da Terra",
+    "Linhares",
+    "Mantenópolis",
+    "Marataizes",
+    "Marechal Floriano",
+    "Marilândia",
+    "Mimoso do Sul",
+    "Montanha",
+    "Mucurici",
+    "Muniz Freire",
+    "Muqui",
+    "Nova Venécia",
+    "Pancas",
+    "Pedro Canário",
+    "Pinheiros",
+    "Piúma",
+    "Ponto Belo",
+    "Presidente Kennedy",
+    "Rio Bananal",
+    "Rio Novo do Sul",
+    "Santa Leopoldina",
+    "Santa Maria de Jetibá",
+    "Santa Teresa",
+    "São Domingos do Norte",
+    "São Gabriel da Palha",
+    "São José do Calçado",
+    "São Mateus",
+    "São Roque do Canaã",
+    "Serra",
+    "Sooretama",
+    "Vargem Alta",
+    "Venda Nova do Imigrante",
+    "Viana",
+    "Vila Pavão",
+    "Vila Valério",
+    "Vila Velha",
+    "Vitória"]   
+  
+  
+
+    function Cadastrar(c,slug){ 
+      var axios = require('axios');
+      var data = JSON.stringify({
+        data: {cidade: c, slug:slug}
+      });
+
+      var config = {
+        method: 'post',
+        url: 'https://maisvagases.herokuapp.com/api/cidades',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: data
+      };
+
+      axios(config)
+      .then(function (response) {
+        toast.success("Cidade Cadastrada !", {
+          position: toast.POSITION.BOTTOM_CENTER
+        }); 
+      })
+      .catch(function (error) {
+        toast.error("Erro ao cadastrar cidade tente novamente!", {
+          position: toast.POSITION.BOTTOM_CENTER
+        });
+      });
+       
+    }
+ 
+
+  return (<div className="flex flex-col gap-4 "> 
+  {cidades.map(c=>{
+    return  (<span className="text-xl rounded-lg p-4 bg-blue-500" key={c} onClick={() => Cadastrar(c,slugify(c))}>{c}</span>)
+  })}
+   
+      </div>)
+     
+    }
