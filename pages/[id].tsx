@@ -15,6 +15,7 @@ import { format } from 'date-fns'
 import { useEffect, useState } from 'react';
 import ReportModal from '@/components/ReportModal';
 import AdSense from 'react-adsense';
+import ImagemModal from '@/components/ImagemModal';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
   const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z'), "dd/MM/yyy")
@@ -26,6 +27,12 @@ const IndexPage = ({ buildTimestamp, mural }) => {
   function openReport(){
     Configs.update(s => {
       s.reportModalIsOpen=true
+    })
+  }
+
+  function openImage(){
+    Configs.update(s => {
+      s.imageModalIsOpen=true
     })
   }
 
@@ -43,17 +50,10 @@ const IndexPage = ({ buildTimestamp, mural }) => {
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
 
       <ReportModal/> 
+      <ImagemModal alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"}/> 
 
 
-      {imgOpen &&
-        <div onClick={() => setImageOpen(null)} className='fixed top-0 left-0 z-20 bg-black bg-opacity-70 flex w-screen h-screen  justify-center items-center'>
-
-          <CloseOutline  className='text-white hover:opacity-70 hover:animate-ping  cursor-pointer top-2 right-2 fixed' size="50" />
-          <figure className={`p-5 ${sizeConfiguration}`}>
-            <Image  className="cursor-pointer " alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
-          </figure>
-        </div>
-      }
+       
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2  border-t-2 border-white">
           <strong className="text-center hidden md:flex w-full py-4">Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.</strong>
@@ -89,7 +89,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           format=''
                         />
                       } 
-                      <Image className="rounded-lg cursor-pointer" onClick={() => setImageOpen(mural.image)} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+                      <Image className="rounded-lg cursor-pointer" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
 
                       {//IMG HORIZONTAL
                         mural.imgW > mural.imgH &&

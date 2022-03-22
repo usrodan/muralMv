@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
-import { Dialog, Listbox, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationIcon, XIcon } from '@heroicons/react/outline'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Configs } from '@/configs'
 
 const reasonList = [
