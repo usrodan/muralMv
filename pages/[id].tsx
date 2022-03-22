@@ -129,15 +129,15 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-4 w-full text-white text-xs font-semibold text-center">
-                          <div className="flex bg-whatsapp hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2 ">
+                          <a  href="http://mves.es/grupo52" target="_blank" rel="noreferrer" className="flex bg-whatsapp hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2 ">
                             <Whatsapp size={20} />
                             GRUPO NO WHATSAPP
-                          </div>
+                          </a>
 
-                          <div className="flex bg-telegram  hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2">
+                          <a href="https://t.me/maisvagases" target="_blank" rel="noreferrer"  className="flex bg-telegram  hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2">
                             <Telegram size={20} />
                             CANAL NO TELEGRAM
-                          </div>
+                          </a>
                         </div>
 
                         <div className="text-red-500  hover:opacity-60 cursor-pointer flex gap-2 font-semibold">
