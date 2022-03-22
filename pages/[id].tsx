@@ -116,7 +116,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                       <section className="flex flex-col gap-3">
 
 
-                        <div onClick={openShare} className="flex  hover:opacity-60 cursor-pointer gap-2 border p-2 border-gray-800 rounded-lg text-center justify-center w-full">
+                        <div onClick={openShare} className="flex transition-all duration-500 ease-in-out  cursor-pointer gap-2 border p-2 border-gray-800 hover:border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg text-center justify-center w-full">
                           <ShareIos size={24} />
                           <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
                         </div>
@@ -149,18 +149,18 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-4 w-full text-white text-xs font-semibold text-center">
-                          <a  href="http://mves.es/grupo52" target="_blank" rel="noreferrer" className="flex bg-whatsapp hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2 ">
+                          <a  href="http://mves.es/grupo52" target="_blank" rel="noreferrer" className="flex bg-whatsapp transition-all duration-500 ease-in-out hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2 ">
                             <Whatsapp size={20} />
                             GRUPO NO WHATSAPP
                           </a>
 
-                          <a href="https://t.me/maisvagases" target="_blank" rel="noreferrer"  className="flex bg-telegram  hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2">
+                          <a href="https://t.me/maisvagases" target="_blank" rel="noreferrer"  className="flex bg-telegram transition-all duration-500 ease-in-out  hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2">
                             <Telegram size={20} />
                             CANAL NO TELEGRAM
                           </a>
                         </div>
 
-                        <div onClick={openReport}className="text-red-500  hover:opacity-60 cursor-pointer flex gap-2 font-semibold">
+                        <div onClick={openReport}className="text-red-500  transition-all duration-500 ease-in-out hover:opacity-60 cursor-pointer flex gap-2 font-semibold">
                           <ExclamationOctagon size={20} />
                           <span>DENUNCIAR VAGA</span>
                         </div>
