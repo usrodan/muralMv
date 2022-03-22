@@ -13,9 +13,11 @@ import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
 import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline'
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react';
-import ReportModal from '@/components/ReportModal';
 import AdSense from 'react-adsense';
+import ReportModal from '@/components/ReportModal';
 import ImagemModal from '@/components/ImagemModal';
+import ShareModal from '@/components/ShareModal';
+import slugify from '@/utils/slugify';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
   const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z'), "dd/MM/yyy")
@@ -36,6 +38,13 @@ const IndexPage = ({ buildTimestamp, mural }) => {
     })
   }
 
+  function openShare(){
+    Configs.update(s => {
+      s.shareModalIsOpen=true
+    })
+  }
+
+
   useEffect(() => { 
     Configs.update(s => {
       s.pageType="single"
@@ -49,7 +58,8 @@ const IndexPage = ({ buildTimestamp, mural }) => {
     <>
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
 
-      <ReportModal/> 
+      <ReportModal/>
+      <ShareModal url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`}/> 
       <ImagemModal alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"}/> 
 
 
@@ -106,7 +116,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                       <section className="flex flex-col gap-3">
 
 
-                        <div className="flex  hover:opacity-60 cursor-pointer gap-2 border p-2 border-gray-800 rounded-lg text-center justify-center w-full">
+                        <div onClick={openShare} className="flex  hover:opacity-60 cursor-pointer gap-2 border p-2 border-gray-800 rounded-lg text-center justify-center w-full">
                           <ShareIos size={24} />
                           <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
                         </div>
@@ -211,6 +221,7 @@ export async function getServerSideProps({ params }) {
         tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
         imgH: Number(data.mural.data.attributes.imagem.data.attributes.height),
         imgW: Number(data.mural.data.attributes.imagem.data.attributes.width),
+        id: data.mural.data.id
       },
       buildTimestamp: Date.now()
     }

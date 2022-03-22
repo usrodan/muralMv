@@ -48,14 +48,14 @@ const ReportModal: React.FC<Props> = ({src,alt,width,height}:Props) => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                        <div className="inline-block align-bottom bg-black bg-opacity-75 rounded-lg  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full ">
+                        <div className="inline-block align-bottom bg-black bg-opacity-75 rounded-lg  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full ">
                             <div className="block absolute top-0 right-0 pt-3 pr-3">
                                 <button
                                     type="button"
                                     className="bg-red-500 rounded-md text-white hover:text-gray-100"
                                     onClick={close}
                                 >
-                                    <span className="sr-only">Close</span>
+                                    <span className="sr-only">Fechar</span>
                                     <XIcon className="h-7 w-7" aria-hidden="true" />
                                 </button>
                             </div>
