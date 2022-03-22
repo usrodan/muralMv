@@ -51,10 +51,13 @@ const IndexPage = ({ buildTimestamp, mural }) => {
 
   return (
     <>
-      <SEO siteName="Mural - MaisVagasES" title={mural.cargo} description={`Veja essa vaga de ${mural.cargo} que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego`} />
+      <SEO siteName="Mural - MaisVagasES" 
+      title={mural.cargo} 
+      image={mural.image}
+      description={`Veja essa vaga de ${mural.cargo} que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego`} />
 
       <ReportModal id={mural.id} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} cargo={mural.cargo}/>
-      <ShareModal url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`}/> 
+      <ShareModal cargo={mural.cargo} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`}/> 
       <ImagemModal alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"}/> 
 
 
