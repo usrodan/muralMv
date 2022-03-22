@@ -6,9 +6,10 @@ import CardJob from '@/components/CardJob';
 import { useRouter } from 'next/router';
 import { Configs } from '@/configs'
 import client from '@/utils/apollo'
-import { gql } from "@apollo/client"; 
+import { gql } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SpinnerCircularFixed } from "spinners-react";
+import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline"
 
 
 const IndexPage = ({ buildTimestamp }) => {
@@ -17,12 +18,12 @@ const IndexPage = ({ buildTimestamp }) => {
   const [mural, setMural] = useState([])
   const [loading, setLoading] = useState(true)
   const { search, city, type } = router.query
-  const [limit, setLimit] = useState(9)
+  const limit = 9
   const [start, setStart] = useState(0)
   const [hasMore, setHasMore] = useState(true)
- 
 
-  useEffect(() => { 
+
+  useEffect(() => {
     setStart(0)
     setHasMore(true)
     Configs.update(s => {
@@ -37,13 +38,12 @@ const IndexPage = ({ buildTimestamp }) => {
     Configs.update(s => {
       s.pageType = "home"
     })
-  }, []) 
+  }, [])
 
 
-  useEffect(() => { 
-     getData()
-  }, [ConfigsStore.search, ConfigsStore.city, ConfigsStore.type,start]) 
- 
+  useEffect(() => {
+    getData()
+  }, [ConfigsStore.search, ConfigsStore.city, ConfigsStore.type, start])
 
   function loadMore() {
     setStart(start + limit)
@@ -52,7 +52,7 @@ const IndexPage = ({ buildTimestamp }) => {
   async function getData() {
     setLoading(true)
     var allQueries = []
-    ConfigsStore.search && allQueries.push(`cargo:{contains: "${ConfigsStore.search}"}`)
+    ConfigsStore.search && allQueries.push(`cargo:{containsi: "${ConfigsStore.search}"}`)
     ConfigsStore.city && allQueries.push(`cidade:{slug:{eq:"${ConfigsStore.city}"}}`)
     ConfigsStore.type && allQueries.push(`tipo:{slug:{eq:"${ConfigsStore.type}"}}`)
     var pagination = `pagination:{limit:${limit},start:${start}} ,`
@@ -78,18 +78,18 @@ const IndexPage = ({ buildTimestamp }) => {
     `,
     });
 
-    var newMural = start == 0 ? [] : mural     
+    var newMural = start == 0 ? [] : mural
 
     data.murals.data.forEach(m => {
-      if(newMural.indexOf(m) === -1) {
+      if (newMural.indexOf(m) === -1) {
         newMural.push(m)
       }
     })
 
-    if ( data.murals.data.length < limit) {
-        setHasMore(false) 
+    if (data.murals.data.length < limit) {
+      setHasMore(false)
     } else {
-      setHasMore(true) 
+      setHasMore(true)
     }
     setMural(newMural)
 
@@ -109,7 +109,14 @@ const IndexPage = ({ buildTimestamp }) => {
               <Sidebar />
             </div>
             <div className="md:col-span-9 ">
-
+              {(!!ConfigsStore.search || !!ConfigsStore.city || !!ConfigsStore.type) &&
+                <div className="flex flex-wrap gap-3 text-sm mb-3 items-center" >
+                  <span className="">Filtros selecionados:</span>
+                  {ConfigsStore.search && <button onClick={() => Configs.update(s => { s.search = "" })} className='flex gap-2 justify-between items-center bg-gray-200 rounded-lg p-1 px-2'>{ConfigsStore.search} <CloseOutline size={16} /></button>}
+                  {ConfigsStore.type && <button onClick={() => Configs.update(s => { s.type = "" })} className='flex gap-2 justify-between items-center bg-gray-200 rounded-lg p-1 px-2'>{ConfigsStore.type} <CloseOutline size={16} /></button>}
+                  {ConfigsStore.city && <button onClick={() => Configs.update(s => { s.city = "" })} className='flex gap-2 justify-between items-center bg-gray-200 rounded-lg p-1 px-2'>{ConfigsStore.city} <CloseOutline size={16} /></button>}
+                </div>
+              }
               {loading && start == 0 ?
                 <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (
@@ -131,25 +138,25 @@ const IndexPage = ({ buildTimestamp }) => {
                 </div>
                 : mural.length ?
                   <InfiniteScroll
-                  className="w-full relative gap-5 grid sm:grid-cols-2 lg:grid-cols-3 "
+                    className="w-full relative gap-5 grid sm:grid-cols-2 lg:grid-cols-3 "
                     dataLength={mural.length}
                     next={loadMore}
                     hasMore={hasMore}
                     loader={
                       <div className=" col-span-1 sm:col-span-2 lg:col-span-3  flex justify-center w-full">
-                        <SpinnerCircularFixed  size={40} thickness={180} speed={150} color="#3B82F6" secondaryColor="rgba(255, 255, 255, 0.15)" />
-                        </div>
+                        <SpinnerCircularFixed size={40} thickness={180} speed={150} color="#3B82F6" secondaryColor="rgba(255, 255, 255, 0.15)" />
+                      </div>
                     }
                     endMessage={
                       <div className=" col-span-1 sm:col-span-2 lg:col-span-3  flex justify-center w-full">
-                      Não há mais vagas por enquanto! Volte em breve.
+                        Não há mais vagas por enquanto! Volte em breve.
                       </div>
-                       
+
                     }
                   > {mural.map(item => {
                     return (<CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
                   })}
-                </InfiniteScroll>
+                  </InfiniteScroll>
                   :
                   <div className="w-full">
                     <p> Nenhuma vaga encontrada com os filtros selecionados.</p>
@@ -161,15 +168,9 @@ const IndexPage = ({ buildTimestamp }) => {
                       })
                     }}>Limpar Filtros</strong>
                   </div>
-              } 
-
-
+              }
 
             </div>
-
-
-
-
           </section>
         </div>
       </main>

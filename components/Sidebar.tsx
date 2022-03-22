@@ -44,7 +44,7 @@ const Sidebar: React.FC = () => {
       s.type = ""
     }) 
     setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
-    setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
+    setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } }) 
   }
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     router.pathname == "/" && refreshPage()
-  }, [configsState.type, configsState.city])
+  }, [configsState.type, configsState.city,configsState.search])
 
 
   function changeCity(str) {
