@@ -14,12 +14,12 @@ export default async function handler(req, res) {
         
       
           let transporter = nodemailer.createTransport({
-            host: "smtp-relay.sendinblue.com",
+            host: process.env.NEXT_PUBLIC_SMTP_SERVER,
             port: 587,
             secure: false, // true for 465, false for other ports
             auth: {
-              user:"faccodanilo@gmail.com", 
-              pass: "r0EZdy5I6UXhA7j4", 
+              user: process.env.NEXT_PUBLIC_SMTP_EMAIL, 
+              pass: process.env.NEXT_PUBLIC_SMTP_PASS, 
             },
           });
         

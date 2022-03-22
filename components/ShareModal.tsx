@@ -17,6 +17,7 @@ const ShareModal: React.FC<Props> = ({ url }: Props) => {
 
     const shareIconsClasses = "flex justify-center  transition-all duration-500 ease-in-out items-center rounded-full border hover:border-2 border-gray-200 h-12 w-12"
     const shareIconsSize = 24
+    const shareText = "Veja essa vaga que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego "
 
     function close() {
         Configs.update(s => {
@@ -67,19 +68,19 @@ const ShareModal: React.FC<Props> = ({ url }: Props) => {
 
                                 <strong className='text-lg'>Compartilhe essa vaga</strong>
                                 <div className='flex gap-5 my-3'>
-                                    <a rel="noreferrer" href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`} target="_blank" className={`text-[#0072b1] hover:border-[#0072b1] ${shareIconsClasses}`}>
+                                    <a rel="noreferrer" href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${shareText}`} target="_blank" className={`text-[#0072b1] hover:border-[#0072b1] ${shareIconsClasses}`}>
                                         <Linkedin size={shareIconsSize} />
                                     </a>
-                                    <a rel="noreferrer" href={`https://api.whatsapp.com/send?text=${url}`} target="_blank" className={`text-[#128C7E] hover:border-[#128C7E] ${shareIconsClasses}`}>
+                                    <a rel="noreferrer" href={`https://api.whatsapp.com/send?text=${shareText} ${url} `} target="_blank" className={`text-[#128C7E] hover:border-[#128C7E] ${shareIconsClasses}`}>
                                         <Whatsapp size={shareIconsSize} />
                                     </a>
-                                    <a rel="noreferrer" href={`https://telegram.me/share/url?url=${url}`} className={`text-[#229ED9] hover:border-[#229ED9] ${shareIconsClasses}`}>
+                                    <a rel="noreferrer" href={`https://telegram.me/share/url?url=${url}&text=${shareText}`} target="_blank" className={`text-[#229ED9] hover:border-[#229ED9] ${shareIconsClasses}`}>
                                         <Telegram size={shareIconsSize} />
                                     </a>
-                                    <a rel="noreferrer" href={`https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=${url}&display=popup`} target="_blank" className={`text-[#4267B2] hover:border-[#4267B2] ${shareIconsClasses}`}>
+                                    <a rel="noreferrer" href={`https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=${url}&display=popup&t=${shareText}`} target="_blank" className={`text-[#4267B2] hover:border-[#4267B2] ${shareIconsClasses}`}>
                                         <Facebook size={shareIconsSize} />
                                     </a>
-                                    <a rel="noreferrer" href={`http://www.twitter.com/share?url=${url}`} target="_blank" className={`text-[#1DA1F2] hover:border-[#1DA1F2] ${shareIconsClasses}`}>
+                                    <a rel="noreferrer" href={`http://www.twitter.com/share?url=${url}&text=${shareText}`} target="_blank" className={`text-[#1DA1F2] hover:border-[#1DA1F2] ${shareIconsClasses}`}>
                                         <Twitter size={shareIconsSize} />
                                     </a>
                                 </div>
