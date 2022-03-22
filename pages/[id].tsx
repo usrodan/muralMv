@@ -13,6 +13,7 @@ import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
 import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline'
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react';
+import ReportModal from '@/components/ReportModal';
 import AdSense from 'react-adsense';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
@@ -22,6 +23,12 @@ const IndexPage = ({ buildTimestamp, mural }) => {
   const AdsHorizontal = "5735692231"
   const AdsQuadrado = "4865463693" 
 
+  function openReport(){
+    Configs.update(s => {
+      s.reportModalIsOpen=true
+    })
+  }
+
   useEffect(() => { 
     Configs.update(s => {
       s.pageType="single"
@@ -29,12 +36,15 @@ const IndexPage = ({ buildTimestamp, mural }) => {
   }, [])
 
   var sizeConfiguration =
-    mural.imgW == mural.imgH ? "sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl" :
-      mural.imgW < mural.imgH ? "max-w-lg" : "sm:max-w-2xl w-full lg:max-w-6xl"
-
+      mural.imgW == mural.imgH ? "sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl" :
+      mural.imgW < mural.imgH ? "max-w-lg" : "sm:max-w-2xl w-full lg:max-w-6xl" 
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
+
+      <ReportModal/> 
+
+
       {imgOpen &&
         <div onClick={() => setImageOpen(null)} className='fixed top-0 left-0 z-20 bg-black bg-opacity-70 flex w-screen h-screen  justify-center items-center'>
 
@@ -140,7 +150,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           </a>
                         </div>
 
-                        <div className="text-red-500  hover:opacity-60 cursor-pointer flex gap-2 font-semibold">
+                        <div onClick={openReport}className="text-red-500  hover:opacity-60 cursor-pointer flex gap-2 font-semibold">
                           <ExclamationOctagon size={20} />
                           <span>DENUNCIAR VAGA</span>
                         </div>

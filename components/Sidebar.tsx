@@ -110,15 +110,13 @@ const Sidebar: React.FC = () => {
 
       </div>
 
-      {configsState.filterIsOpen && <div id="FiltrosMobile" className="flex relative md:hidden   flex-col gap-2 font-semibold ">
-
-
+      { configsState.filterIsOpen && 
+      <div id="FiltrosMobile" className="flex relative md:hidden   flex-col gap-2 font-semibold ">
         <div className='flex z-20 justify-between items-center'>
           <span className="text-blue-500 font-bold text-lg">Cidade</span>
           <span onClick={resetFilter}
             className="text-gray-400 cursor-pointer underline font-bold text-sm">Limpar filtros ativos</span>
         </div>
-
         <Listbox value={cidade} onChange={setCidade}>
           {({ open }) => (
             <>

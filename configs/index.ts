@@ -16,6 +16,8 @@ interface iConfig {
 
   filterIsOpen:boolean;
   searchIsOpen:boolean;
+  reportModalIsOpen:boolean;
+  shareModalIsOpen:boolean;
 
 }
 
@@ -34,6 +36,8 @@ export const Configs = new Store<iConfig>({
   pageType:"home",
   filterIsOpen:false, 
   searchIsOpen:false,
+  reportModalIsOpen:false,
+  shareModalIsOpen:false,
 });
  
 
