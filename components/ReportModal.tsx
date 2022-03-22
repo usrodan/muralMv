@@ -100,11 +100,11 @@ const ReportModal: React.FC = () => {
                                                     value={r}
                                                     onChange={(e)=> setReasonOption(r != reasonOption ? e.target.value : "")}
                                                     type="checkbox"
-                                                    className=" h-4 w-4 text-gray-600 border-gray-300 rounded"
+                                                    className=" h-4 w-4 cursor-pointer text-gray-600 border-gray-300 rounded"
                                                 />
                                             </div>
                                             <div className="ml-3 text-sm">
-                                                <label htmlFor="reason" className="font-medium text-gray-700">
+                                                <label htmlFor="reason" onClick={(e)=> setReasonOption(r != reasonOption ? r : "")} className="font-medium cursor-pointer text-gray-700">
                                                     {r}
                                                 </label>
                                                 <span id="reason-description" className="text-gray-500">
@@ -133,7 +133,6 @@ const ReportModal: React.FC = () => {
                                 <button
                                     type="button"
                                     className="w-full cursor-not-allowed inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-200 text-base font-medium text-white    sm:ml-3 sm:w-auto sm:text-sm"
-                                     
                                 >
                                     <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />
                                     Reportar Vaga
