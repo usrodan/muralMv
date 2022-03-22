@@ -48,7 +48,7 @@ const ReportModal: React.FC<Props> = ({src,alt,width,height}:Props) => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                        <div className="inline-block align-bottom bg-black bg-opacity-75 rounded-lg  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full ">
+                        <div className="inline-block align-bottom bg-white rounded-lg  text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full ">
                             <div className="block absolute top-0 right-0 pt-3 pr-3">
                                 <button
                                     type="button"
@@ -59,8 +59,8 @@ const ReportModal: React.FC<Props> = ({src,alt,width,height}:Props) => {
                                     <XIcon className="h-7 w-7" aria-hidden="true" />
                                 </button>
                             </div>
-                            <div className="sm:flex sm:items-start pt-12 ">
-                            <Image onClick={close} className="cursor-pointer w-full rounded-b-md " alt={alt} width={width} height={height} src={src} />
+                            <div className="sm:flex sm:items-start w-full pt-12 ">
+                            <img onClick={close} className="cursor-pointer w-full rounded-b-md flex" alt={alt} width={width}  height={height} src={src} />
           
                             
                             </div>
