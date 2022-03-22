@@ -46,7 +46,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
       }
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2  border-t-2 border-white">
-          <strong className="text-center w-full py-4">Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.</strong>
+          <strong className="text-center hidden md:flex w-full py-4">Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.</strong>
 
           <section className="grid md:grid-cols-12 gap-8 ">
             <div className="col-span-12 md:col-span-3">
@@ -56,7 +56,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
               {mural ?
                 <section className='flex flex-col bg-white rounded-lg border border-gray-300'>
                   <div className='flex flex-col p-5'>
-                    <strong className="text-blue-500 uppercase text-3xl ">{mural.cargo}</strong>
+                    <strong className="text-blue-500 uppercase text-xl md:text-3xl ">{mural.cargo}</strong>
                     <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
                     <span className="text-base uppercase font-semibold">{mural.tipo}</span>
                   </div>
