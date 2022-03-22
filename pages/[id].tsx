@@ -10,9 +10,8 @@ import { InfoCircle } from "@styled-icons/boxicons-regular/InfoCircle"
 import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
-import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline'
 import { format } from 'date-fns'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import AdSense from 'react-adsense';
 import ReportModal from '@/components/ReportModal';
 import ImagemModal from '@/components/ImagemModal';
@@ -21,7 +20,6 @@ import slugify from '@/utils/slugify';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
   const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z'), "dd/MM/yyy")
-  const [imgOpen, setImageOpen] = useState(null)
   const AdsCaPub = "ca-pub-6873518969054710"
   const AdsHorizontal = "5735692231"
   const AdsQuadrado = "4865463693" 
@@ -51,12 +49,9 @@ const IndexPage = ({ buildTimestamp, mural }) => {
     })
   }, [])
 
-  var sizeConfiguration =
-      mural.imgW == mural.imgH ? "sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl" :
-      mural.imgW < mural.imgH ? "max-w-lg" : "sm:max-w-2xl w-full lg:max-w-6xl" 
   return (
     <>
-      <SEO siteName="Mais Vagas ES" title="Mural" description="" />
+      <SEO siteName="Mural - MaisVagasES" title={mural.cargo} description={`Veja essa vaga de ${mural.cargo} que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego`} />
 
       <ReportModal id={mural.id} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} cargo={mural.cargo}/>
       <ShareModal url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`}/> 
