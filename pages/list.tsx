@@ -69,7 +69,7 @@ export default function Index() {
       {dias && dias.map(a => (
         <section key={a}>
           <span className="text-xl  mt-20 font-bold text-blue-500 mb-0" >{a}</span>
-          {items && items.map(i => (a == i.date && <div key={i.id}>{i.cargo} - {i.tipo}<br />  http://mural.maisvagases.com.br/{i.id}-{slugify(i.cargo)}<br /><br /></div>))}
+          {items && items.map(i => (a == i.date && <div key={i.id}>Cargo: {i.cargo}<br />Tipo: {i.tipo}<br />Link: http://mural.maisvagases.com.br/{i.id}-{slugify(i.cargo)}<br /><br /></div>))}
         </section>)
       )}
 
