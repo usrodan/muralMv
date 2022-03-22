@@ -39,6 +39,7 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
         }).catch(e=>{
             setLoading(false)
             toast.error("Ocorreu algum erro ao enviar sua denúncia")
+            toast.error(e)
         })
     }
 
