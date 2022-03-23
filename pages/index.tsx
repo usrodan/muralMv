@@ -71,7 +71,7 @@ const IndexPage = ({ buildTimestamp }) => {
               imagem{data{attributes{
                 url
               }}}
-              tipo{data{attributes{tipo}}}
+              tipo{data{attributes{tipo,cor}}}
             }
           }
         }
@@ -157,7 +157,7 @@ const IndexPage = ({ buildTimestamp }) => {
                   > {mural.map((item, index) => {
                     return (<>
                       {item.attributes.imagem && item.attributes.cargo && item.attributes.cidade && item.attributes.cidade.data && item.attributes.tipo && item.attributes.tipo.data && item.attributes.createdAt &&
-                        <CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />
+                        <CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} color={item.attributes.tipo.data.attributes.cor} type={item.attributes.tipo.data.attributes.tipo} />
                       }
 
                       {index == 2 && <div className='md:col-span-3'>

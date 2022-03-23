@@ -9,12 +9,13 @@ interface CardJobProps {
   date: string;
   type: string;
   id: string;
+  color?: string;
 
 }
 
-const CardJob: React.FC<CardJobProps> = ({ image, title, city, date, type, id }) => {
+const CardJob: React.FC<CardJobProps> = ({ image, title, city, date, type, color = "blue", id }) => {
   const znDate = zonedTimeToUtc(date || '2022-03-03T10:00:38.765Z', 'America/Sao_Paulo');
-  const formatedData = format(znDate, "dd/MM/yyy") 
+  const formatedData = format(znDate, "dd/MM/yyy")
 
   function string_to_slug(str, separator) {
     str = str.trim();
@@ -45,8 +46,9 @@ const CardJob: React.FC<CardJobProps> = ({ image, title, city, date, type, id })
         <span className="text-primary uppercase">{title}</span>
         <div className="flex uppercase justify-between w-full">
           <span>{city}<br />
-            <span className="text-xs text-gray-500">{formatedData}</span></span>
-          <span >{type}</span>
+            <span className="text-xs text-gray-500">{formatedData}</span>
+          </span>
+          <div><span className={`inline-flex   uppercase items-center px-2 py-1 rounded-full font-medium bg-${color}-100 text-${color}-800`}>{type}</span></div>
         </div>
       </div>
     </a>

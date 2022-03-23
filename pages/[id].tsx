@@ -78,10 +78,11 @@ const IndexPage = ({ buildTimestamp, mural }) => {
             <div className="col-span-12 md:col-span-9 ">
               {mural ?
                 <section className='flex flex-col bg-white rounded-lg border border-gray-300'>
-                  <div className='flex flex-col p-5'>
+                  <div className='flex flex-col p-5 gap-2'>
                     <strong className="text-blue-500 uppercase text-xl md:text-3xl ">{mural.cargo}</strong>
                     <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
-                    <span className="text-base uppercase font-semibold">{mural.tipo}</span>
+                  
+                    <div><span className={`inline-flex text-sm uppercase items-center px-3 py-1 rounded-full font-medium bg-${mural.cor}-100 text-${mural.cor}-800`}>{mural.tipo}</span></div>
                      {//IMG QUADRADA OU HORIZONTAL
                         mural.imgW <= mural.imgH &&
                         <>
@@ -118,13 +119,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                     </div>
 
                     <div className="flex flex-col justify-between  ">
-                      <section className="flex flex-col gap-3">
-
-
-                        <div onClick={openShare} className="flex transition-all duration-500 ease-in-out  cursor-pointer gap-2 border p-2 border-gray-800 hover:border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg text-center justify-center w-full">
-                          <ShareIos size={24} />
-                          <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
-                        </div>
+                      <section className="flex flex-col gap-3">  
 
                         <div className='text-center'>
                         <ins className="adsbygoogle"
@@ -142,6 +137,12 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                       </section>
 
                       <section className="flex flex-col gap-5">
+
+                      <div onClick={openShare} className="flex transition-all duration-500 ease-in-out  cursor-pointer gap-2 border p-2 border-gray-800 hover:border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg text-center justify-center w-full">
+                          <ShareIos size={24} />
+                          <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
+                        </div>
+
                         <div className="w-full flex items-center">
                           <div className="flex flex-1 mr-2 h-0.5 border-t border-dashed border-gray-800" />
                           <span style={{ fontFamily: 'Pacifico' }} className="text-center text-2xl ">quer mais vagas?</span>
@@ -213,7 +214,7 @@ export async function getServerSideProps({ params }) {
               height
               width
             }}}
-            tipo{data{attributes{tipo}}}
+            tipo{data{attributes{tipo,cor}}}
           }
         }
       }
@@ -228,6 +229,7 @@ export async function getServerSideProps({ params }) {
         cargo: data.mural.data.attributes.cargo,
         cidade: data.mural.data.attributes.cidade.data.attributes.cidade,
         tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
+        cor: data.mural.data.attributes.tipo.data.attributes.cor,
         imgH: Number(data.mural.data.attributes.imagem.data.attributes.height),
         imgW: Number(data.mural.data.attributes.imagem.data.attributes.width),
         id: data.mural.data.id
