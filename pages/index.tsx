@@ -176,7 +176,7 @@ const IndexPage = ({ buildTimestamp }) => {
 
                       {index == 6 || index == 13 || index == 20 || index == 25 || index == 32 || index == 40 && <div className=''>
                         <ins className="adsbygoogle"
-                          style={{ display: "block" }}
+                          style={{ display: "block" ,width:"340px", height:"430px"}}
                           data-ad-client="ca-pub-6873518969054710"
                           data-ad-slot="5850319795"
                           data-ad-format="auto"
