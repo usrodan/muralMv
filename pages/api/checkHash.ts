@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       console.log("----HASH-----")
       console.log(data)
 
-      if(!response.data.murals.data.length ){
+      if(response.data.murals.data.length == 0 ){
         return res.status(200).send(data);  
       }
       return res.status(200).json({ error: "Já existe essa imagem em nosso banco de dados"  });
