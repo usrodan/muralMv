@@ -170,13 +170,15 @@ const IndexPage = ({ buildTimestamp }) => {
                         <Script id="HOME-AFTER-3-MURALS" >
                           {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                         </Script>
-                      </div>} 
+                      </div>}
+
+                      
 
                       {index == 6 || index == 13 || index == 20 || index == 25 || index == 32 || index == 40 && <div className=''>
                         <ins className="adsbygoogle"
                           style={{ display: "block" }}
                           data-ad-client="ca-pub-6873518969054710"
-                          data-ad-slot="9981136491"
+                          data-ad-slot="5850319795"
                           data-ad-format="auto"
                           data-full-width-responsive="true"></ins>
                         <Script id={`MURAL-CARDJOBS-${index}`} >
