@@ -20,7 +20,7 @@ import { Info } from "@styled-icons/bootstrap/Info"
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
   const [hash, setHash] = useState(null)
-  const [cargo, setCargo] = useState(null) 
+  const [cargo, setCargo] = useState(null)
   const [descricao, setDescricao] = useState("")
   const [searchCity, setSearchCity] = useState("")
   const [cidade, setCidade] = useState({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
@@ -32,7 +32,7 @@ const EnviarPage = () => {
 
   const [open, setOpen] = useState(false)
 
- 
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -207,7 +207,7 @@ const EnviarPage = () => {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-md text-gray-500">
-                      <span>Este espaço é exclusivo para o envio de <strong className='text-gray-800 font-bold'>vagas de emprego!</strong> Currículos, divulgação de serviços, fotos, e demais coisas que não sejam vagas de emprego, serão removidos sem aviso prévio. Colabore com a comunidade, publique somente empregos 💙</span>
+                        <span>Este espaço é exclusivo para o envio de <strong className='text-gray-800 font-bold'>vagas de emprego!</strong> Currículos, divulgação de serviços, fotos, e demais coisas que não sejam vagas de emprego, serão removidos sem aviso prévio. Colabore com a comunidade, publique somente empregos 💙</span>
                       </p>
                     </div>
                   </div>
@@ -240,8 +240,8 @@ const EnviarPage = () => {
           <section className="grid md:grid-cols-12 py-8 gap-8 ">
             <div className="md:col-span-4">
               <span className="text-blue-500 font-bold text-lg ">CARGO</span>
-              <div className='mt-3 p-2 px-4 bg-white text-gray-800 rounded-lg border border-gray-300   focus:ring-1 focus:ring-blue-500 focus:border-blue-500 '>
-                <input value={cargo} onChange={event => setCargo(event.target.value)} className="text-gray-800 " type="text" placeholder="Ex: Auxiliar Administrativo" name="" id="" />
+              <div className='rounded-lg  mt-3 border border-gray-300'>
+                <input value={cargo} onChange={event => setCargo(event.target.value)} className=" p-2 px-4 bg-white   rounded-lg border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" placeholder="Ex: Auxiliar Administrativo" name="" id="" />
               </div>
             </div>
 
@@ -253,7 +253,7 @@ const EnviarPage = () => {
                   <>
                     <div className="flex relative">
                       <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-lg shadow-sm  mt-3 p-2 px-4   text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ">
-                        <span className="block truncate">{cidade.attributes.cidade.replace("1. ","").replace("2. ", "")}</span>
+                        <span className="block truncate">{cidade.attributes.cidade.replace("1. ", "").replace("2. ", "")}</span>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                           <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>
@@ -292,7 +292,7 @@ const EnviarPage = () => {
                                 {({ selected, active }) => (
                                   <>
                                     <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                      {person.attributes.cidade.replace("1. ","").replace("2. ", "")}
+                                      {person.attributes.cidade.replace("1. ", "").replace("2. ", "")}
                                     </span>
                                     {selected ? (
                                       <span
@@ -418,8 +418,8 @@ const EnviarPage = () => {
 
             <div className="md:col-span-6 flex flex-col justify-top">
               <span className="text-blue-500 font-bold text-lg ">DESCRIÇÃO </span>
-              <textarea rows={14} value={descricao} onChange={(e)=> setDescricao(e.target.value)}placeholder={"Use este espaço para inserir informações adicionais da vaga, ou caso tenha mais de uma vaga em uma mesma imagem, insira aqui informações que possam ser pertinentes de cada vaga. \n\n Caso não tenha mais informações, deixe em branco"}
-              className='flex mt-3 p-4  text-md overflow-auto  bg-white text-gray-800 rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500'  />
+              <textarea rows={14} value={descricao} onChange={(e) => setDescricao(e.target.value)} placeholder={"Use este espaço para inserir informações adicionais da vaga, ou caso tenha mais de uma vaga em uma mesma imagem, insira aqui informações que possam ser pertinentes de cada vaga. \n\n Caso não tenha mais informações, deixe em branco"}
+                className='flex mt-3 p-4  text-md overflow-auto  bg-white text-gray-800 rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500' />
             </div>
 
 
