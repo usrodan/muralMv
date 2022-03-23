@@ -8,11 +8,14 @@ import Dropzone from 'react-dropzone-uploader'
 import { Fragment, useEffect, useState } from 'react';
 import axios from 'axios'
 import { Configs } from '@/configs'
-import { Listbox, Transition } from '@headlessui/react'
+import { Listbox, Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { toast } from 'react-toastify';
 import { removeAcento } from "@/utils/removeAcento"
 import { SpinnerCircularFixed } from "spinners-react";
+import { Info } from "@styled-icons/bootstrap/Info"
+
+
 
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
@@ -26,6 +29,9 @@ const EnviarPage = () => {
   const [uploading, setUploading] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const [open, setOpen] = useState(true)
+
+  const textoAviso = "Este espaço é exclusivo para o envio de vagas de emprego! Currículos, divulgação de serviços, fotos, e demais coisas que não sejam vagas de emprego, serão removidos sem aviso prévio. Colabore com a comunidade, publique somente empregos 💙"
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -43,13 +49,13 @@ const EnviarPage = () => {
   function checkHash(img) {
     axios.post("/api/checkHash", { img: image }).then(res => {
       if (res.data.error) {
-        
+
         toast.error("Erro: Essa imagem já foi associada a outra vaga. Tente enviar outra imagem", {
           position: toast.POSITION.BOTTOM_CENTER
         })
         setImage(null)
         setHash(null)
-      
+
       }
       else {
         setHash(res.data)
@@ -65,6 +71,7 @@ const EnviarPage = () => {
 
   function EnviarVaga() {
     setLoading(true)
+    setOpen(false)
     !cargo && toast.error("Erro: Peencha o nome do cargo!", {
       position: toast.POSITION.BOTTOM_CENTER
     })
@@ -158,6 +165,74 @@ const EnviarPage = () => {
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Enviar Vaga" description="" />
+
+      <Transition.Root show={open} as={Fragment}>
+        <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
+          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </Transition.Child>
+
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+              &#8203;
+            </span>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            >
+              <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div>
+                  <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100">
+                    <Info className="h-6 w-6 text-blue-600" aria-hidden="true" />
+                  </div>
+                  <div className="mt-3 text-center sm:mt-5">
+                    <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
+                      Aviso
+                    </Dialog.Title>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">
+                       {textoAviso}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
+                  <button
+                    type="button"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 sm:col-start-2 sm:text-sm"
+                    onClick={EnviarVaga} 
+                  >
+                    Enviar Vaga
+                  </button>
+                  <button
+                    type="button"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:col-start-1 sm:text-sm"
+                    onClick={() => setOpen(false)}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
+
+
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-4  border-t-2 border-white">
           <section className="grid md:grid-cols-12 py-8 gap-8 ">
@@ -334,7 +409,7 @@ const EnviarPage = () => {
             </div>
             <span className="md:col-span-12 text-sm">Arquivos aceitos: .JPG; .JPEG; .PNG e .BMP de até 5MB  </span>
             {!loading ?
-              <div onClick={EnviarVaga}
+              <div onClick={()=>setOpen(true)}
                 className="md:col-span-12 flex items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-opacity-60" >
                 <SendPlane size={20} />
                 Enviar vaga
