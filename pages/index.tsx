@@ -118,6 +118,17 @@ const IndexPage = ({ buildTimestamp }) => {
                   {ConfigsStore.city && <button onClick={() => Configs.update(s => { s.city = "" })} className='flex gap-2 justify-between items-center bg-gray-200 rounded-lg p-1 px-2'>{ConfigsStore.city} <CloseOutline size={16} /></button>}
                 </div>
               }
+              <div className="flex md:hidden">
+                <ins className="adsbygoogle"
+                  style={{ display: "block", width: "340px", height: "430px" }}
+                  data-ad-client="ca-pub-6873518969054710"
+                  data-ad-slot="5850319795"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+                <Script id={`MURAL-CARDJOBS-`} >
+                  {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
+                </Script>
+              </div>
               {loading && start == 0 ?
                 <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (
@@ -172,11 +183,11 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      
+
 
                       {index == 6 || index == 13 || index == 20 || index == 25 || index == 32 || index == 40 && <div className=''>
                         <ins className="adsbygoogle"
-                          style={{ display: "block" ,width:"340px", height:"430px"}}
+                          style={{ display: "block", width: "340px", height: "430px" }}
                           data-ad-client="ca-pub-6873518969054710"
                           data-ad-slot="5850319795"
                           data-ad-format="auto"
