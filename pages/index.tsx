@@ -170,9 +170,7 @@ const IndexPage = ({ buildTimestamp }) => {
                         <Script id="HOME-AFTER-3-MURALS" >
                           {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                         </Script>
-                      </div>}
-
-                      5850319795
+                      </div>} 
 
                       {index == 6 || index == 13 || index == 20 || index == 25 || index == 32 || index == 40 && <div className=''>
                         <ins className="adsbygoogle"
