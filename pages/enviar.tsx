@@ -10,8 +10,9 @@ import axios from 'axios'
 import { Configs } from '@/configs'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import { toast } from 'react-toastify'; 
-import {removeAcento} from "@/utils/removeAcento"
+import { toast } from 'react-toastify';
+import { removeAcento } from "@/utils/removeAcento"
+import { SpinnerCircularFixed } from "spinners-react";
 
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
@@ -22,18 +23,20 @@ const EnviarPage = () => {
   const [cidades, setCidades] = useState([])
   const [tipos, setTipos] = useState([])
   const [uploading, setUploading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     Configs.update(s => {
-      s.pageType="send"
+      s.pageType = "send"
     })
   }, [])
 
   function EnviarVaga() {
+    setLoading(true)
     !cargo && toast.error("Erro: Peencha o nome do cargo!", {
       position: toast.POSITION.BOTTOM_CENTER
     })
@@ -47,7 +50,7 @@ const EnviarPage = () => {
       position: toast.POSITION.BOTTOM_CENTER
     })
 
-    if (cargo && image && tipo) {
+    if (cargo && image && tipo && cidade) {
       var axios = require('axios');
       var data = JSON.stringify({
         data: {
@@ -76,38 +79,39 @@ const EnviarPage = () => {
           setCargo("")
           setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
           setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
+          setLoading(false)
         })
         .catch(function (error) {
           toast.error("Erro ao enviar a vaga tente novamente!", {
             position: toast.POSITION.BOTTOM_CENTER
           });
+          setLoading(false)
         });
+    }
+    else{
+      setLoading(false)
     }
   }
 
   async function getData() {
-
-    axios.get("/api/meta").then(result => { 
+    axios.get("/api/meta").then(result => {
       setTipos(result && result.data.tipos && result.data.tipos.data)
       setCidades(result && result.data.cidades && result.data.cidades.data)
-    })  
+    })
   }
 
   useEffect(() => {
     getData()
   }, [])
 
-
-
   useEffect(() => {
     setSearchCity("")
-  }, [cidade]) 
-
+  }, [cidade])
 
   const getUploadParams = () => {
     return { url: '/api/up' }
   }
- 
+
   const handleChangeStatus = ({ meta, file, xhr }, status) => {
     setUploading(true)
     if (status === 'done') {
@@ -154,49 +158,48 @@ const EnviarPage = () => {
                       >
 
                         <Listbox.Options className="absolute z-10 mt-2 w-full p-2 bg-white shadow-lg rounded-xl   ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-
                           <div className='flex p-2 rounded-lg w-full  border text-gray-800 border-gray-300'>
-                            <input value={searchCity} onChange={(e)=> setSearchCity(e.target.value)} className='text-gray-800'/>
-                            <SearchAlt className="text-gray-300" size="24"/>
+                            <input value={searchCity} onChange={(e) => setSearchCity(e.target.value)} className='text-gray-800' />
+                            <SearchAlt className="text-gray-300" size="24" />
 
-                            </div>
-                          <div className='overflow-auto mt-2 max-h-60'>
-                          {cidades.map((person) => {
-                            var exibir = true
-                            if(searchCity && !removeAcento(person.attributes.cidade.toLowerCase()).includes(removeAcento(searchCity.toLowerCase()))){ 
-                                exibir = false 
-                            } 
-                            return(exibir && <Listbox.Option
-                              key={person.slug}
-                              className={({ active }) =>
-                                classNames(
-                                  active ? 'text-white bg-blue-600 ' : 'text-gray-900',
-                                  'cursor-default select-none rounded-md relative py-2 pl-3 pr-9 '
-                                )
-                              }
-                              value={person}
-                            >
-                              {({ selected, active }) => (
-                                <>
-                                  <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                    {person.attributes.cidade}
-                                  </span>
-                                  {selected ? (
-                                    <span
-                                      className={classNames(
-                                        active ? 'text-white' : 'text-blue-600',
-                                        'absolute inset-y-0 right-0 flex items-center pr-4'
-                                      )}
-                                    >
-                                      <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                    </span>
-                                  ) : null}
-                                </>
-                              )}
-                            </Listbox.Option>)
-                          })}
                           </div>
-                         
+                          <div className='overflow-auto mt-2 max-h-60'>
+                            {cidades.map((person) => {
+                              var exibir = true
+                              if (searchCity && !removeAcento(person.attributes.cidade.toLowerCase()).includes(removeAcento(searchCity.toLowerCase()))) {
+                                exibir = false
+                              }
+                              return (exibir && <Listbox.Option
+                                key={person.slug}
+                                className={({ active }) =>
+                                  classNames(
+                                    active ? 'text-white bg-blue-600 ' : 'text-gray-900',
+                                    'cursor-default select-none rounded-md relative py-2 pl-3 pr-9 '
+                                  )
+                                }
+                                value={person}
+                              >
+                                {({ selected, active }) => (
+                                  <>
+                                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                      {person.attributes.cidade}
+                                    </span>
+                                    {selected ? (
+                                      <span
+                                        className={classNames(
+                                          active ? 'text-white' : 'text-blue-600',
+                                          'absolute inset-y-0 right-0 flex items-center pr-4'
+                                        )}
+                                      >
+                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                      </span>
+                                    ) : null}
+                                  </>
+                                )}
+                              </Listbox.Option>)
+                            })}
+                          </div>
+
                         </Listbox.Options>
                       </Transition>
                     </div>
@@ -297,8 +300,18 @@ const EnviarPage = () => {
               }
             </div>
             <span className="md:col-span-12 text-sm">Arquivos aceitos: .JPG; .JPEG; .PNG e .BMP de até 5MB  </span>
-            <div onClick={EnviarVaga} className="md:col-span-12 flex items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-opacity-60" ><SendPlane size={20} />Enviar vaga</div>
-          </section>
+            {!loading ?
+              <div onClick={EnviarVaga}
+                className="md:col-span-12 flex items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-opacity-60" >
+                <SendPlane size={20} />
+                Enviar vaga
+              </div>
+              :
+              <div  className="md:col-span-12 bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-opacity-60" >
+                <SpinnerCircularFixed   size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />  
+                Enviando vaga
+              </div>
+            }</section>
         </div>
       </main >
     </>);
