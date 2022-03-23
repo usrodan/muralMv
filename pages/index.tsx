@@ -10,6 +10,7 @@ import { gql } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { SpinnerCircularFixed } from "spinners-react";
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline"
+import Script from 'next/script';
 
 
 const IndexPage = ({ buildTimestamp }) => {
@@ -153,10 +154,24 @@ const IndexPage = ({ buildTimestamp }) => {
                       </div>
 
                     }
-                  > {mural.map(item => {
-                    return (
-                      item.attributes.imagem &&  item.attributes.cargo && item.attributes.cidade && item.attributes.cidade.data && item.attributes.tipo && item.attributes.tipo.data && item.attributes.createdAt &&
-                      <CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
+                  > {mural.map((item, index) => {
+                    return (<>
+                      {item.attributes.imagem && item.attributes.cargo && item.attributes.cidade && item.attributes.cidade.data && item.attributes.tipo && item.attributes.tipo.data && item.attributes.createdAt &&
+                        <CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />
+                      }
+
+                      {index == 2 && <div className='col-span-3'>
+                        <ins className="adsbygoogle"
+                          style={{ display: "block" }}
+                          data-ad-client="ca-pub-6873518969054710"
+                          data-ad-slot="9981136491"
+                          data-ad-format="auto"
+                          data-full-width-responsive="true"></ins>
+                        <Script id="adsHomeAfter3Jobs" >
+                          {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
+                        </Script>
+                      </div>}
+                    </>)
                   })}
                   </InfiniteScroll>
                   :

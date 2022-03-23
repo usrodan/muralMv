@@ -18,6 +18,7 @@ import ReportModal from '@/components/ReportModal';
 import ImagemModal from '@/components/ImagemModal';
 import ShareModal from '@/components/ShareModal';
 import slugify from '@/utils/slugify';
+import Script from 'next/script';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
 
@@ -124,11 +125,15 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                         </div>
 
                         <div className='text-center'>
-                          <AdSense.Google
-                            client={AdsCaPub}
-                            slot={AdsQuadrado}
-                            format=''
-                          />
+                        <ins className="adsbygoogle"
+                          style={{ display: "block" }}
+                          data-ad-client="ca-pub-6873518969054710"
+                          data-ad-slot="4599999065"
+                          data-ad-format="auto"
+                          data-full-width-responsive="true"></ins>
+                        <Script id="adsHomeAfter3Jobs" >
+                          {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
+                        </Script>
                           </div>
 
 
