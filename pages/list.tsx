@@ -1,4 +1,6 @@
 import slugify from "@/utils/slugify"
+import { format } from 'date-fns'
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 import React, { useEffect, useState } from 'react';
 import client from '@/utils/apollo'
@@ -44,8 +46,9 @@ export default function Index() {
    
 
     data.murals.data.forEach(mural => {
-      let d = mural.attributes.createdAt.split("-")
-      let formatedData = `${d[2].split("T")[0]}-${d[1]}-${d[0]}`
+      let znDate = zonedTimeToUtc(mural.attributes.createdAt, 'America/Sao_Paulo');
+      let formatedData = format(znDate, "dd/MM/yyy")
+ 
       
       posts.push({ cargo: mural.attributes.cargo, tipo: mural.attributes.tipo.data.attributes.tipo, id: mural.id, date: formatedData })
       console.log(formatedData)

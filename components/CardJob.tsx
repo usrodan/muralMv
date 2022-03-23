@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import Image from "next/image"
 import { format } from 'date-fns'
+import { zonedTimeToUtc } from 'date-fns-tz';
 interface CardJobProps {
   image: string;
   title: string;
@@ -12,7 +13,8 @@ interface CardJobProps {
 }
 
 const CardJob: React.FC<CardJobProps> = ({ image, title, city, date, type, id }) => {
-  const formatedData = format(new Date(date || '2022-03-03T10:00:38.765Z'), "dd/MM/yyy")
+  const znDate = zonedTimeToUtc(date || '2022-03-03T10:00:38.765Z', 'America/Sao_Paulo');
+  const formatedData = format(znDate, "dd/MM/yyy") 
 
   function string_to_slug(str, separator) {
     str = str.trim();

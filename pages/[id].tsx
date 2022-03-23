@@ -11,6 +11,7 @@ import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
 import { format } from 'date-fns'
+import { zonedTimeToUtc } from 'date-fns-tz';
 import { useEffect } from 'react';
 import AdSense from 'react-adsense';
 import ReportModal from '@/components/ReportModal';
@@ -19,7 +20,10 @@ import ShareModal from '@/components/ShareModal';
 import slugify from '@/utils/slugify';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
-  const formatedData = format(new Date(mural.data || '2022-03-03T10:00:38.765Z'), "dd/MM/yyy")
+
+  const znDate = zonedTimeToUtc(mural.data || '2022-03-03T10:00:38.765Z', 'America/Sao_Paulo');
+  const formatedData = format(znDate, "dd/MM/yyy")  
+
   const AdsCaPub = "ca-pub-6873518969054710"
   const AdsHorizontal = "5735692231"
   const AdsQuadrado = "4865463693" 
