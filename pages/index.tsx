@@ -120,7 +120,7 @@ const IndexPage = ({ buildTimestamp }) => {
               }
               <div className="flex md:hidden p-2 mb-4">
                 <ins className="adsbygoogle"
-                  style={{ display: "block", width: "340px", height: "50px" }}
+                  style={{ display: "block"}}
                   data-ad-client="ca-pub-6873518969054710"
                   data-ad-slot="4261867962"
                   data-ad-format="auto"
