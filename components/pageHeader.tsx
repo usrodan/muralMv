@@ -49,7 +49,7 @@ export default function PageHeader() {
           <Search size={16} />
           <input placeholder="Pesquise uma vaga" value={search} onChange={(e)=> setSearch(e.target.value)} className="w-full text-gray-400 bg-gray-100" />
         </div>
-        <a href="/enviar" className="flex  transition-all duration-500 ease-in-out	 hover:bg-gray-800 justify-center items-center  gap-2 text-white rounded-md bg-blue-500 w-full md:w-72 text-center p-2"><UploadCloud size={20} /><span>Enviar uma vaga</span></a>
+        <a href="/enviar" className="flex  transition-all duration-500 ease-in-out	 hover:bg-blue-600 justify-center items-center  gap-2 text-white rounded-md bg-blue-500 w-full md:w-72 text-center p-2"><UploadCloud size={20} /><span>Enviar uma vaga</span></a>
       </section>
 
       <section className="flex  md:hidden gap-4 w-full max-w-7xl p-4 items-center justify-between">
@@ -67,7 +67,7 @@ export default function PageHeader() {
           </div>
         </div>
         } 
-        <a href="/enviar" className="flex text-xl  transition-all duration-500 ease-in-out	 hover:bg-gray-800 justify-center items-center  gap-2 text-white  bg-blue-500 w-full md:w-72 text-center p-3">
+        <a href="/enviar" className="flex text-xl  transition-all duration-500 ease-in-out	 hover:bg-blue-600 justify-center items-center  gap-2 text-white  bg-blue-500 w-full md:w-72 text-center p-3">
           <UploadCloud size={30} />
           <span>Enviar uma vaga</span>
         </a>
