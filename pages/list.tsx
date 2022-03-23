@@ -54,11 +54,7 @@ export default function Index() {
       }
 
     })
-
-    console.log(resultdias)
     setDias(resultdias)
-
-    console.log(posts)
     setItems(posts)
   }
 

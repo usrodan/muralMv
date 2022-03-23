@@ -65,6 +65,7 @@
         "styled-components": "^5.3.1",
         "styled-icons": "^10.40.0",
         "tailwindcss-filters": "^3.0.0",
+        "use-clipboard-copy": "^0.2.0",
         "yarn": "^1.22.11",
         "yup": "^0.32.9"
     },
