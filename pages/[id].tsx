@@ -85,34 +85,35 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                   </div>
                   <div className="w-full grid sm:grid-cols-2 p-5 pt-0 gap-5 ">
                     <div className="flex flex-col">
-                      {//IMG QUADRADA
-                        mural.imgW == mural.imgH &&
-                        <AdSense.Google
-                          client={AdsCaPub}
-                          slot={AdsHorizontal}
-                          format=''
-                        />}
-
-                      {//IMG VERTICAL
-                        mural.imgW < mural.imgH &&
-
-                        <AdSense.Google
-                          client={AdsCaPub}
-                          slot={AdsHorizontal}
-                          format=''
-                        />
-                      } 
+                      {//IMG QUADRADA OU HORIZONTAL
+                        mural.imgW <= mural.imgH &&
+                        <>
+                        <ins className="adsbygoogle"
+                          style={{ display: "block" }}
+                          data-ad-client="ca-pub-6873518969054710"
+                          data-ad-slot="4050152967"
+                          data-ad-format="auto"
+                          data-full-width-responsive="true"></ins>
+                        <Script id="VAGA-MURAL-SUPERIOR" >
+                          {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
+                        </Script>
+                        </>}
+                      
                       <Image className="rounded-lg cursor-pointer" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
 
-                      {//IMG HORIZONTAL
+                      {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
-
-                        <AdSense.Google
-                          client={AdsCaPub}
-                          slot={AdsHorizontal}
-                          format=''
-                        />
-                      }
+                        <>
+                        <ins className="adsbygoogle"
+                          style={{ display: "block" }}
+                          data-ad-client="ca-pub-6873518969054710"
+                          data-ad-slot="8180931675"
+                          data-ad-format="auto"
+                          data-full-width-responsive="true"></ins>
+                        <Script id="VAGA-MURAL-INFERIOR" >
+                          {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
+                        </Script>
+                        </>}
                     </div>
 
                     <div className="flex flex-col justify-between  ">
@@ -131,7 +132,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           data-ad-slot="4599999065"
                           data-ad-format="auto"
                           data-full-width-responsive="true"></ins>
-                        <Script id="adsHomeAfter3Jobs" >
+                        <Script id="VAGA-MURAL-LATERAL " >
                           {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                         </Script>
                           </div>
