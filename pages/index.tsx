@@ -122,10 +122,10 @@ const IndexPage = ({ buildTimestamp }) => {
                 <ins className="adsbygoogle"
                   style={{ display: "block", width: "340px", height: "50px" }}
                   data-ad-client="ca-pub-6873518969054710"
-                  data-ad-slot="5850319795"
+                  data-ad-slot="4261867962"
                   data-ad-format="auto"
                   data-full-width-responsive="true"></ins>
-                <Script id={`MURAL-CARDJOBS-`} >
+                <Script id={`MURAL-BLOCO-HOME-MOB`} >
                   {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                 </Script>
               </div>
