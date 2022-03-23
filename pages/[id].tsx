@@ -82,10 +82,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                     <strong className="text-blue-500 uppercase text-xl md:text-3xl ">{mural.cargo}</strong>
                     <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
                     <span className="text-base uppercase font-semibold">{mural.tipo}</span>
-                  </div>
-                  <div className="w-full grid sm:grid-cols-2 p-5 pt-0 gap-5 ">
-                    <div className="flex flex-col">
-                      {//IMG QUADRADA OU HORIZONTAL
+                     {//IMG QUADRADA OU HORIZONTAL
                         mural.imgW <= mural.imgH &&
                         <>
                         <ins className="adsbygoogle"
@@ -98,6 +95,10 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                         </Script>
                         </>}
+                  </div>
+                  <div className="w-full grid sm:grid-cols-2 p-5 pt-0 gap-5 ">
+                    <div className="flex flex-col">
+                     
                       
                       <Image className="rounded-lg cursor-pointer" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
 
