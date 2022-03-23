@@ -95,7 +95,7 @@ export default function Index() {
 
       var config = {
         method: 'post',
-        url: 'https://maisvagases.herokuapp.com/api/cidades',
+        url: `${process.env.NEXT_PUBLIC_STRAPI}/api/cidades`,
         headers: {
           'Content-Type': 'application/json'
         },

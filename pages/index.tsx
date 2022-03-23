@@ -155,7 +155,7 @@ const IndexPage = ({ buildTimestamp }) => {
                     }
                   > {mural.map(item => {
                     return (
-                      item.attributes.imagem &&  item.attributes.cargo && item.attributes.cidade && item.attributes.tipo && item.attributes.createdAt &&
+                      item.attributes.imagem &&  item.attributes.cargo && item.attributes.cidade && item.attributes.cidade.data && item.attributes.tipo && item.attributes.tipo.data && item.attributes.createdAt &&
                       <CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} type={item.attributes.tipo.data.attributes.tipo} />)
                   })}
                   </InfiniteScroll>

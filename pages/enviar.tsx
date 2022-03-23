@@ -16,6 +16,7 @@ import { SpinnerCircularFixed } from "spinners-react";
 
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
+  const [hash, setHash] = useState(null)
   const [cargo, setCargo] = useState(null)
   const [searchCity, setSearchCity] = useState("")
   const [cidade, setCidade] = useState({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
@@ -35,6 +36,33 @@ const EnviarPage = () => {
     })
   }, [])
 
+  useEffect(() => {
+    image && checkHash(image)
+  }, [image])
+
+  function checkHash(img) {
+    axios.post("/api/checkHash", { img: image }).then(res => {
+      if (res.data.error) {
+        
+        toast.error("Erro: Essa imagem já foi associada a outra vaga. Tente enviar outra imagem", {
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+        setImage(null)
+        setHash(null)
+      
+      }
+      else {
+        setHash(res.data)
+      }
+    }).catch(e => {
+      toast.error(e, {
+        position: toast.POSITION.BOTTOM_CENTER
+      })
+      setImage(null)
+      setHash(null)
+    })
+  }
+
   function EnviarVaga() {
     setLoading(true)
     !cargo && toast.error("Erro: Peencha o nome do cargo!", {
@@ -49,21 +77,25 @@ const EnviarPage = () => {
     !tipo.attributes.slug && toast.error("Erro: Selecione o tipo de vaga!", {
       position: toast.POSITION.BOTTOM_CENTER
     })
+    !hash && toast.error("Erro: Imagem já publicada em noso site!", {
+      position: toast.POSITION.BOTTOM_CENTER
+    })
 
-    if (cargo && image && tipo && cidade) {
+    if (cargo && image && tipo && cidade && hash) {
       var axios = require('axios');
       var data = JSON.stringify({
         data: {
           cargo: String(cargo),
           imagem: [Number(image.id)],
           cidade: [Number(cidade.id)],
-          tipo: [Number(tipo.id)]
+          tipo: [Number(tipo.id)],
+          hash: String(hash),
         }
       });
 
       var config = {
         method: 'post',
-        url: 'https://maisvagases.herokuapp.com/api/murals',
+        url: `${process.env.NEXT_PUBLIC_STRAPI}/api/murals`,
         headers: {
           'Content-Type': 'application/json'
         },
@@ -88,7 +120,7 @@ const EnviarPage = () => {
           setLoading(false)
         });
     }
-    else{
+    else {
       setLoading(false)
     }
   }
@@ -111,6 +143,7 @@ const EnviarPage = () => {
   const getUploadParams = () => {
     return { url: '/api/up' }
   }
+
 
   const handleChangeStatus = ({ meta, file, xhr }, status) => {
     setUploading(true)
@@ -307,8 +340,8 @@ const EnviarPage = () => {
                 Enviar vaga
               </div>
               :
-              <div  className="md:col-span-12 bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-opacity-60" >
-                <SpinnerCircularFixed   size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />  
+              <div className="md:col-span-12 bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-opacity-60" >
+                <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
                 Enviando vaga
               </div>
             }</section>

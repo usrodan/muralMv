@@ -9,7 +9,7 @@ export const config = {
   },
 };
 
-const uploadUrl = "https://maisvagases.herokuapp.com/api/upload";
+const uploadUrl = `${process.env.NEXT_PUBLIC_STRAPI}/api/upload`;
 
 export default function uploadFormFiles(req: Request, res: Response) {
   return new Promise(async (resolve, reject) => {
@@ -38,13 +38,7 @@ export default function uploadFormFiles(req: Request, res: Response) {
           },
           data: data,
         })
-          .then(function (response) {
-            fs.unlink(newPath, (err) => {
-              if (err) {
-                console.error(err)
-                return
-              } 
-            })
+          .then(function (response) { 
             resolve(res.status(200).json(response.data));
           })
           .catch(function (error) {

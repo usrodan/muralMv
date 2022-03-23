@@ -5,7 +5,7 @@ module.exports = {
   images: {
     minimumCacheTTL: 36000,
     domains: [
-      'media.graphcms.com', "cdn.novanoticia.com.br", "i.postimg.cc", "res.cloudinary.com", "placehold.jp", "cloudinary.com"
+     "res.cloudinary.com", "placehold.jp", "cloudinary.com", "localhost:1337"
     ],
   }
 }
