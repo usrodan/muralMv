@@ -132,6 +132,10 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                         </Script>
                           </div>
+                          <div className='p-4 text-gray-600  text-md'>
+                          { mural.descricao && mural.descricao}
+                          </div>
+                          
 
 
                       </section>
@@ -208,6 +212,7 @@ export async function getServerSideProps({ params }) {
           attributes {
             cargo
             createdAt
+            descricao
             cidade{data{attributes{cidade}}}
             imagem{data{attributes{
               url
@@ -227,6 +232,7 @@ export async function getServerSideProps({ params }) {
       mural: {
         image: data.mural.data.attributes.imagem.data.attributes.url,
         cargo: data.mural.data.attributes.cargo,
+        descricao: data.mural.data.attributes.descricao,
         cidade: data.mural.data.attributes.cidade.data.attributes.cidade,
         tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
         cor: data.mural.data.attributes.tipo.data.attributes.cor,
