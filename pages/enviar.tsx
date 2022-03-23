@@ -20,7 +20,8 @@ import { Info } from "@styled-icons/bootstrap/Info"
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
   const [hash, setHash] = useState(null)
-  const [cargo, setCargo] = useState(null)
+  const [cargo, setCargo] = useState(null) 
+  const [descricao, setDescricao] = useState("")
   const [searchCity, setSearchCity] = useState("")
   const [cidade, setCidade] = useState({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
   const [tipo, setTipo] = useState({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
@@ -31,7 +32,7 @@ const EnviarPage = () => {
 
   const [open, setOpen] = useState(false)
 
-  const textoAviso = "Este espaço é exclusivo para o envio de vagas de emprego! Currículos, divulgação de serviços, fotos, e demais coisas que não sejam vagas de emprego, serão removidos sem aviso prévio. Colabore com a comunidade, publique somente empregos 💙"
+ 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -97,6 +98,7 @@ const EnviarPage = () => {
           cidade: [Number(cidade.id)],
           tipo: [Number(tipo.id)],
           hash: String(hash),
+          descricao: String(descricao)
         }
       });
 
@@ -205,7 +207,7 @@ const EnviarPage = () => {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-md text-gray-500">
-                       {textoAviso}
+                      <span>Este espaço é exclusivo para o envio de <strong className='text-gray-800 font-bold'>vagas de emprego!</strong> Currículos, divulgação de serviços, fotos, e demais coisas que não sejam vagas de emprego, serão removidos sem aviso prévio. Colabore com a comunidade, publique somente empregos 💙</span>
                       </p>
                     </div>
                   </div>
@@ -214,9 +216,9 @@ const EnviarPage = () => {
                   <button
                     type="button"
                     className="w-full inline-flex items-center gap-2 justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 sm:col-start-2 sm:text-md"
-                    onClick={EnviarVaga} 
+                    onClick={EnviarVaga}
                   >
-                   <SendPlane size={20} /> Enviar Vaga
+                    <SendPlane size={20} /> Enviar Vaga
                   </button>
                   <button
                     type="button"
@@ -377,39 +379,53 @@ const EnviarPage = () => {
               </Listbox>
             </div>
 
-            <div className="md:col-span-12 border-2 p-4 flex justify-center rounded-lg border-dashed border-gray-300">
-              {image && !uploading ?
-                <div className='flex flex-col gap-2' >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img className="rounded-md" src={image.url} width={200} height={200} alt="Prévia de Imagem" />
-                  <button onClick={() => setImage(false)} className='p-2 rounded-md cursor-pointer font-bold text-sm hover:bg-opacity-80 px-4 bg-orange-500 text-white'><Trash size={25} /> Remover Imagem </button>
-                </div> :
-                <Dropzone
-                  getUploadParams={getUploadParams}
-                  //@ts-ignore
-                  onChangeStatus={handleChangeStatus}
-                  maxFiles={1}
-                  multiple={false}
-                  canCancel={false}
-                  accept="image/*"
-                  inputContent={
-                    <div className="flex text-blue-500 text-base font-semibold justify-center text-center flex-col">
-                      <AddPhotoAlternate className="w-full" size={64} />
-                      <span className="text-gray-800 mt-8">Arraste a imagem para cá</span>
-                      <span className="text-gray-800">ou</span>
-                      <span className="">Selecione uma imagem</span>
-                    </div>
-                  }
-                  styles={{
-                    dropzone: { height: 300 },
-                    dropzoneActive: { borderColor: 'green' },
-                  }}
-                />
-              }
+
+            <div className="md:col-span-6 h-full flex flex-col justify-top">
+              <span className="text-blue-500 font-bold text-lg ">IMAGEM </span>
+              <div className="md:col-span-6 h-full flex flex-col border-2 p-4 mt-3 justify-center rounded-lg border-dashed bg-white border-gray-300">
+
+                {image && !uploading ?
+                  <div className='flex flex-col item-center text-center gap-2' >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <div className='flex w-full justify-center'><img className="rounded-lg  text-center w-60 h-60 object-contain" src={image.url} width={250} height={250} alt="Prévia de Imagem" /></div>
+                    <button onClick={() => setImage(false)} className='p-2 mb-2 rounded-md cursor-pointer font-bold text-sm hover:bg-opacity-80 px-4 bg-orange-500 text-white'><Trash size={25} /> Remover Imagem </button>
+                  </div> :
+                  <Dropzone
+                    getUploadParams={getUploadParams}
+                    //@ts-ignore
+                    onChangeStatus={handleChangeStatus}
+                    maxFiles={1}
+                    multiple={false}
+                    canCancel={false}
+                    accept="image/*"
+                    inputContent={
+                      <div className="flex text-blue-500 text-base font-semibold justify-center text-center flex-col">
+                        <AddPhotoAlternate className="w-full" size={50} />
+                        <span className="text-gray-800 mt-4">Arraste a imagem para cá</span>
+                        <span className="text-gray-800  ">ou</span>
+                        <span className="rounded-md text-white bg-blue-500 p-2 px-4 mt-2">Selecione uma imagem</span>
+                      </div>
+                    }
+                    styles={{
+                      dropzone: { height: 270 },
+                      dropzoneActive: { borderColor: 'green' },
+                    }}
+                  />
+                }
+                <span className="md:col-span-12  w-full text-center text-sm">Arquivos aceitos: .JPG; .JPEG; .PNG e .BMP de até 5MB  </span>
+              </div>
             </div>
-            <span className="md:col-span-12 text-sm">Arquivos aceitos: .JPG; .JPEG; .PNG e .BMP de até 5MB  </span>
+
+            <div className="md:col-span-6 flex flex-col justify-top">
+              <span className="text-blue-500 font-bold text-lg ">DESCRIÇÃO </span>
+              <textarea rows={14} value={descricao} onChange={(e)=> setDescricao(e.target.value)}placeholder={"Use este espaço para inserir informações adicionais da vaga, ou caso tenha mais de uma vaga em uma mesma imagem, insira aqui informações que possam ser pertinentes de cada vaga. \n\n Caso não tenha mais informações, deixe em branco"}
+              className='flex mt-3 p-4  text-md overflow-auto  bg-white text-gray-800 rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500'  />
+            </div>
+
+
+
             {!loading ?
-              <div onClick={()=>setOpen(true)}
+              <div onClick={() => setOpen(true)}
                 className="md:col-span-12 flex items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-blue-600" >
                 <SendPlane size={20} />
                 Enviar vaga
