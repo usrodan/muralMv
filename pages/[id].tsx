@@ -101,7 +101,11 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                     <div className="flex flex-col">
                      
                       
-                      <Image className="rounded-lg cursor-pointer" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+                      <Image className="rounded-lg cursor-pointer mb-4" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+                      
+                      <div className=' text-gray-600  text-md'>
+                          { mural.descricao && mural.descricao}
+                          </div>
 
                       {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
@@ -117,11 +121,9 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                         </Script>
                         </>}
 
-                        <div className='p-4 text-gray-600  text-md'>
-                          { mural.descricao && mural.descricao}
-                          </div>
+                 
 
-                          
+
                     </div>
 
                     <div className="flex flex-col justify-between  ">
