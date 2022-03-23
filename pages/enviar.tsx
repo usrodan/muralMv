@@ -253,7 +253,7 @@ const EnviarPage = () => {
                   <>
                     <div className="flex relative">
                       <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-lg shadow-sm  mt-3 p-2 px-4   text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ">
-                        <span className="block truncate">{cidade.attributes.cidade}</span>
+                        <span className="block truncate">{cidade.attributes.cidade.replace("1. ","").replace("2. ", "")}</span>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                           <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                         </span>
@@ -292,7 +292,7 @@ const EnviarPage = () => {
                                 {({ selected, active }) => (
                                   <>
                                     <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                      {person.attributes.cidade}
+                                      {person.attributes.cidade.replace("1. ","").replace("2. ", "")}
                                     </span>
                                     {selected ? (
                                       <span

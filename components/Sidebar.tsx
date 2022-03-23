@@ -94,7 +94,7 @@ const Sidebar: React.FC = () => {
           <section>
             <strong className="text-blue-500 text-lg">CIDADE</strong>
             <ul className="pl-2 mt-1 overflow-auto h-52 ">
-              {cidades && cidades.map(c => c.attributes.murais.data.length != 0 && <li key={c.attributes.cidade} onClick={() => changeCity(c.attributes.slug)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.city == c.attributes.slug ? "bg-gray-300" : ""}`}>{c.attributes.cidade}</li>)}
+              {cidades && cidades.map(c => c.attributes.murais.data.length != 0 && <li key={c.attributes.cidade} onClick={() => changeCity(c.attributes.slug)} className={`rounded-lg cursor-pointer p-2 uppercase hover:ml-2 transition-all duration-500 ease-in-out ${configsState.city == c.attributes.slug ? "bg-gray-300" : ""}`}>{c.attributes.cidade.replace("1. ","").replace("2. ", "")}</li>)}
             </ul>
           </section>
           <section>
@@ -120,7 +120,7 @@ const Sidebar: React.FC = () => {
             <>
               <div className="flex relative">
                 <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-lg shadow-sm  p-2 px-4   text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 ">
-                  <span className="block truncate">{cidade.attributes.cidade}</span>
+                  <span className="block truncate">{cidade.attributes.cidade.replace("1. ","").replace("2. ", "")}</span>
                   <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                     <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                   </span>
@@ -160,7 +160,7 @@ const Sidebar: React.FC = () => {
                           {({ selected, active }) => (
                             <>
                               <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
-                                {person.attributes.cidade}
+                                {person.attributes.cidade.replace("1. ","").replace("2. ", "")}
                               </span>
 
                               {selected ? (

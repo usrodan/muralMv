@@ -40,8 +40,8 @@ const CardJob: React.FC<CardJobProps> = ({ image, title, city, date, type, color
 
 
   return (
-    <a href={`/${id}-${string_to_slug(title, "-")}`} className="flex  hover:-mt-2 transition-all duration-500 ease-in-out	h-72 border border-gray-200 lg:h-80 xl:h-96 font-bold flex-col  rounded-lg bg-white">
-      <Image className="rounded-t-lg object-cover hover:opacity-80 " alt={title} width={256} height={310} src={image || "http://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+    <a href={`/${id}-${string_to_slug(title, "-")}`} className="flex  hover:-mt-2 transition-all duration-500 ease-in-out	 border border-gray-200 h-96 lg:h-80 xl:h-96 font-bold flex-col  rounded-lg bg-white">
+      <Image className="rounded-t-lg object-cover hover:opacity-80  " alt={title} width={256} height={310} src={image || "http://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
       <div className="w-full flex text-sm flex-col p-2">
         <span className="text-primary uppercase">{title}</span>
         <div className="flex uppercase justify-between w-full">
