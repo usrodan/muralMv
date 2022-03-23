@@ -19,16 +19,13 @@ import ImagemModal from '@/components/ImagemModal';
 import ShareModal from '@/components/ShareModal';
 import slugify from '@/utils/slugify';
 import Script from 'next/script';
+import ReactMarkdown from 'react-markdown'
 
 const IndexPage = ({ buildTimestamp, mural }) => {
 
   const znDate = zonedTimeToUtc(mural.data || '2022-03-03T10:00:38.765Z', 'America/Sao_Paulo');
   const formatedData = format(znDate, "dd/MM/yyy")  
-
-  const AdsCaPub = "ca-pub-6873518969054710"
-  const AdsHorizontal = "5735692231"
-  const AdsQuadrado = "4865463693" 
-
+ 
   function openReport(){
     Configs.update(s => {
       s.reportModalIsOpen=true
@@ -103,9 +100,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                       
                       <Image className="rounded-lg cursor-pointer mb-4" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
                       
-                      <div className=' text-gray-600  mb-4 text-md'>
-                          { mural.descricao && mural.descricao}
-                          </div>
+                      <ReactMarkdown className=' text-gray-600  mb-4 text-md' >{mural.descricao && mural.descricao}</ReactMarkdown>
 
                       {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
