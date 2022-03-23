@@ -116,6 +116,12 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                         </Script>
                         </>}
+
+                        <div className='p-4 text-gray-600  text-md'>
+                          { mural.descricao && mural.descricao}
+                          </div>
+
+                          
                     </div>
 
                     <div className="flex flex-col justify-between  ">
@@ -132,9 +138,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                         </Script>
                           </div>
-                          <div className='p-4 text-gray-600  text-md'>
-                          { mural.descricao && mural.descricao}
-                          </div>
+                         
                           
 
 
