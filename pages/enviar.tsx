@@ -29,7 +29,7 @@ const EnviarPage = () => {
   const [uploading, setUploading] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const textoAviso = "Este espaço é exclusivo para o envio de vagas de emprego! Currículos, divulgação de serviços, fotos, e demais coisas que não sejam vagas de emprego, serão removidos sem aviso prévio. Colabore com a comunidade, publique somente empregos 💙"
   function classNames(...classes) {
