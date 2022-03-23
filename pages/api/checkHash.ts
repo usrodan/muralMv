@@ -19,12 +19,7 @@ export default async function handler(req, res) {
           }
         `,
       });
-
-      console.log("----RESPONSE-----")
-      console.log(response.data)
-      console.log("----HASH-----")
-      console.log(data)
-
+      
       if(response.data.murals.data.length == 0 ){
         return res.status(200).send(data);  
       }

@@ -44,10 +44,6 @@ export default function uploadFormFiles(req: Request, res: Response) {
           .catch(function (error) {
             console.log(error);
           });      
-
-
-        //fs.writeFileSync(newPath, data);
-        //fs.unlinkSync(file.path);
       })
       .on("aborted", () => {
         reject(res.status(500).send("Aborted"));
