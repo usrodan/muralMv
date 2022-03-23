@@ -118,9 +118,9 @@ const IndexPage = ({ buildTimestamp }) => {
                   {ConfigsStore.city && <button onClick={() => Configs.update(s => { s.city = "" })} className='flex gap-2 justify-between items-center bg-gray-200 rounded-lg p-1 px-2'>{ConfigsStore.city} <CloseOutline size={16} /></button>}
                 </div>
               }
-              <div className="flex md:hidden">
+              <div className="flex md:hidden p-2 mb-4">
                 <ins className="adsbygoogle"
-                  style={{ display: "block", width: "340px", height: "430px" }}
+                  style={{ display: "block", width: "340px", height: "50px" }}
                   data-ad-client="ca-pub-6873518969054710"
                   data-ad-slot="5850319795"
                   data-ad-format="auto"
@@ -187,7 +187,7 @@ const IndexPage = ({ buildTimestamp }) => {
 
                       {index == 6 || index == 13 || index == 20 || index == 25 || index == 32 || index == 40 && <div className=''>
                         <ins className="adsbygoogle"
-                          style={{ display: "block", width: "340px", height: "430px" }}
+                          style={{ display: "block", width: "350px", height: "430px" }}
                           data-ad-client="ca-pub-6873518969054710"
                           data-ad-slot="5850319795"
                           data-ad-format="auto"
