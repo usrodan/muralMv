@@ -56,8 +56,7 @@ const EnviarPage = () => {
           position: toast.POSITION.BOTTOM_CENTER
         })
         setImage(null)
-        setHash(null)
-
+        setHash(null) 
       }
       else {
         setHash(res.data)
@@ -118,16 +117,24 @@ const EnviarPage = () => {
             position: toast.POSITION.BOTTOM_CENTER
           });
           setImage(null)
+          setHash(null)
           setCargo("")
           setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
           setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
+          setDescricao("")
           setLoading(false)
         })
         .catch(function (error) {
           toast.error("Erro ao enviar a vaga tente novamente!", {
             position: toast.POSITION.BOTTOM_CENTER
           });
-          setLoading(false)
+          setImage(null)
+          setHash(null)
+          setCargo("")
+          setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
+          setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
+          setDescricao("")
+          setLoading(false) 
         });
     }
     else {
@@ -438,7 +445,7 @@ const EnviarPage = () => {
                   Enviar vaga
                 </div>
                 :
-                <div className=" bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-lg bg-blue-500 hover:bg-blue-600 " >
+                <div className="flex w-full bg-opacity-70 cursor-not-allowed items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-lg bg-blue-500 hover:bg-blue-600 " >
                   <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
                   Enviando vaga
                 </div>
