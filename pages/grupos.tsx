@@ -41,7 +41,7 @@ const Grupos = () => {
 
   return (
     <>
-      <SEO siteName="Mais Vagas ES" title="Enviar Vaga" description="" />
+      <SEO siteName="Mais Vagas ES" title="Grupos Whatsapp" description="" />
       <main className='flex flex-col w-full items-center ' >
         <section className="flex flex-col bg-white border border-gray-200 rounded-md gap-4 w-full max-w-7xl mt-4 p-4 ">
           <h1 className="mb-4 text-4xl  ">
