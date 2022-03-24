@@ -167,7 +167,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                         <div className="grid md:grid-cols-2 gap-4 w-full text-white text-xs font-semibold text-center">
                           <a href="/grupos" className="flex bg-whatsapp transition-all duration-500 ease-in-out hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2 ">
                             <Whatsapp size={20} />
-                            GRUPO NO WHATSAPP
+                            GRUPOS NO WHATSAPP
                           </a>
 
                           <a href="https://t.me/maisvagases" target="_blank" rel="noreferrer" className="flex bg-telegram transition-all duration-500 ease-in-out  hover:bg-opacity-60 cursor-pointer items-center rounded-lg p-2 w-full gap-2">

@@ -47,11 +47,14 @@ const Grupos = () => {
             Grupos
           </h1>
           <span className="mb-4 w-full max-w-3xl">
-            Ficamos felizes em saber que você deseja participar do nosso grupo de vagas no WhatsApp.<br />
+            Estamos felizes em saber que você deseja participar do nosso grupo de vagas no WhatsApp.<br />
             Mas pedimos que dê preferência por entrar em nosso canal no <strong>Telegram.</strong> <br />
-            Lá às vagas são postadas <strong>imediatamente</strong> assim que publicadas em nosso site.<br /> <br />
+            Lá às vagas são postadas imediatamente assim que publicadas em nosso site.<br /> <br />
 
-            Mas se preferir mesmo assim entrar no grupo do WhatsApp, disponibilizamos abaixo nossos grupos, caso o grupo esteja cheio, volte aqui e selecione outro grupo!
+            Mas se preferir mesmo assim entrar no grupo do WhatsApp, disponibilizamos abaixo nossos grupos, caso o grupo esteja cheio, volte aqui e selecione outro grupo!<br /><br />
+
+            <strong>É permitida somente a entrada/permanência em APENAS UM GRUPO, caso a gente entenda que você está em mais de um, nos sentimos no direito de lhe remover. O mesmo conteúdo é postado em todos os grupos</strong>
+
           </span>
 
           <div className='flex'>
@@ -65,8 +68,7 @@ const Grupos = () => {
 
           <span className="mt-4 mb-2 ">
             <strong className="font-bold text-md">GRUPOS NO WHASTASPP</strong><br />
-            Grupos em <strong className="text-red-500 font-bold  text-sm">VERMELHO</strong> estão possivelmente cheios!<br />
-            [98% ocupados]
+            Grupos em <strong className="text-red-500 font-bold  text-sm">VERMELHO</strong> estão possivelmente cheios! (com 250 pessoas ou mais)
           </span>
 
 
