@@ -49,10 +49,8 @@ const PoliticaDePrivacidade: React.FC = () => {
                   <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
                     <EyeOffIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
                   </div>
-                  <div className="mt-3 w-full   sm:mt-5">
-
-                    <div className="mt-2 w-full">
-
+                  <div className="mt-3 w-full   sm:mt-5"> 
+                    <div className="mt-2 w-full"> 
                       <h2>Política Privacidade</h2>
                       <p>A sua privacidade é importante para nós.É política do {nomeSite} respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site <a href={urlSite}>{nomeSite}</a>, e outros sites que possuímos e operamos.</p>
                       <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço.Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento.Também informamos por que estamos coletando e como será usado.</p>
