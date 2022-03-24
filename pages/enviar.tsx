@@ -5,7 +5,7 @@ import { AddPhotoAlternate } from "@styled-icons/material-outlined/AddPhotoAlter
 import { Trash } from "@styled-icons/boxicons-regular/Trash"
 import { SearchAlt } from "@styled-icons/boxicons-regular/SearchAlt"
 import Dropzone from 'react-dropzone-uploader'
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import axios from 'axios'
 import { Configs } from '@/configs'
 import { Listbox, Dialog, Transition } from '@headlessui/react'
@@ -16,7 +16,7 @@ import { SpinnerCircularFixed } from "spinners-react";
 import { Info as InfoIcon} from "@styled-icons/bootstrap/Info"
 import Info from '@/components/Info';
 
-
+  
 
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
@@ -33,6 +33,7 @@ const EnviarPage = () => {
 
   const [open, setOpen] = useState(false)
 
+  const ref = useRef() 
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -438,7 +439,7 @@ const EnviarPage = () => {
 
 
             <div className='fixed bottom-0 left-0 md:relative flex w-full md:col-span-12'>
-              {!loading ?
+              { !loading ?
                 <div onClick={() => setOpen(true)}
                   className="flex w-full items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-lg bg-blue-500 hover:bg-blue-600" >
                   <SendPlane size={20} />
@@ -450,7 +451,24 @@ const EnviarPage = () => {
                   Enviando vaga
                 </div>
               }
-            </div></section>
+            </div>
+            
+            <div className='flex bottom-0 left-0 md:relative md:hidden w-full md:col-span-12'>
+              {!loading ?
+                <div onClick={() => setOpen(true)}
+                  className="flex w-full items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 rounded-lg bg-blue-500 hover:bg-blue-600" >
+                  <SendPlane size={20} />
+                  Enviar vaga
+                </div>
+                :
+                <div className="flex w-full bg-opacity-70 cursor-not-allowed items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 rounded-lg bg-blue-500 hover:bg-blue-600 " >
+                  <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
+                  Enviando vaga
+                </div>
+              }
+            </div>
+            
+            </section>
         </div>
       </main >
     </>);
