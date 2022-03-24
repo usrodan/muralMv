@@ -11,6 +11,7 @@ const Pagina = () => {
     <>
       <SEO siteName="Mais Vagas ES" title="Termos de Uso" description="" />
       <main className='flex flex-col w-full items-center ' >
+      <h1>Termos de Uso</h1>
         <section className="flex flex-col bg-white border border-gray-200 rounded-md gap-4 w-full max-w-7xl mt-4 p-4 ">
           <h2>1. Termos</h2>
           <p>Ao acessar ao site <a href={urlSite}>{nomeSite}</a>, concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as leis locais aplicáveis. Se você não concordar com algum                desses termos, está proibido de usar ou acessar este site. Os materiais contidos neste site são protegidos pelas leis de direitos autorais e marcas comerciais aplicáveis.</p>

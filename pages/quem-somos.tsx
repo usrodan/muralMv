@@ -9,6 +9,7 @@ const Pagina = () => {
     <>
       <SEO siteName="Mais Vagas ES" title="QuemSomos" description="" />
       <main className='flex flex-col w-full items-center ' >
+      <h1>Quem Somos</h1>
         <section className="flex flex-col bg-white border border-gray-200 rounded-md gap-4 w-full max-w-7xl mt-4 p-4 ">
           <h2>Quem Somos</h2>
         </section>
