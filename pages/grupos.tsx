@@ -72,11 +72,11 @@ const Grupos = () => {
 
           <div className="grid grid-cols-4 gap-4 w-full max-w-7xl ">
             {grupos && grupos.map(grupo => (
-              <a href={grupo.url} target="_blank" rel="noreferrer" className={`text-white flex gap-4 items-center p-4 rounded-lg ${grupo.cheio ? "bg-green-500" : "bg-red-500"}`} key={grupo.titulo}>
+              <a href={grupo.url} target="_blank" rel="noreferrer" className={`text-white flex gap-4 items-center p-4 rounded-lg ${!grupo.cheio ? "bg-green-500" : "bg-red-500"}`} key={grupo.titulo}>
                 <Whatsapp size={35} />
                 <div className='flex flex-col'>
                   <span className='font-semibold '>{grupo.titulo}</span>
-                  <span className='opacity-70 -mt-1'>{grupo.cheio ? "Disponível" : "Grupo Cheio"}</span>
+                  <span className='opacity-70 -mt-1'>{!grupo.cheio ? "Disponível" : "Grupo Cheio"}</span>
                 </div>
               </a>))}
           </div>
