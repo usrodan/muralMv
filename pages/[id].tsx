@@ -77,7 +77,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                 <section className='flex flex-col bg-white rounded-lg border border-gray-300'>
                   <div className='flex flex-col p-5 gap-2'>
                     <strong className="text-blue-500 uppercase text-xl md:text-3xl ">{mural.cargo}</strong>
-                    <span className="text-base uppercase font-semibold">{mural.cidade} • {formatedData}</span>
+                    <span className="text-base uppercase font-semibold">{mural.cidade.replace("1. ","").replace("2. ", "")} • {formatedData}</span>
                   
                     <div><span className={`inline-flex text-sm uppercase items-center px-3 py-1 rounded-full font-medium bg-${mural.cor}-100 text-${mural.cor}-800`}>{mural.tipo}</span></div>
                      {//IMG QUADRADA OU HORIZONTAL

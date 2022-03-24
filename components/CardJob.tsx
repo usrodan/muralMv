@@ -45,7 +45,7 @@ const CardJob: React.FC<CardJobProps> = ({ image, title, city, date, type, color
       <div className="w-full flex text-sm flex-col p-2">
         <span className="text-primary uppercase">{title}</span>
         <div className="flex uppercase justify-between w-full">
-          <span>{city}<br />
+          <span>{city.replace("1. ","").replace("2. ", "")}<br />
             <span className="text-xs text-gray-500">{formatedData}</span>
           </span>
           <div><span className={`inline-flex   uppercase items-center px-2 py-1 rounded-full font-medium bg-${color}-100 text-${color}-800`}>{type}</span></div>
