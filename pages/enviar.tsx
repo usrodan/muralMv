@@ -13,7 +13,8 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { toast } from 'react-toastify';
 import { removeAcento } from "@/utils/removeAcento"
 import { SpinnerCircularFixed } from "spinners-react";
-import { Info } from "@styled-icons/bootstrap/Info"
+import { Info as InfoIcon} from "@styled-icons/bootstrap/Info"
+import Info from '@/components/Info';
 
 
 
@@ -199,7 +200,7 @@ const EnviarPage = () => {
               <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                 <div>
                   <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100">
-                    <Info size={30} className="h-8 w-8 text-blue-500" aria-hidden="true" />
+                    <InfoIcon size={30} className="h-8 w-8 text-blue-500" aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
@@ -233,10 +234,15 @@ const EnviarPage = () => {
           </div>
         </Dialog>
       </Transition.Root>
-
-
+    
       <main className="flex w-full justify-center">
-        <div className="flex flex-col gap-4 w-full max-w-7xl p-4  border-t-2 border-white">
+      
+        <div className="flex flex-col w-full max-w-7xl p-4  border-t-2 border-white">
+
+        <Info>Caso a vaga enviada não tiver email, site ou telefone para envio de currículo, a mesma será removida.<br />
+          Você pode utilizar o campo descrição abaixo para inserir informações complementares da oportunidade.
+        </Info>
+
           <section className="grid md:grid-cols-12 py-8 gap-8 ">
             <div className="md:col-span-4">
               <span className="text-blue-500 font-bold text-lg ">CARGO</span>
@@ -417,25 +423,26 @@ const EnviarPage = () => {
             </div>
 
             <div className="md:col-span-6 flex flex-col justify-top">
-              <span className="text-blue-500 font-bold text-lg ">DESCRIÇÃO </span>
+              <span className="text-blue-500 font-bold text-lg ">DESCRIÇÃO (OPCIONAL) </span>
               <textarea rows={14} value={descricao} onChange={(e) => setDescricao(e.target.value)} placeholder={"Use este espaço para inserir informações adicionais da vaga, ou caso tenha mais de uma vaga em uma mesma imagem, insira aqui informações que possam ser pertinentes de cada vaga. \n\n Caso não tenha mais informações, deixe em branco"}
                 className='flex mt-3 p-4  text-md overflow-auto  bg-white text-gray-800 rounded-lg border border-gray-300 focus:ring-1 focus:ring-blue-500 focus:border-blue-500' />
             </div>
 
 
-
-            {!loading ?
-              <div onClick={() => setOpen(true)}
-                className="md:col-span-12 flex items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-blue-600" >
-                <SendPlane size={20} />
-                Enviar vaga
-              </div>
-              :
-              <div className="md:col-span-12 bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-2 rounded-lg bg-blue-500 hover:bg-opacity-60" >
-                <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
-                Enviando vaga
-              </div>
-            }</section>
+            <div className='fixed bottom-0 left-0 md:relative flex w-full md:col-span-12'>
+              {!loading ?
+                <div onClick={() => setOpen(true)}
+                  className="flex w-full items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-lg bg-blue-500 hover:bg-blue-600" >
+                  <SendPlane size={20} />
+                  Enviar vaga
+                </div>
+                :
+                <div className=" bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-lg bg-blue-500 hover:bg-blue-600 " >
+                  <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
+                  Enviando vaga
+                </div>
+              }
+            </div></section>
         </div>
       </main >
     </>);

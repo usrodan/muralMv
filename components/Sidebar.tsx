@@ -78,11 +78,10 @@ const Sidebar: React.FC = () => {
 
 
   return (
-    <>
-
-      <div id="AvisoResponsabilidade" className="hidden md:flex flex-col bg-blue-500 rounded-lg">
-        <strong className="text-white text-center text-2xl p-3">⚠️ AVISO</strong>
-        <p className="bg-white bg-opacity-60 font-semibold text-black p-4 text-center">Não somos responsáveis pelas
+    <> 
+      <div id="AvisoResponsabilidade" className="hidden md:flex flex-col border border-blue-100 bg-blue-500 rounded-lg">
+        <strong className="text-white text-center text-xl p-2">⚠️ AVISO</strong>
+        <p className="bg-blue-50 font-semibold  text-blue-700 p-4 text-center">Não somos responsáveis pelas
           vagas publicadas.<br />
           Confira mais vagas em <a href="https://www.maisvagases.com.br">maisvagases.com.br</a>
         </p>
