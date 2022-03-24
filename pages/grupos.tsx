@@ -11,12 +11,13 @@ const Grupos = () => {
 
   async function getData() {
     const { data } = await client.query({
-      query: gql`query {
+      query: gql`
+      query {
         config {
           data {
             id
             attributes {
-              Grupos {
+              Grupos (pagination:{limit:1000}){
                 titulo
                 url
                 cheio
