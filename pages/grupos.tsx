@@ -5,6 +5,7 @@ import client from '@/utils/apollo'
 import { gql } from "@apollo/client";
 import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
 import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
+import Info from '@/components/Info';
 const Grupos = () => {
   const [grupos, setGrupos] = useState(null)
 
@@ -53,7 +54,7 @@ const Grupos = () => {
 
             Mas se preferir mesmo assim entrar no grupo do WhatsApp, disponibilizamos abaixo nossos grupos, caso o grupo esteja cheio, volte aqui e selecione outro grupo!<br /><br />
 
-            <strong>É permitida somente a entrada/permanência em APENAS UM GRUPO, caso a gente entenda que você está em mais de um, nos sentimos no direito de lhe remover. O mesmo conteúdo é postado em todos os grupos</strong>
+            <Info cor="orange" texto='É permitida somente a entrada/permanência em APENAS UM GRUPO, caso a gente entenda que você está em mais de um, nos sentimos no direito de lhe remover. O mesmo conteúdo é postado em todos os grupos'/>
 
           </span>
 

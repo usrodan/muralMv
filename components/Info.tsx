@@ -26,7 +26,7 @@ const Info: React.FC<Props> = ({ texto, cor = "blue" }: Props,) => {
       text-neutral-100 border-neutral-100 bg-neutral-50 text-neutral-500
       text-stone-100 border-stone-100 bg-stone-50 text-stone-500
       text-red-100 border-red-100 bg-red-50 text-red-500 
-      text-orange-100 border-orange-100 bg-red-50 text-orange-500
+      text-orange-100 border-orange-100 bg-orange-50 text-orange-500
       text-amber-100 border-amber-100 bg-amber-50 text-amber-500
       text-yellow-100 border-yellow-100 bg-yellow-50 text-yellow-500
       text-lime-100 border-lime-100 bg-lime-50 text-lime-500

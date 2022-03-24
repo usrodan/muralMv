@@ -239,7 +239,7 @@ const EnviarPage = () => {
       
         <div className="flex flex-col w-full max-w-7xl p-4  border-t-2 border-white">
         <Info 
-        cor='red'
+        cor='orange'
         texto='Caso a vaga enviada não tiver email, site ou telefone para envio de currículo, a mesma será removida.<br />
           Você pode utilizar o campo descrição abaixo para inserir informações complementares da oportunidade.'/>
  
