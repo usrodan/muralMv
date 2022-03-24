@@ -54,7 +54,7 @@ const Grupos = () => {
           </span>
 
           <div className='flex'>
-            <a href="https://t.me/maisvagases" target="_blank" rel="noreferrer" className="flex p-4 gap-4 text-white text-xl font-bold rounded-md items-center bg-telegram justify-between ">
+            <a href="https://t.me/maisvagases" target="_blank" rel="noreferrer" className="flex p-4 gap-4 text-white text-md font-semibold rounded-md items-center bg-telegram justify-between ">
               <Telegram size={35} />
               CANAL DO TELEGRAM
             </a>
