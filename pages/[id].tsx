@@ -99,9 +99,9 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                     <div className="flex flex-col">
 
 
-                      <Image className="rounded-lg cursor-pointer mb-4" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
+                      <Image className="rounded-lg  cursor-pointer mb-4" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
 
-                      <ReactMarkdown className=' text-gray-600  mb-4 text-md' >{mural.descricao && mural.descricao}</ReactMarkdown>
+                      <ReactMarkdown className=' text-gray-600  mt-4 mb-4 text-md' >{mural.descricao && mural.descricao}</ReactMarkdown>
 
                       {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
