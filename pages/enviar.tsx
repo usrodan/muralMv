@@ -238,10 +238,11 @@ const EnviarPage = () => {
       <main className="flex w-full justify-center">
       
         <div className="flex flex-col w-full max-w-7xl p-4  border-t-2 border-white">
-
-        <Info>Caso a vaga enviada não tiver email, site ou telefone para envio de currículo, a mesma será removida.<br />
-          Você pode utilizar o campo descrição abaixo para inserir informações complementares da oportunidade.
-        </Info>
+        <Info 
+        cor='red'
+        texto='Caso a vaga enviada não tiver email, site ou telefone para envio de currículo, a mesma será removida.<br />
+          Você pode utilizar o campo descrição abaixo para inserir informações complementares da oportunidade.'/>
+ 
 
           <section className="grid md:grid-cols-12 py-8 gap-8 ">
             <div className="md:col-span-4">

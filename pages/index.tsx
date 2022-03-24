@@ -102,9 +102,8 @@ const IndexPage = ({ buildTimestamp }) => {
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2 ">
-          <Info>
-            Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.
-          </Info>
+          <Info texto='Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.'/>
+
 
           <section className="grid md:grid-cols-12 gap-8 ">
             <div className="md:col-span-3">
