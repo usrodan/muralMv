@@ -101,7 +101,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
 
                       <Image className="rounded-lg  cursor-pointer mb-4" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
 
-                      <ReactMarkdown className=' text-gray-600  mt-4 mb-4 text-md' >{mural.descricao.length && mural.descricao}</ReactMarkdown>
+                      {mural.descricao.length && <ReactMarkdown className=' text-gray-600  mt-4 mb-4 text-md' >{mural.descricao}</ReactMarkdown>}
 
                       {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
