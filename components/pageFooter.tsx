@@ -55,7 +55,7 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <p className="mt-8 text-center text-base text-gray-400">&copy; 2022 MaisVagasES - Todos os direitos reservados.</p>
+        <p className="mt-8 text-center text-base text-gray-400">&copy; 2022 Mais Vagas ES - Todos os direitos reservados.</p>
       </div>
     </footer>
   )
