@@ -101,7 +101,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
 
                       <Image className="rounded-lg  cursor-pointer mb-4" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
 
-                      {mural.descricao.length && <ReactMarkdown className=' text-gray-600  mt-4 mb-4 text-md' >{mural.descricao}</ReactMarkdown>}
+                      {mural.descricao.length > 0 && <ReactMarkdown className=' text-gray-600  mt-4 mb-4 text-md' >{mural.descricao}</ReactMarkdown>}
 
                       {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
@@ -144,7 +144,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
 
                       <section className="flex flex-col gap-5">
 
-                        <div onClick={openShare} className="flex transition-all duration-500 ease-in-out  cursor-pointer gap-2 border p-2 border-gray-800 hover:border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg text-center justify-center w-full">
+                        <div onClick={openShare} className="flex mt-3 transition-all duration-500 ease-in-out  cursor-pointer gap-2 border p-2 border-gray-800 hover:border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg text-center justify-center w-full">
                           <ShareIos size={24} />
                           <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
                         </div>
