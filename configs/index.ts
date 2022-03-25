@@ -7,19 +7,15 @@ interface iConfig {
   siteDescription: string;
   cookieBarBgColor:string;
   urlSite:string;
-
   city:string;
   type:string;
   search:string;
-
   pageType:string;
-
   filterIsOpen:boolean;
   searchIsOpen:boolean;
   reportModalIsOpen:boolean;
   shareModalIsOpen:boolean;
   imageModalIsOpen:boolean;
-
 }
 
  

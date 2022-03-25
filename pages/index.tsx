@@ -102,9 +102,7 @@ const IndexPage = ({ buildTimestamp }) => {
       <SEO siteName="Mais Vagas ES" title="Mural" description="" />
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2 ">
-          <Info texto='Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.'/>
-
-
+          <Info texto='Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.' />
           <section className="grid md:grid-cols-12 gap-8 ">
             <div className="md:col-span-3">
               <Sidebar />
@@ -183,8 +181,6 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-
-
                       {index == 6 || index == 13 || index == 20 || index == 25 || index == 32 || index == 40 && <div className=''>
                         <ins className="adsbygoogle"
                           style={{ display: "block", width: "350px", height: "430px" }}
@@ -198,6 +194,7 @@ const IndexPage = ({ buildTimestamp }) => {
                       </div>}
                     </>)
                   })}
+
                   </InfiniteScroll>
                   :
                   <div className="w-full">
@@ -220,8 +217,6 @@ const IndexPage = ({ buildTimestamp }) => {
 }
 
 export const getStaticProps = () => {
-
-
   return {
     props: {
       buildTimestamp: Date.now()

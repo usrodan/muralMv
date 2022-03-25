@@ -13,10 +13,10 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { toast } from 'react-toastify';
 import { removeAcento } from "@/utils/removeAcento"
 import { SpinnerCircularFixed } from "spinners-react";
-import { Info as InfoIcon} from "@styled-icons/bootstrap/Info"
+import { Info as InfoIcon } from "@styled-icons/bootstrap/Info"
 import Info from '@/components/Info';
 
-  
+
 
 const EnviarPage = () => {
   const [image, setImage] = useState(null)
@@ -55,7 +55,7 @@ const EnviarPage = () => {
           position: toast.POSITION.BOTTOM_CENTER
         })
         setImage(null)
-        setHash(null) 
+        setHash(null)
       }
       else {
         setHash(res.data)
@@ -133,7 +133,7 @@ const EnviarPage = () => {
           setCidade({ id: 0, attributes: { cidade: "Selecione uma cidade", slug: "" } })
           setTipo({ id: 0, attributes: { tipo: "Selecione um tipo", slug: "" } })
           setDescricao("")
-          setLoading(false) 
+          setLoading(false)
         });
     }
     else {
@@ -240,16 +240,14 @@ const EnviarPage = () => {
           </div>
         </Dialog>
       </Transition.Root>
-    
-      <main className="flex w-full justify-center">
-      
-        <div className="flex flex-col w-full max-w-7xl p-4  border-t-2 border-white">
-        <Info 
-        cor='orange'
-        texto='Caso a vaga enviada não tiver email, site ou telefone para envio de currículo, a mesma será removida.<br />
-          Você pode utilizar o campo descrição abaixo para inserir informações complementares da oportunidade.'/>
- 
 
+      <main className="flex w-full justify-center">
+        <div className="flex flex-col w-full max-w-7xl p-4  border-t-2 border-white">
+          <Info
+            cor='orange'
+            texto='Caso a vaga enviada não tiver email, site ou telefone para envio de currículo, a mesma será removida.<br />
+                    Você pode utilizar o campo descrição abaixo para inserir informações complementares da oportunidade.'
+          />
           <section className="grid md:grid-cols-12 py-8 gap-8 ">
             <div className="md:col-span-4">
               <span className="text-blue-500 font-bold text-lg ">CARGO</span>
@@ -284,7 +282,6 @@ const EnviarPage = () => {
                           <div className='flex p-2 rounded-lg w-full  border text-gray-800 border-gray-300'>
                             <input value={searchCity} onChange={(e) => setSearchCity(e.target.value)} className='text-gray-800' />
                             <SearchAlt className="text-gray-300" size="24" />
-
                           </div>
                           <div className='overflow-auto mt-2 max-h-60'>
                             {cidades.map((person) => {
@@ -329,9 +326,7 @@ const EnviarPage = () => {
                   </>
                 )}
               </Listbox>
-
             </div>
-
             <div className="md:col-span-4">
               <span className="text-blue-500 font-bold text-lg">TIPO DE VAGA</span>
               <Listbox value={tipo} onChange={setTipo}>
@@ -437,7 +432,7 @@ const EnviarPage = () => {
 
 
             <div className='fixed bottom-0 left-0 md:relative flex w-full md:col-span-12'>
-              { !loading ?
+              {!loading ?
                 <div onClick={() => setOpen(true)}
                   className="flex w-full items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-lg bg-blue-500 hover:bg-blue-600" >
                   <SendPlane size={20} />
@@ -450,7 +445,7 @@ const EnviarPage = () => {
                 </div>
               }
             </div>
-            
+
             <div className='flex bottom-0 left-0 md:relative md:hidden w-full md:col-span-12'>
               {!loading ?
                 <div onClick={() => setOpen(true)}
@@ -465,8 +460,8 @@ const EnviarPage = () => {
                 </div>
               }
             </div>
-            
-            </section>
+
+          </section>
         </div>
       </main >
     </>);

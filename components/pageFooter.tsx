@@ -2,7 +2,6 @@ import { Linkedin } from "@styled-icons/boxicons-logos/Linkedin"
 import { Instagram } from "@styled-icons/boxicons-logos/Instagram"
 import { FacebookCircle } from "@styled-icons/boxicons-logos/FacebookCircle"
 export default function Footer() {
-  /* This example requires Tailwind CSS v2.0+ */
   const navigation = {
     main: [
       { name: 'Mural', href: '/' },
@@ -12,7 +11,6 @@ export default function Footer() {
       { name: 'Contato', href: '/contato' },
     ],
     social: [
-
       {
         name: 'Linkedin',
         href: 'https://www.linkedin.com/company/maisvagases/',
@@ -37,8 +35,6 @@ export default function Footer() {
       },
     ],
   }
-
-
   return (
     <footer className="bg-white flex w-full border-t border-gray-300 mt-4">
       <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">

@@ -1,9 +1,5 @@
 
 import SEO from '@/components/SEO';
-import { Fragment, useEffect, useState } from 'react';
-import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
-import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
-import Info from '@/components/Info';
 const Pagina = () => {
   const urlSite = "Mural - MaisVagasES"
   const nomeSite = "https://mural.maisvagases.com.br"
@@ -11,7 +7,7 @@ const Pagina = () => {
     <>
       <SEO siteName="Mais Vagas ES" title="Política de Privacidade" description="" />
       <main className='flex flex-col w-full items-center ' >
-      <h1>Política Privacidade</h1>
+        <h1>Política Privacidade</h1>
         <section className="flex flex-col bg-white border border-gray-200 rounded-md gap-4 w-full max-w-7xl mt-4 p-4 ">
           <h2>Política Privacidade</h2>
           <p>A sua privacidade é importante para nós.É política do {nomeSite} respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site <a href={urlSite}>{nomeSite}</a>, e outros sites que possuímos e operamos.</p>
@@ -59,11 +55,8 @@ const Pagina = () => {
           <h3>Mais informações</h3>
           <p>Esperemos que esteja esclarecido e, como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso interaja com um dos recursos que você usa em nosso site.</p>
           <p>Esta política é efetiva a partir de <strong>Março</strong>/<strong>2022</strong>.</p>
-
         </section>
       </main>
-
-
     </>);
 }
 

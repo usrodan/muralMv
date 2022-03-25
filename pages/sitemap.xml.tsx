@@ -31,9 +31,7 @@ Sitemap.getInitialProps = async ({ res, req }) => {
   const r = (Object.values(data.murals.data))
   //@ts-ignore
   r.map(rr=> urls.push(`${rr.id}-${slugify(rr.attributes.cargo)}`)) 
-
   const sitemap = createSitemap(req.headers.host, urls);
-
   res.setHeader("Content-Type", "text/xml");
   res.write(sitemap);
   res.end();

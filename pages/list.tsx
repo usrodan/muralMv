@@ -14,12 +14,9 @@ export default function Index() {
   }, [])
 
   function titleize(str) {
-   //pega apenas as palavras e tira todos os espaços em branco.
- return str.replace(/\w\S*/g, function(str) {
-
-  //passa o primeiro caractere para maiusculo, e adiciona o todo resto minusculo
-  return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
- });
+    return str.replace(/\w\S*/g, function (str) {
+      return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
+    });
   }
 
   async function getData() {
@@ -27,35 +24,30 @@ export default function Index() {
     var resultdias = []
     const { data } = await client.query({
       query: gql` 
-    query {
-      murals(pagination:{limit:200},sort: ["createdAt:desc"]) {
-        data {
-          id 
-          attributes {
-            cargo 
-            createdAt 
-            tipo{data{attributes{tipo}}}
+        query {
+          murals(pagination:{limit:200},sort: ["createdAt:desc"]) {
+            data {
+              id 
+              attributes {
+                cargo 
+                createdAt 
+                tipo{data{attributes{tipo}}}
+              }
+            }
           }
         }
-      }
-    }
-  `,
+      `,
     });
- 
-
-   
-
     data.murals.data.forEach(mural => {
       let znDate = zonedTimeToUtc(mural.attributes.createdAt, 'America/Sao_Paulo');
       let formatedData = format(znDate, "dd/MM/yyy")
- 
-      
+
+
       posts.push({ cargo: mural.attributes.cargo, tipo: mural.attributes.tipo.data.attributes.tipo, id: mural.id, date: formatedData })
       console.log(formatedData)
       if (!resultdias.includes(formatedData)) {
         resultdias.push(formatedData);
       }
-
     })
     setDias(resultdias)
     setItems(posts)
@@ -70,8 +62,7 @@ export default function Index() {
           <span className="text-xl  mt-20 font-bold text-blue-500 mb-0" >{a}</span>
           {items && items.map(i => (a == i.date && <div key={i.id}>Cargo: {titleize(i.cargo)}<br />Tipo: {i.tipo}<br />Link: http://mural.maisvagases.com.br/{i.id}-{slugify(i.cargo)}<br /><br /></div>))}
         </section>)
-      )}
-
+      )} 
     </main>)
 
 }

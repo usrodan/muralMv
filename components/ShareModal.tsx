@@ -1,9 +1,8 @@
-import { Fragment} from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { Configs } from '@/configs'
 import { useClipboard } from 'use-clipboard-copy';
-
 import { Facebook } from "@styled-icons/boxicons-logos/Facebook"
 import { Twitter } from "@styled-icons/boxicons-logos/Twitter"
 import { Linkedin } from "@styled-icons/boxicons-logos/Linkedin"
@@ -13,12 +12,11 @@ import { toast } from 'react-toastify';
 
 interface Props {
     url: string;
-    cargo:string
+    cargo: string
 }
-const ShareModal: React.FC<Props> = ({ url,cargo }: Props) => {
+const ShareModal: React.FC<Props> = ({ url, cargo }: Props) => {
     const ConfigsStore = Configs.useState()
     const clipboard = useClipboard()
-
     const shareIconsClasses = "flex justify-center  transition-all duration-500 ease-in-out items-center rounded-full border hover:border-2 border-gray-200 h-12 w-12"
     const shareIconsSize = 24
     const shareText = "Veja essa vaga que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego: "
@@ -31,11 +29,10 @@ const ShareModal: React.FC<Props> = ({ url,cargo }: Props) => {
 
     function handleCopyClipboard() {
         clipboard.copy()
-    
         toast.success('Link copiado para o área de transferência!', {
-          position: "bottom-center",
+            position: "bottom-center",
         })
-      }
+    }
     return (
         <Transition.Root show={ConfigsStore.shareModalIsOpen} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={close}>

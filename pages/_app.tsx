@@ -11,7 +11,6 @@ function MyApp({ Component, pageProps }) {
       <Head>
       </Head>
       <ApolloProvider client={client}>
-
         <Script id="google-ads" strategy="afterInteractive" nonce='8JViWmwJBu' >
           {`
             window.addEventListener("load",function(){
@@ -21,7 +20,6 @@ function MyApp({ Component, pageProps }) {
             }) 
           `}
         </Script>
-
         <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-7MKJYHFTPR" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`

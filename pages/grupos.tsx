@@ -8,8 +8,6 @@ import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import Info from '@/components/Info';
 const Grupos = () => {
   const [grupos, setGrupos] = useState(null)
-
-
   async function getData() {
     const { data } = await client.query({
       query: gql`
@@ -31,13 +29,11 @@ const Grupos = () => {
     });
     console.log(data.config.data.attributes.Grupos)
     setGrupos(data.config.data.attributes.Grupos)
-
   }
 
   useEffect(() => {
     getData()
   }, [])
-
 
   return (
     <>
@@ -51,11 +47,8 @@ const Grupos = () => {
             Estamos felizes em saber que você deseja participar do nosso grupo de vagas no WhatsApp.<br />
             Mas pedimos que dê preferência por entrar em nosso canal no <strong>Telegram.</strong> <br />
             Lá às vagas são postadas imediatamente assim que publicadas em nosso site.<br /> <br />
-
             Mas se preferir mesmo assim entrar no grupo do WhatsApp, disponibilizamos abaixo nossos grupos, caso o grupo esteja cheio, volte aqui e selecione outro grupo!<br /><br />
-
-            <Info cor="orange" texto='É permitida somente a entrada/permanência em APENAS UM GRUPO, caso a gente entenda que você está em mais de um, nos sentimos no direito de lhe remover. O mesmo conteúdo é postado em todos os grupos'/>
-
+            <Info cor="orange" texto='É permitida somente a entrada/permanência em APENAS UM GRUPO, caso a gente entenda que você está em mais de um, nos sentimos no direito de lhe remover. O mesmo conteúdo é postado em todos os grupos' />
           </span>
 
           <div className='flex'>
@@ -65,13 +58,10 @@ const Grupos = () => {
             </a>
           </div>
 
-
-
           <span className="mt-4 mb-2 ">
             <strong className="font-bold text-md">GRUPOS NO WHASTASPP</strong><br />
             Grupos em <strong className="text-red-500 font-bold  text-sm">VERMELHO</strong> estão possivelmente cheios! (com 250 pessoas ou mais)
           </span>
-
 
           <div className="grid grid-cols-4 gap-4 w-full max-w-7xl ">
             {grupos && grupos.map(grupo => (
@@ -83,10 +73,9 @@ const Grupos = () => {
                 </div>
               </a>))}
           </div>
+
         </section>
       </main>
-
-
     </>);
 }
 

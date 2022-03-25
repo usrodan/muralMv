@@ -1,19 +1,18 @@
-import { Fragment, useEffect, useState } from 'react'
-import { Dialog,  Transition } from '@headlessui/react'
+import { Fragment } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 import { Configs } from '@/configs'
-import Image from 'next/image'
 
- interface Props{
-    src:string;
-    alt:string;
-    width:number;
-    height:number;
- }
+interface Props {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+}
 
-const ReportModal: React.FC<Props> = ({src,alt,width,height}:Props) => {
-    const ConfigsStore = Configs.useState()  
- 
+const ReportModal: React.FC<Props> = ({ src, alt, width, height }: Props) => {
+    const ConfigsStore = Configs.useState()
+
     function close() {
         Configs.update(s => {
             s.imageModalIsOpen = false
@@ -60,11 +59,9 @@ const ReportModal: React.FC<Props> = ({src,alt,width,height}:Props) => {
                                 </button>
                             </div>
                             <div className="sm:flex sm:items-start w-full pt-12 ">
-                            <img onClick={close} className="cursor-pointer w-full rounded-b-md flex" alt={alt} width={width}  height={height} src={src} />
-          
-                            
+                                {/* eslint-disable-next-line @next/next/no-img-element*/}
+                                <img onClick={close} className="cursor-pointer w-full rounded-b-md flex" alt={alt} width={width} height={height} src={src} />
                             </div>
-                       
                         </div>
                     </Transition.Child>
                 </div>

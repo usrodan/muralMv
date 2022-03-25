@@ -15,29 +15,29 @@ const reasonList = [
     "Outro"
 ]
 
-interface Props{
-    id:string;
-    cargo:string;
-    url:string
-} 
+interface Props {
+    id: string;
+    cargo: string;
+    url: string
+}
 
-const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
+const ReportModal: React.FC<Props> = ({ id, cargo, url }: Props) => {
     const ConfigsStore = Configs.useState()
 
-    const [reasonOption, setReasonOption] = useState("") 
+    const [reasonOption, setReasonOption] = useState("")
     const [reasonText, setReasonText] = useState("")
     const [finalReason, setFinalReason] = useState("")
     const [loading, setLoading] = useState(false)
 
-     function SendReport(){
+    function SendReport() {
         setLoading(true)
-        axios.post("/api/reportVaga/",{
-            id,cargo,url,motivo:finalReason
-        }).then(response=>{
+        axios.post("/api/reportVaga/", {
+            id, cargo, url, motivo: finalReason
+        }).then(response => {
             setLoading(false)
             response.data == "OK" ? toast.success("Denúncia enviada com sucesso") : toast.error("Ocorreu algum erro ao enviar sua denúncia")
             close()
-        }).catch(e=>{
+        }).catch(e => {
             setLoading(false)
             toast.error("Ocorreu algum erro ao enviar sua denúncia")
             toast.error(e)
@@ -45,13 +45,13 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         reasonOption != "Outro" ? setFinalReason(reasonOption) : setFinalReason(reasonText)
-    },[reasonOption])
+    }, [reasonOption])
 
-    useEffect(()=>{
-         setFinalReason(reasonText)
-    },[reasonText])
+    useEffect(() => {
+        setFinalReason(reasonText)
+    }, [reasonText])
 
     function close() {
         Configs.update(s => {
@@ -117,18 +117,18 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
 
                                         {reasonList.map(r => <div key={r} className="relative flex items-start">
                                             <div className="flex items-center h-5">
-                                                <input 
+                                                <input
                                                     aria-describedby="reason-description"
                                                     name="reason"
                                                     checked={r == reasonOption}
                                                     value={r}
-                                                    onChange={(e)=> setReasonOption(r != reasonOption ? e.target.value : "")}
+                                                    onChange={(e) => setReasonOption(r != reasonOption ? e.target.value : "")}
                                                     type="checkbox"
                                                     className=" h-4 w-4 cursor-pointer text-gray-600 border-gray-300 rounded"
                                                 />
                                             </div>
                                             <div className="ml-3 text-left ">
-                                                <label htmlFor="reason" onClick={(e)=> setReasonOption(r != reasonOption ? r : "")} className="font-medium cursor-pointer text-gray-700">
+                                                <label htmlFor="reason" onClick={(e) => setReasonOption(r != reasonOption ? r : "")} className="font-medium cursor-pointer text-gray-700">
                                                     {r}
                                                 </label>
                                                 <span id="reason-description" className="text-gray-500">
@@ -137,7 +137,7 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
                                             </div>
                                         </div>)}
 
-                                        {reasonOption == "Outro" && <div className="w-full text-sm text-gray-400 text-md flex p-2 gap-2 items-center rounded-md border border-gray-200 bg-gray-100"> 
+                                        {reasonOption == "Outro" && <div className="w-full text-sm text-gray-400 text-md flex p-2 gap-2 items-center rounded-md border border-gray-200 bg-gray-100">
                                             <input placeholder="Digite o motivo" value={reasonText} onChange={(e) => setReasonText(e.target.value)} className="w-full   text-gray-400 bg-gray-100" />
                                         </div>}
 
@@ -153,15 +153,15 @@ const ReportModal: React.FC<Props> = ({id,cargo,url}:Props) => {
                                     <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />
                                     Denunciar Vaga
                                 </button>
-                                :
-                                <button
-                                    type="button"
-                                    className="w-full items-center cursor-not-allowed inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-200 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-md"
-                                >
-                                    {loading ?  <SpinnerCircularFixed className='mr-2' size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />: <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />}
-                                    Denunciar Vaga
-                                </button>
-}
+                                    :
+                                    <button
+                                        type="button"
+                                        className="w-full items-center cursor-not-allowed inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-200 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-md"
+                                    >
+                                        {loading ? <SpinnerCircularFixed className='mr-2' size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" /> : <ExclamationIcon className="h-6 w-6 mr-2" aria-hidden="true" />}
+                                        Denunciar Vaga
+                                    </button>
+                                }
 
                                 <button
                                     type="button"

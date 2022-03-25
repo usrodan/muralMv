@@ -1,11 +1,7 @@
 
 import SEO from '@/components/SEO';
-import { Fragment, useEffect, useState } from 'react';
-import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
-import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import Image from 'next/image';
 const Pagina = () => {
-
   const people = [
     {
       name: 'Ronaldo Rangel',
@@ -28,25 +24,24 @@ const Pagina = () => {
         'Há mais de 13 anos desenvolvendo sites incríveis pelo mundo (literalmente 😄).',
       twitterUrl: '#',
       linkedinUrl: 'https://www.linkedin.com/in/danilofacco/',
-    }, 
+    },
   ]
 
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Quem Somos" description="" />
-      <main className='flex flex-col w-full items-center ' > 
-        <section className="flex flex-col bg-white border border-gray-200 rounded-md gap-4 w-full max-w-7xl mt-4 p-4 "> 
-
+      <main className='flex flex-col w-full items-center ' >
+        <section className="flex flex-col bg-white border border-gray-200 rounded-md gap-4 w-full max-w-7xl mt-4 p-4 ">
           <div className="bg-white">
             <div className="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24">
               <div className="space-y-12 lg:grid lg:grid-cols-4 lg:gap-8 lg:space-y-0">
                 <div className="space-y-5 col-span-2 sm:space-y-4">
                   <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Quem somos</h2>
                   <p className="text-xl text-gray-500">
-                  O Mais Vagas ES é uma plataforma oferecida gratuitamente com o intuito de ajudar a todos conseguirem seu primeiro emprego ou a se recolocar no mercado de trabalho.<br/><br/>
-                  Por isso nossa missão é garantir diariamente a divulgação de vagas de emprego, concursos e estágios em todo o Espírito Santo.<br/><br/>
+                    O Mais Vagas ES é uma plataforma oferecida gratuitamente com o intuito de ajudar a todos conseguirem seu primeiro emprego ou a se recolocar no mercado de trabalho.<br /><br />
+                    Por isso nossa missão é garantir diariamente a divulgação de vagas de emprego, concursos e estágios em todo o Espírito Santo.<br /><br />
                   </p>
-                  <Image   alt="Mais Vagas ES" width={200} height={37} src="/maisvagases.svg"/>
+                  <Image alt="Mais Vagas ES" width={200} height={37} src="/maisvagases.svg" />
                 </div>
                 <div className="lg:col-span-2 relative pt-8 lg:-top-20">
                   <ul
@@ -61,17 +56,17 @@ const Pagina = () => {
                           </div>
                           <div className="text-lg leading-6 font-medium ">
                             <h3 className='text-2xl -mb-0.5'>{person.name}</h3>
-                           
+
                             <p className="text-blue-600 -mb-0.5">{person.role}</p>
                             <span className="text-gray-400 text-sm   ">{person.place}</span>
-                            
+
                           </div>
                           <div className="text-lg">
                             <p className="text-gray-500">{person.bio}</p>
                           </div>
 
                           <ul className="flex space-x-5">
-                             
+
                             <li>
                               <a href={person.linkedinUrl} className="text-gray-400 hover:text-gray-500">
                                 <span className="sr-only">LinkedIn</span>
@@ -92,11 +87,9 @@ const Pagina = () => {
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
         </section>
       </main>
-
-
     </>);
 }
 

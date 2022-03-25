@@ -22,13 +22,9 @@ export default function uploadFormFiles(req: Request, res: Response) {
       .on("file", async (name: string, file: File) => {
         //const data = fs.readFileSync(file.path);
         newPath = `./public/uploads/${file.name}`;
-
-        var FormData = require("form-data"); 
+        var FormData = require("form-data");
         var data = new FormData();
-        data.append(
-          "files",
-          fs.createReadStream(file.path)
-        ); 
+        data.append("files", fs.createReadStream(file.path));
 
         axios({
           method: "post",
@@ -38,20 +34,19 @@ export default function uploadFormFiles(req: Request, res: Response) {
           },
           data: data,
         })
-          .then(function (response) { 
+          .then(function (response) {
             resolve(res.status(200).json(response.data));
           })
           .catch(function (error) {
             console.log(error);
-          });      
+          });
       })
       .on("aborted", () => {
         reject(res.status(500).send("Aborted"));
       })
       .on("end", async () => {
-        console.log(newPath); 
-        
-      }); 
+        console.log(newPath);
+      });
     await form.parse(req);
   });
 }

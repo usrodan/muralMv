@@ -9,14 +9,12 @@ import { SendPlane } from "@styled-icons/remix-fill/SendPlane"
 
 import { SpinnerCircularFixed } from "spinners-react";
 const Pagina = () => {
-
   const [nome, setNome] = useState("")
   const [email, setEmail] = useState("")
   const [mensagem, setMensagem] = useState("")
   const [loading, setLoading] = useState(false)
   const [primeiro, setPrimeiro] = useState(Math.floor(Math.random() * 10)+1)
   const [segundo, setSegundo] = useState(Math.floor(Math.random() * 10)+1) 
-  
   const [captcha, setCaptcha] = useState(null)
  
   function enviarEmail(){
@@ -25,7 +23,6 @@ const Pagina = () => {
     !(nome && email && mensagem) && toast.error("Por favor preencha todos os campos!", {
       position: toast.POSITION.BOTTOM_CENTER
     })
-
     primeiro + segundo != captcha && toast.error("Captcha inválido! resolva equação antes de enviar", {
       position: toast.POSITION.BOTTOM_CENTER
     })

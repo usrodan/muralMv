@@ -1,4 +1,4 @@
-import Head from 'next/head' 
+import Head from 'next/head'
 
 interface SEOProps {
     title: string;
@@ -25,7 +25,7 @@ export default function SEO({
             <title>{pageTitle}</title>
             {description && <meta name="description" content={description} />}
             {pageImage && <meta name="image" content={pageImage} />}
-            {notIndexPage && <meta name="robots" content="noindex,nofollow" />} 
+            {notIndexPage && <meta name="robots" content="noindex,nofollow" />}
 
             <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=5" />
 
@@ -60,7 +60,7 @@ export default function SEO({
             <meta name="twitter:image:height" content="620" />
 
 
-           
+
         </Head>
     )
 }

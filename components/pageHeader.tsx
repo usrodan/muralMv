@@ -2,23 +2,21 @@
 import Image from "next/image"
 import { UploadCloud } from "@styled-icons/feather/UploadCloud"
 import { Search } from "@styled-icons/boxicons-regular/Search"
-import {SearchAlt } from "@styled-icons/boxicons-regular/SearchAlt"
+import { SearchAlt } from "@styled-icons/boxicons-regular/SearchAlt"
 import { FilterAlt } from "@styled-icons/boxicons-regular/FilterAlt"
 import { FilterAlt as FilterFilled } from "@styled-icons/boxicons-solid/FilterAlt"
 import { Configs } from '@/configs'
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
-let timeout = null;
-
 export default function PageHeader() {
   const configState = Configs.useState()
   const router = useRouter()
   const [search, setSearch] = useState(null)
 
-  useEffect(()=>{
+  useEffect(() => {
     configState.search != undefined && setSearch(configState.search)
-  },[configState.search])
+  }, [configState.search])
 
   function handleFilter() {
     Configs.update(s => {
@@ -33,13 +31,12 @@ export default function PageHeader() {
     router.push(`/?search=${search}`)
   }
 
-  function makeSearch(e=null) {
+  function makeSearch(e = null) {
     //@ts-ignore
     e && e.preventDefault();
     handleSearch()
     router.push(`/?search=${search}`)
   }
-
 
   return (
     <header className={"flex flex-col items-center font-semibold z-10  w-full bg-white justify-center"}>
