@@ -300,7 +300,7 @@ export default function Index() {
                 </li>
               ))}
             </ol>
-            <a href="#" className='flex items-center gap-2' onClick={logout}><LogOut size={24} />Sair</a>
+            <a href="#" className='flex items-center text-gray-500 font-semibold gap-2' onClick={logout}><LogOut size={20} />Sair</a>
           </nav>
 
           <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
