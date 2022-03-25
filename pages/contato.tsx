@@ -1,8 +1,7 @@
 
 import SEO from '@/components/SEO';
 import { Fragment, useEffect, useState } from 'react';
-import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
-import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
+import Image from 'next/image'
 import Info from '@/components/Info';
 import { toast } from 'react-toastify';
 import { SendPlane } from "@styled-icons/remix-fill/SendPlane"
@@ -13,11 +12,11 @@ const Pagina = () => {
   const [email, setEmail] = useState("")
   const [mensagem, setMensagem] = useState("")
   const [loading, setLoading] = useState(false)
-  const [primeiro, setPrimeiro] = useState(Math.floor(Math.random() * 10)+1)
-  const [segundo, setSegundo] = useState(Math.floor(Math.random() * 10)+1) 
+  const [primeiro, setPrimeiro] = useState(Math.floor(Math.random() * 10) + 1)
+  const [segundo, setSegundo] = useState(Math.floor(Math.random() * 10) + 1)
   const [captcha, setCaptcha] = useState(null)
- 
-  function enviarEmail(){
+
+  function enviarEmail() {
     setLoading(true)
 
     !(nome && email && mensagem) && toast.error("Por favor preencha todos os campos!", {
@@ -27,13 +26,13 @@ const Pagina = () => {
       position: toast.POSITION.BOTTOM_CENTER
     })
 
-    if(nome && email && mensagem){
+    if (nome && email && mensagem) {
       var axios = require('axios');
       var data = JSON.stringify({
-          nome: String(nome),
-          email: String(email),
-          mensagem: String(mensagem), 
-        });
+        nome: String(nome),
+        email: String(email),
+        mensagem: String(mensagem),
+      });
 
       var config = {
         method: 'post',
@@ -51,8 +50,8 @@ const Pagina = () => {
           setNome("")
           setEmail("")
           setMensagem("")
-          setPrimeiro(Math.floor(Math.random() * 10)+1)
-          setSegundo(Math.floor(Math.random() * 10)+1) 
+          setPrimeiro(Math.floor(Math.random() * 10) + 1)
+          setSegundo(Math.floor(Math.random() * 10) + 1)
           setCaptcha(false)
           setLoading(false)
         })
@@ -63,16 +62,16 @@ const Pagina = () => {
           setNome("")
           setEmail("")
           setMensagem("")
-          setPrimeiro(Math.floor(Math.random() * 10)+1)
-          setSegundo(Math.floor(Math.random() * 10)+1) 
+          setPrimeiro(Math.floor(Math.random() * 10) + 1)
+          setSegundo(Math.floor(Math.random() * 10) + 1)
           setCaptcha(false)
-          setLoading(false) 
+          setLoading(false)
         });
     }
     else {
       setLoading(false)
-    } 
-     
+    }
+
   }
   return (
     <>
@@ -82,13 +81,12 @@ const Pagina = () => {
           <div className="xl:container xl:mx-auto py-12 lg:py-0">
             <div className="flex flex-col lg:flex-row justify-center items-center items-strech h-full ">
               <div className="lg:w-full 2xl:w-3/5 p-8">
-                <h1 className="text-3xl lg:text-5xl font-bold text-gray-800 w-11/12">Entre em contato</h1>
+                <h1 className="text-3xl lg:text-5xl font-bold text-gray-800 w-11/12">Entre em contato</h1> 
                 <p className="mt-3 lg:mt-4 text-base leading-normal text-gray-600 md:w-8/12 flex flex-col gap-5 ">
                   <span>Entre em contato conosco caso haja críticas, sugestões e elogios serão sempre bem-vindos!</span>
-
                   <Info cor="orange" texto='Pedimos encarecidamente para que não use este formulário para envio de currículo, nem tanto solicitação de vagas de emprego.' />
                   <span> Se você deseja divulgar/publicar uma vaga, <a className='underline font-semibold' href="/enviar">clique aqui</a>.</span>
-
+                  <Image src="/contato.svg" width={300} height={300} alt="Entre em Contato" />
                 </p>
               </div>
               <div className="lg:w-full 2xl:w-2/5 flex w-full bg-gray-50  flex-col justify-center px-5 py-5 md:px-7 md:py-7 lg:py-12 lg:px-20 mt-2 md:mt-6 lg:mt-0">
@@ -99,20 +97,20 @@ const Pagina = () => {
                 <div className='flex items-center justify-center'><span className=' mt-4 md:mt-6 pr-4 text-lg font-bold text-blue-500'>{primeiro} + {segundo} = </span><div className='rounded-md border h-16 w-20 border-gray-300 mt-4 md:mt-6'><input value={captcha} onChange={(e) => setCaptcha(e.target.value)} className="rounded-md p-4 text-base text-gray-600 decoration-non " type="number" aria-label="resultado" placeholder="" /></div>
                 </div>
                 <div className='fixed bottom-0  mt-4 md:mt-5 left-0 md:relative flex w-full md:col-span-12'>
-                { 
-                   !loading  ?
-                    <div onClick={enviarEmail}
-                      className="flex w-full items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-md bg-blue-500 hover:bg-blue-600" >
-                      <SendPlane size={20} />
-                      Enviar mensagem
-                    </div>
-                    :
-                    <div className="w-full bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-md bg-blue-500 hover:bg-blue-300 " >
-                      <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
-                      Enviando mensagem
-                    </div>
+                  {
+                    !loading ?
+                      <div onClick={enviarEmail}
+                        className="flex w-full items-center cursor-pointer text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-md bg-blue-500 hover:bg-blue-600" >
+                        <SendPlane size={20} />
+                        Enviar mensagem
+                      </div>
+                      :
+                      <div className="w-full bg-opacity-70 cursor-not-allowed flex items-center  text-lg gap-2 justify-center text-center font-semibold text-white p-4 md:p-2 md:rounded-md bg-blue-500 hover:bg-blue-300 " >
+                        <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
+                        Enviando mensagem
+                      </div>
                   }
-                </div> 
+                </div>
               </div>
             </div>
           </div>
