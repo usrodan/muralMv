@@ -90,15 +90,15 @@ export default function Index() {
       `,
     });
     data.murals.data.forEach(mural => {
-      let znDate = zonedTimeToUtc(mural.attributes.createdAt, 'America/Sao_Paulo');
+      let znDate = zonedTimeToUtc(new Date(mural.attributes.createdAt), 'America/Sao_Paulo');
       let formatedData = format(znDate, "dd/MM/yyyy") 
 
       posts.push({ cargo: mural.attributes.cargo, tipo: mural.attributes.tipo.data.attributes.tipo, id: mural.id, date: formatedData })
-      console.log(formatedData)
       if (!resultdias.includes(formatedData)) {
         resultdias.push(formatedData);
       }
     })
+    console.log(resultdias)
     setDias(resultdias)
     setMurais(posts)
   }
@@ -148,9 +148,7 @@ export default function Index() {
   }
 
   function apagarImage(id) {
-    axios.delete(`${process.env.NEXT_PUBLIC_STRAPI}/api/upload/files/${id}/`).then(res => {
-      console.log(res.data)
-    })
+    axios.delete(`${process.env.NEXT_PUBLIC_STRAPI}/api/upload/files/${id}/`)
   }
 
   async function getDataNotUsedImages() {
@@ -196,7 +194,6 @@ export default function Index() {
 
     var notFoundImages = []
     imgs.forEach(i => {
-      console.log(i)
       if (muralsImages.indexOf(i.id) === -1 && (format(new Date(i.createdAt), "yyyy-MM-dd") != formattedHoje)) {
         notFoundImages.push(i.id)
       }
