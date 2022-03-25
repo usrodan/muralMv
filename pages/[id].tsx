@@ -10,8 +10,7 @@ import { InfoCircle } from "@styled-icons/boxicons-regular/InfoCircle"
 import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
 import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
-import { format } from 'date-fns'
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { format } from 'date-fns' 
 import { useEffect } from 'react'; 
 import ReportModal from '@/components/ReportModal';
 import ImagemModal from '@/components/ImagemModal';
@@ -20,11 +19,11 @@ import slugify from '@/utils/slugify';
 import Script from 'next/script';
 import ReactMarkdown from 'react-markdown'
 import Info from '@/components/Info';
+import convertTZ from '@/utils/convertTZ';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
 
-  const znDate = zonedTimeToUtc(mural.data , 'America/Sao_Paulo');
-  const formatedData = format(znDate, "dd/MM/yyyy")
+  let formatedData = format(convertTZ(new Date(mural.data), "America/Sao_Paulo"), "dd/MM/yyyy")
 
   function openReport() {
     Configs.update(s => {

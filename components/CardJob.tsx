@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { format } from 'date-fns'
-import { zonedTimeToUtc } from 'date-fns-tz';
 import slugify from "@/utils/slugify";
+import convertTZ from "@/utils/convertTZ";
 interface CardJobProps {
   image: string;
   title: string;
@@ -13,8 +13,8 @@ interface CardJobProps {
 }
 
 const CardJob: React.FC<CardJobProps> = ({ image, title, city, date, type, color = "blue", id }) => {
-  const znDate = zonedTimeToUtc(date , 'America/Sao_Paulo');
-  const formatedData = format(znDate, "dd/MM/yyyy")
+  let formatedData = format(convertTZ(new Date(date), "America/Sao_Paulo"), "dd/MM/yyyy")
+  
   return (
     <a href={`/${id}-${slugify(title)}`} className="flex  hover:-mt-2 transition-all duration-500 ease-in-out	 border border-gray-200 h-96 lg:h-80 xl:h-96 font-bold flex-col  rounded-lg bg-white">
       <Image className="rounded-t-lg object-cover hover:opacity-80  " alt={title} width={350} height={400} src={image || "http://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />

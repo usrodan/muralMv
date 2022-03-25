@@ -22,6 +22,7 @@ import KeyIcon from '@heroicons/react/outline/KeyIcon';
 import MD5 from "crypto-js/md5"
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import convertTZ from '@/utils/convertTZ';
 
 export default function Index() {
   const [items, setItems] = useState([])
@@ -90,11 +91,11 @@ export default function Index() {
       `,
     });
     data.murals.data.forEach(mural => {
-      let znDate = zonedTimeToUtc(new Date(mural.attributes.createdAt), 'America/Sao_Paulo');
-      let formatedData = format(znDate, "dd/MM/yyyy") 
+   
+      let formatedData = format(convertTZ(new Date(mural.attributes.createdAt), "America/Sao_Paulo"), "dd/MM/yyyy")
 
       posts.push({ cargo: mural.attributes.cargo, tipo: mural.attributes.tipo.data.attributes.tipo, id: mural.id, date: formatedData })
-      if (!resultdias.includes(formatedData)) {
+      if (!resultdias.includes(formatedData)) { 
         resultdias.push(formatedData);
       }
     })
