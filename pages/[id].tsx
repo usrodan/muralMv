@@ -12,8 +12,7 @@ import { Whatsapp } from "@styled-icons/boxicons-logos/Whatsapp"
 import { ExclamationOctagon } from "@styled-icons/bootstrap/ExclamationOctagon"
 import { format } from 'date-fns'
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { useEffect } from 'react';
-import AdSense from 'react-adsense';
+import { useEffect } from 'react'; 
 import ReportModal from '@/components/ReportModal';
 import ImagemModal from '@/components/ImagemModal';
 import ShareModal from '@/components/ShareModal';
@@ -24,8 +23,8 @@ import Info from '@/components/Info';
 
 const IndexPage = ({ buildTimestamp, mural }) => {
 
-  const znDate = zonedTimeToUtc(mural.data || '2022-03-03T10:00:38.765Z', 'America/Sao_Paulo');
-  const formatedData = format(znDate, "dd/MM/yyy")
+  const znDate = zonedTimeToUtc(mural.data , 'America/Sao_Paulo');
+  const formatedData = format(znDate, "dd/MM/yyyy")
 
   function openReport() {
     Configs.update(s => {
@@ -97,12 +96,8 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                   </div>
                   <div className="w-full grid sm:grid-cols-2 p-5 pt-0 gap-5 ">
                     <div className="flex flex-col">
-
-
                       <Image className="rounded-lg  cursor-pointer mb-4" onClick={openImage} alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
-
                       {mural.descricao.length > 0 && <ReactMarkdown className=' text-gray-600  mt-4 mb-4 text-md' >{mural.descricao}</ReactMarkdown>}
-
                       {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
                         <>
@@ -115,11 +110,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           <Script id="VAGA-MURAL-INFERIOR" >
                             {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                           </Script>
-                        </>}
-
-
-
-
+                        </>}  
                     </div>
 
                     <div className="flex flex-col justify-between  ">
@@ -135,15 +126,10 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           <Script id="VAGA-MURAL-LATERAL " >
                             {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                           </Script>
-                        </div>
-
-
-
-
+                        </div> 
                       </section>
 
-                      <section className="flex flex-col gap-5">
-
+                      <section className="flex flex-col gap-5">  
                         <div onClick={openShare} className="flex mt-3 transition-all duration-500 ease-in-out  cursor-pointer gap-2 border p-2 border-gray-800 hover:border-blue-500 hover:bg-blue-500 hover:text-white rounded-lg text-center justify-center w-full">
                           <ShareIos size={24} />
                           <span className="font-semibold text-base">COMPARTILHAR ESSA VAGA</span>
@@ -190,11 +176,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                   <p>Nenhuma vaga encontrada.</p>
                 </div>
               }
-            </div>
-
-
-
-
+            </div> 
           </section>
         </div>
       </main >
@@ -240,7 +222,8 @@ export async function getServerSideProps({ params }) {
         cor: data.mural.data.attributes.tipo.data.attributes.cor,
         imgH: Number(data.mural.data.attributes.imagem.data.attributes.height),
         imgW: Number(data.mural.data.attributes.imagem.data.attributes.width),
-        id: data.mural.data.id
+        id: data.mural.data.id,
+        data:data.mural.data.attributes.createdAt
       },
       buildTimestamp: Date.now()
     }

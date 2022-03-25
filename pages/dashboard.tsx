@@ -91,8 +91,7 @@ export default function Index() {
     });
     data.murals.data.forEach(mural => {
       let znDate = zonedTimeToUtc(mural.attributes.createdAt, 'America/Sao_Paulo');
-      let formatedData = format(znDate, "dd/MM/yyy")
-
+      let formatedData = format(znDate, "dd/MM/yyyy") 
 
       posts.push({ cargo: mural.attributes.cargo, tipo: mural.attributes.tipo.data.attributes.tipo, id: mural.id, date: formatedData })
       console.log(formatedData)
