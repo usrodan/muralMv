@@ -14,8 +14,8 @@ import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Show } from "@styled-icons/boxicons-regular/Show"
 import { Hide } from "@styled-icons/boxicons-regular/Hide"
 import Image from 'next/image'
-import {LogOut} from "@styled-icons/entypo/LogOut"
-
+import { LogOut } from "@styled-icons/entypo/LogOut"
+import { List } from "@styled-icons/entypo/List"
 import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon';
 import MailIcon from '@heroicons/react/outline/MailIcon';
 import KeyIcon from '@heroicons/react/outline/KeyIcon';
@@ -38,31 +38,31 @@ export default function Index() {
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
 
-  const router = useRouter() 
-  
-  useEffect(()=>{
+  const router = useRouter()
+
+  useEffect(() => {
     let acc = localStorage.getItem("SessionID")
-    acc && acc == "163954c102a5b3ad2ecddc40eee80fe8" ? setLogged(true) : setLogged(false) 
-  },[router])
- 
+    acc && acc == "163954c102a5b3ad2ecddc40eee80fe8" ? setLogged(true) : setLogged(false)
+  }, [router])
+
 
   function fazerLogin() {
-    if (MD5(email + senha).toString() == "163954c102a5b3ad2ecddc40eee80fe8"){
+    if (MD5(email + senha).toString() == "163954c102a5b3ad2ecddc40eee80fe8") {
       setLogged(true)
       localStorage.setItem("SessionID", "163954c102a5b3ad2ecddc40eee80fe8")
       setEmail("")
       setSenha("")
     }
-    else{
-      toast.error("Email ou senha inválidos.",{
-        position:'bottom-center'
+    else {
+      toast.error("Email ou senha inválidos.", {
+        position: 'bottom-center'
       })
     }
   }
 
-  function logout() { 
-      setLogged(false)
-      localStorage.setItem("SessionID", "") 
+  function logout() {
+    setLogged(false)
+    localStorage.setItem("SessionID", "")
   }
 
   function titleize(str) {
@@ -165,7 +165,6 @@ export default function Index() {
                 attributes{ 
                   createdAt
                 }
-                
               }
             }
             murals(pagination:{limit:1000}) {
@@ -213,7 +212,7 @@ export default function Index() {
     <main className="flex flex-col gap-4 p-8 items-center ">
       {!logged ?
         <section className=" font-dm-sans bg-slate-light">
-        
+
           <div className="mx-6 max-w-default md:m-auto">
             <div className="justify-center md:flex">
               <div>
@@ -301,7 +300,7 @@ export default function Index() {
                 </li>
               ))}
             </ol>
-            <a href="#" className='flex items-center gap-2' onClick={logout}><LogOut size={24}/>Sair</a>
+            <a href="#" className='flex items-center gap-2' onClick={logout}><LogOut size={24} />Sair</a>
           </nav>
 
           <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -343,11 +342,7 @@ export default function Index() {
             >
               <dt>
                 <div className="absolute bg-blue-500 rounded-md p-3">
-                  {loadingImages ?
-                    <SpinnerCircularFixed size={24} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
-                    :
-                    <Images className="h-6 w-6 text-white" aria-hidden="true" />
-                  }
+                  <List className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
                 <p className="ml-16 text-sm font-medium text-gray-500 truncate">Quantidade de Murais</p>
               </dt>
@@ -363,7 +358,7 @@ export default function Index() {
                       {({ open }) => (
                         <>
                           <div className="mt-1 relative">
-                            <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <Listbox.Button className="bg-white relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                               <span className="block truncate">{selected}</span>
                               <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                                 <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -382,7 +377,7 @@ export default function Index() {
                                     key={dia}
                                     className={({ active }) =>
                                       classNames(
-                                        active ? 'text-white bg-indigo-600' : 'text-gray-900',
+                                        active ? 'text-white bg-blue-600' : 'text-gray-900',
                                         'cursor-default select-none relative py-2 pl-3 pr-9'
                                       )
                                     }
@@ -397,7 +392,7 @@ export default function Index() {
                                         {selected ? (
                                           <span
                                             className={classNames(
-                                              active ? 'text-white' : 'text-indigo-600',
+                                              active ? 'text-white' : 'text-blue-600',
                                               'absolute inset-y-0 right-0 flex items-center pr-4'
                                             )}
                                           >
