@@ -33,8 +33,6 @@ const EnviarPage = () => {
 
   const [open, setOpen] = useState(false)
 
-  const ref = useRef() 
-
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
@@ -90,7 +88,7 @@ const EnviarPage = () => {
       position: toast.POSITION.BOTTOM_CENTER
     })
 
-    if (cargo && image && tipo && cidade && hash) {
+    if (cargo && image && tipo.id && cidade.id && hash) {
       var axios = require('axios');
       var data = JSON.stringify({
         data: {
