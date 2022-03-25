@@ -22,7 +22,7 @@ export default function Cookies() {
        <InfoWithCircle className="text-blue-500 w-10 h-10" size={40}/>
        <div className="w-full">Usamos os cookies e dados de navegação visando proporcionar uma melhor experiência durante o uso do site.<br/> Ao continuar a navegar nesse site, você concorda com nossa <a href="/politica-de-privacidade" className="text-blue-500 font-semibold">Política de Privacidade</a> e <a href="termos-de-uso" className="font-semibold text-blue-500">Termos de uso</a>.</div>
       <div className="flex  justify-center gap-4">
-        <div  onClick={aceitar} className="cursor-pointer bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2  rounded-md text-white">Fechar</div>
+        <div  onClick={aceitar} className="cursor-pointer bg-blue-500 hover:bg-blue-600 font-bold px-4 py-2  rounded-md text-white">Aceitar</div>
       </div>
     </div>
     </div>
