@@ -26,7 +26,7 @@ const Pagina = () => {
       position: toast.POSITION.BOTTOM_CENTER
     })
 
-    if (nome && email && mensagem) {
+    if (nome && email && mensagem && (primeiro + segundo == captcha)) {
       var axios = require('axios');
       var data = JSON.stringify({
         nome: String(nome),
