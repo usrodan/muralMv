@@ -16,6 +16,14 @@ const Pagina = () => {
   const [segundo, setSegundo] = useState(Math.floor(Math.random() * 10) + 1)
   const [captcha, setCaptcha] = useState(null)
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   function enviarEmail() {
     setLoading(true)
 
@@ -26,7 +34,11 @@ const Pagina = () => {
       position: toast.POSITION.BOTTOM_CENTER
     })
 
-    if (nome && email && mensagem && (primeiro + segundo == captcha)) {
+    !validateEmail(email) && toast.error("Email inválido", {
+      position: toast.POSITION.BOTTOM_CENTER
+    })
+
+    if (nome && validateEmail(email) && mensagem && (primeiro + segundo == captcha)) {
       var axios = require('axios');
       var data = JSON.stringify({
         nome: String(nome),
