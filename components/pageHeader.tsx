@@ -39,7 +39,7 @@ export default function PageHeader() {
   }
 
   return (
-    <header className={"flex flex-col items-center font-semibold z-10  w-full bg-white justify-center"}>
+    <header className={"flex flex-col border-b border-gray-300 items-center font-semibold z-10  w-full bg-white justify-center"}>
       <form onSubmit={makeSearch} className="hidden md:flex  flex-row gap-4 w-full max-w-7xl p-4">
         <a href="/" className="flex hover:opacity-60  hover:-mt-2 transition-all duration-500 ease-in-out justify-center"><Image src="/Mural.svg" alt="Mural MaisVagasES" width={97} height={29} /></a>
         <div className="w-full text-gray-400 flex p-3 gap-2 items-center rounded-l-md bg-gray-100">
