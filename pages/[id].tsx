@@ -19,11 +19,12 @@ import slugify from '@/utils/slugify';
 import Script from 'next/script';
 import ReactMarkdown from 'react-markdown'
 import Info from '@/components/Info';
-import convertTZ from '@/utils/convertTZ';
+import { timezoneBrazil } from '@/utils/timezoneBrazil';
+
 
 const IndexPage = ({ buildTimestamp, mural }) => {
 
-  let formatedData = format(convertTZ(new Date(mural.data), "America/Sao_Paulo"), "dd/MM/yyyy")
+  let formatedData = timezoneBrazil(mural.data)
 
   function openReport() {
     Configs.update(s => {

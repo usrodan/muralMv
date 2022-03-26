@@ -22,7 +22,7 @@ import KeyIcon from '@heroicons/react/outline/KeyIcon';
 import MD5 from "crypto-js/md5"
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import convertTZ from '@/utils/convertTZ';
+import { timezoneBrazil } from '@/utils/timezoneBrazil';
 
 export default function Index() {
   const [items, setItems] = useState([])
@@ -92,7 +92,7 @@ export default function Index() {
     });
     data.murals.data.forEach(mural => {
    
-      let formatedData = format(convertTZ(new Date(mural.attributes.createdAt), "America/Sao_Paulo"), "dd/MM/yyyy")
+      let formatedData = timezoneBrazil(mural.attributes.createdAt)                        
 
       posts.push({ cargo: mural.attributes.cargo, tipo: mural.attributes.tipo.data.attributes.tipo, id: mural.id, date: formatedData })
       if (!resultdias.includes(formatedData)) { 
