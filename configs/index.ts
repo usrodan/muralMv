@@ -16,6 +16,7 @@ interface iConfig {
   reportModalIsOpen:boolean;
   shareModalIsOpen:boolean;
   imageModalIsOpen:boolean;
+  loginModalIsOpen:boolean;
 }
 
  
@@ -35,7 +36,8 @@ export const Configs = new Store<iConfig>({
   searchIsOpen:false,
   reportModalIsOpen:false,
   shareModalIsOpen:false,
-  imageModalIsOpen:false
+  imageModalIsOpen:false,
+  loginModalIsOpen:false
 });
  
 
