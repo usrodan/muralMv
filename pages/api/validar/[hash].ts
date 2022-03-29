@@ -17,6 +17,7 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
       } 
     };
+    //@ts-ignore
     var user = await axios(userData);
 
     var update = {
@@ -27,6 +28,7 @@ export default async function handler(req, res) {
       },
       data: data,
     };
+     //@ts-ignore
     var user = await axios(update);  
 
     return res.status(200).json(`Conta ativada com sucesso`);

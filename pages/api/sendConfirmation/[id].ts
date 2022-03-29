@@ -17,6 +17,7 @@ export default async function handler(req, res) {
       },
       data: data,
     };
+     //@ts-ignore
     var user = await axios(config);
     let htmlEmail = `
           <p> Olá ${user.data.nome},<br/>
