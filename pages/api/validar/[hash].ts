@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     var userData = {
       method: "get",
-      url: `https://maisvagases.herokuapp.com/api/users/?filters[codigo][$eq]=${req.query.hash}`,
+      url: `${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[codigo][$eq]=${req.query.hash}`,
       headers: {
         "Content-Type": "application/json",
       } 
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
     var update = {
       method: "put",
-      url: `https://maisvagases.herokuapp.com/api/users/${user.data[0].id}`,
+      url: `${process.env.NEXT_PUBLIC_STRAPI}/api/users/${user.data[0].id}`,
       headers: {
         "Content-Type": "application/json",
       },

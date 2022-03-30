@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
-import { HomeIcon } from '@heroicons/react/solid'
-import { LogOut } from "@styled-icons/entypo/LogOut"
 import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon';
 import MailIcon from '@heroicons/react/outline/MailIcon';
 import KeyIcon from '@heroicons/react/outline/KeyIcon';
@@ -76,7 +74,7 @@ export default function Index() {
     var lastAtPos = str.lastIndexOf('@');
     var lastDotPos = str.lastIndexOf('.');
     return (lastAtPos < lastDotPos && lastAtPos > 0 && str.indexOf('@@') == -1 && lastDotPos > 2 && (str.length - lastDotPos) > 2);
-}
+  }
 
   function ForcaSenha(p) {
     var letrasMaiusculas = /[A-Z]/;
@@ -116,32 +114,66 @@ export default function Index() {
     const pj = await consultarCNPJ(cnpjUnformatted)
     setEmpresa(pj.estabelecimento && pj.estabelecimento.nome_fantasia ? pj.estabelecimento.nome_fantasia : pj.razao_social)
   }
-  function fazerCadastro() {
+  async function fazerCadastro() {
+    let error = false
     if (!loading) {
       setLoading(true)
-      !nome && toast.error("Insira seu nome", { position: 'bottom-center' })
-      cnpj.length == 0 && toast.error("Insira o CNPJ da sua empresa", { position: 'bottom-center' })
-      cnpj.length > 0 && !validarCNPJ(cnpjUnformatted) && toast.error("CNPJ inválido", { position: 'bottom-center' })
-      !empresa && toast.error("Insira o nome da sua empresa", { position: 'bottom-center' })
-      !username && toast.error("Insira um nome de usuário", { position: 'bottom-center' })
-      !email && toast.error("Insira seu email", { position: 'bottom-center' })
-      email && !validateEmail(email) && toast.error("Email Inválido", { position: 'bottom-center' })
-      !senha && toast.error("Insira uma senha", { position: 'bottom-center' })
-      senha && ForcaSenha(senha) < 4 && toast.error("Senha Fraca ", { position: 'bottom-center' })
-      senha && senha != confirmarSenha && toast.error("As senhas não são iguais", { position: 'bottom-center' })
-      whatsapp.length == 0 && toast.error("Insira seu número do Whatsapp", { position: 'bottom-center' })
-      whatsapp.length > 0 && whatsapp.length < 15 && toast.error("Número de Whatsapp inválido", { position: 'bottom-center' })
+      try {
+        if (!nome)
+          throw "insira seu nome";
+        if (cnpj.length == 0)
+          throw "insira um CNPJ";
+        if (cnpj.length > 0 && !validarCNPJ(cnpjUnformatted))
+          throw "CNPJ inválido";
+        if (!empresa)
+          throw "Insira o nome da sua empresa";
+        if (!username)
+          throw "Insira um nome de usuário";
+        if (!email)
+          throw "Insira seu email";
+        if (email && !validateEmail(email))
+          throw "Email Inválido";
+        if (!senha)
+          throw "Insira uma senha";
+        if (senha && ForcaSenha(senha) < 4)
+          throw "Senha Fraca ";
+        if (senha && senha != confirmarSenha)
+          throw "As senhas não são iguais";
+        if (whatsapp.length == 0)
+          throw "Insira seu número do Whatsapp";
+        if (whatsapp.length > 0 && whatsapp.length < 15)
+          throw "Número de Whatsapp inválido";
 
-      if (
-        email &&
-        senha == confirmarSenha &&
-        ForcaSenha(senha) >= 4 &&
-        nome &&
-        username &&
-        validarCNPJ(cnpjUnformatted) &&
-        whatsapp.length == 15 &&
-        empresa
-      ) {
+        if (username) {
+          let username_validation = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[username][$eq]=${username}`)
+          if (username_validation.data.length > 0)
+            throw "Nome de Usuário já utilizado";
+        }
+
+        if (email && validateEmail(email)) {
+          let email_validation = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[email][$eq]=${email}`)
+          if (email_validation.data.length > 0)
+            throw "Email já utilizado";
+        }
+
+        if (whatsapp.length == 15) {
+          let whatsapp_validation = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[whatsapp][$eq]=${whatsappUnformatted}`)
+          if (whatsapp_validation.data.length > 0)
+            throw "Whatsapp já utilizado";
+        }
+
+        if (validarCNPJ(cnpjUnformatted)) {
+          let cnpj_validation = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[cnpj][$eq]=${cnpjUnformatted}`)
+          if (cnpj_validation.data.length > 0)
+            throw "CNPJ já utilizado";
+        }
+      }
+      catch (e) {
+        toast.error(e, { position: 'bottom-center' })
+        error = true
+      }
+      if (!error) {
+
         axios.post(`${process.env.NEXT_PUBLIC_STRAPI}/api/auth/local/register`, {
           email: email,
           password: senha,
@@ -163,7 +195,7 @@ export default function Index() {
             setEmail("")
             setSenha("")
             axios.get(`/api/sendConfirmation/${response.data.user.id}`)
-            router.push("/enviar")
+            router.push("/cadastro-realizado")
           }
         }).catch(e => {
           setLoading(false)
@@ -183,17 +215,17 @@ export default function Index() {
 
 
   return (
-    <main className="flex flex-col gap-4  md:p-8 items-center ">
+    <main className="flex flex-col gap-4 text-gray-800  md:p-8 items-center ">
       <section className=" font-dm-sans bg-slate-light">
         <div className="mx-6 max-w-default md:m-auto">
           <div className="justify-center md:flex">
             <div>
               <div className="p-6 md:p-[60px] border-gray-200 md:border lg:rounded-lg  md:bg-white md:m-auto    ">
-                <h2 className="my-2 font-medium text-[32px] text-center">Fazer Cadastro</h2>
+                <h2 className="my-2 font-medium text-[32px] text-center">Criar conta</h2>
                 <section className='grid lg:grid-cols-2 gap-4 '>
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
-                      <Person className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                    <div className="flex border-2  rounded-lg bg-white">
+                      <Person className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
                         placeholder="Nome e Sobrenome"
@@ -205,7 +237,7 @@ export default function Index() {
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
                     <div className="flex border-2 rounded-lg bg-white">
-                      <Building className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
                         placeholder="CNPJ"
@@ -217,7 +249,7 @@ export default function Index() {
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
                     <div className="flex border-2 rounded-lg bg-white">
-                      <Building className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
                         placeholder="Empresa"
@@ -229,7 +261,7 @@ export default function Index() {
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
                     <div className="flex border-2 rounded-lg bg-white">
-                      <Verified className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <Verified className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
                         placeholder="Nome de Usuário"
@@ -242,7 +274,7 @@ export default function Index() {
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
                     <div className="flex border-2 rounded-lg bg-white">
-                      <MailIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <MailIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
                         placeholder="Email"
@@ -253,9 +285,9 @@ export default function Index() {
                   </div>
                   <div className="flex md:min-w-[362px] flex-col mt-2">
                     <div className="flex border-2 rounded-lg bg-white">
-                      <Whatsapp className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <Whatsapp className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
-                        className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
+                        className="w-full p-3   rounded-md outline-none focus-within:outline-none focus:outline-none"
                         placeholder="Whatsapp"
                         value={whatsapp}
                         onChange={(e) => setWhatsapp(formatWhatsapp(e.target.value))}
@@ -266,18 +298,17 @@ export default function Index() {
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
                     <div className="flex border-2 rounded-lg bg-white">
-                      <KeyIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-3 mb-3 mr-2 " />
+                      <KeyIcon className="opacity-20 w-5 ml-4 mt-3 mb-3 mr-2 " />
                       <input
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
-                        className="w-full p-3 outline-none focus-within:outline-none focus:outline-none"
+                        className="w-full p-3  outline-none focus-within:outline-none focus:outline-none"
                         type={showPassword ? "text" : "password"}
                         placeholder="Senha"
                       />
                       <div className='cursor-pointer  flex items-center mr-2' onClick={() => setShowPassword(!showPassword)}>{!showPassword ? <EyeShow className="text-[#19313C] text-opacity-20 w-5" /> : <EyeOff className="text-[#19313C] text-opacity-20 w-5" />}</div>
                     </div>
                     <div className='flex flex-col w-full relative'>
-
                       {passwordTip && <div className="absolute top-[-200px] left-0   rounded-md">
                         <div className="mx-auto container max-w-[338px] px-4 py-4 bg-blue-100 text-blue-700 rounded-md relative">
                           <p className="text-sm font-semibold leading-none  ">Dicas para uma senha forte:</p>
@@ -310,7 +341,7 @@ export default function Index() {
 
                   <div className="flex md:min-w-[362px] flex-col md:mt-2">
                     <div className="flex border-2 rounded-lg bg-white">
-                      <KeyIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <KeyIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         value={confirmarSenha}
                         onChange={(e) => setConfirmarSenha(e.target.value)}
@@ -326,7 +357,7 @@ export default function Index() {
                 <div className="mt-6">
                   {!loading ?
                     <button onClick={fazerCadastro} className="flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
-                      <span className="text-white"> Cadastrar </span>
+                      <span className="text-white"> Criar Conta </span>
                       <ArrowRightIcon className="w-5 text-white" />
                     </button>
                     :
@@ -338,7 +369,7 @@ export default function Index() {
                 </div>
                 <div className="mt-4 text-center">
                   <a href="#" onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className="transition-all duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg border text-blue-500 border-blue-500 filter hover:bg-blue-500 hover:text-white">
-                    <span>  Já possuo cadastro</span>
+                    <span>  Já possuo uma conta</span>
                   </a>
                 </div>
                 <div className="mt-4">

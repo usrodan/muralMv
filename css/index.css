@@ -4,8 +4,7 @@
     html {
         scroll-behavior: smooth;
         font-family: 'Montserrat', sans-serif !important;
-    }
-    
+    } 
     html,
     body,
     * {
@@ -32,8 +31,7 @@
     
     input:-webkit-autofill,
     select:-webkit-autofill {
-        box-shadow: rgb(255, 255, 255) 0px 0px 0px 30px inset;
-        -webkit-text-fill-color: rgb(19, 143, 206) !important;
+        box-shadow: rgb(255, 255, 255) 0px 0px 0px 30px inset; 
     }
     
     .select-cinza {

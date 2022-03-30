@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     var config = {
       method: "put",
-      url: `https://maisvagases.herokuapp.com/api/users/${req.query.id}`,
+      url: `${process.env.NEXT_PUBLIC_STRAPI}/api/users/${req.query.id}`,
       headers: {
         "Content-Type": "application/json",
       },

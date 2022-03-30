@@ -1,18 +1,10 @@
 import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
-import { Configs } from '@/configs'
-import { Facebook } from "@styled-icons/boxicons-logos/Facebook"
-import { Twitter } from "@styled-icons/boxicons-logos/Twitter"
-import { Linkedin } from "@styled-icons/boxicons-logos/Linkedin"
-import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
-import { Telegram } from "@styled-icons/boxicons-logos/Telegram"
+import { Dialog, Transition } from '@headlessui/react' 
+import { Configs } from '@/configs' 
 
 
 import React, { useEffect, useState } from 'react';
-import axios from "axios"
-import { HomeIcon } from '@heroicons/react/solid'
-import { LogOut } from "@styled-icons/entypo/LogOut"
+import axios from "axios" 
 import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon';
 import MailIcon from '@heroicons/react/outline/MailIcon';
 import KeyIcon from '@heroicons/react/outline/KeyIcon';
@@ -49,8 +41,8 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                     localStorage.setItem("SessionMural", JSON.stringify({ token: String(MD5(response.data.user.username + response.data.user.id + response.data.user.email)), user: response.data.user }))
                     setEmail("")
                     setSenha("")
-                    Configs.update(s=>{s.loginModalIsOpen=false})
-                    router.push("/enviar")
+                    Configs.update(s=>{s.loginModalIsOpen=false}) 
+                    router.reload()
                 }
 
             }).catch(e => {
@@ -112,7 +104,7 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                                 <div className="flex border-2 rounded-lg">
                                     <MailIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                                     <input
-                                        className="w-full p-3 outline-none focus-within:outline-none focus:outline-none"
+                                        className="w-full p-3 rounded-md outline-none focus-within:outline-none focus:outline-none"
                                         placeholder="Email ou Nome de Usuário"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -128,7 +120,7 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                                     <input
                                         value={senha}
                                         onChange={(e) => setSenha(e.target.value)}
-                                        className="w-full p-3 outline-none focus-within:outline-none focus:outline-none"
+                                        className="w-full rounded-md p-3 outline-none focus-within:outline-none focus:outline-none"
                                         type="password"
                                         placeholder="Senha"
                                     />
@@ -143,8 +135,8 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                                 </button>
                             </div>
                             <div className="mt-4 text-center">
-                                <a href="/cadastro" className="transition-all duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg border text-blue-500 border-blue-500 filter hover:bg-blue-500 hover:text-white">
-                                    <span>  Não possuo cadastro</span>
+                                <a href="/cadastro" className="transition-all duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg border text-blue-500 border-blue-500 filter hover:border-blue-500 hover:bg-gray-50 hover:text-blue-600">
+                                    <span>  Não possuo conta</span>
                                 </a>
                             </div>
                         </div>
