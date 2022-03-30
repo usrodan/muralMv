@@ -224,7 +224,7 @@ export default function Index() {
                 <h2 className="my-2 font-medium text-[32px] text-center">Criar conta</h2>
                 <section className='grid lg:grid-cols-2 gap-4 '>
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2  rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Person className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -236,7 +236,7 @@ export default function Index() {
                   </div>
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -248,7 +248,7 @@ export default function Index() {
                   </div>
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -260,7 +260,7 @@ export default function Index() {
                   </div>
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Verified className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -273,7 +273,7 @@ export default function Index() {
 
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <MailIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -284,7 +284,7 @@ export default function Index() {
                     </div>
                   </div>
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Whatsapp className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3   rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -297,7 +297,7 @@ export default function Index() {
 
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <KeyIcon className="opacity-20 w-5 ml-4 mt-3 mb-3 mr-2 " />
                       <input
                         value={senha}
@@ -340,7 +340,7 @@ export default function Index() {
 
 
                   <div className="flex md:min-w-[362px] flex-col md:mt-2">
-                    <div className="flex border-2 rounded-lg bg-white">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <KeyIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         value={confirmarSenha}
