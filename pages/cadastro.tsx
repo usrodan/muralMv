@@ -188,11 +188,11 @@ export default function Index() {
         <div className="mx-6 max-w-default md:m-auto">
           <div className="justify-center md:flex">
             <div>
-              <div className="p-6 md:p-[60px] border-gray-200 border lg:rounded-lg  bg-white md:m-auto    ">
+              <div className="p-6 md:p-[60px] border-gray-200 md:border lg:rounded-lg  md:bg-white md:m-auto    ">
                 <h2 className="my-2 font-medium text-[32px] text-center">Fazer Cadastro</h2>
                 <section className='grid lg:grid-cols-2 gap-4 '>
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <Person className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -204,7 +204,7 @@ export default function Index() {
                   </div>
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <Building className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -216,7 +216,7 @@ export default function Index() {
                   </div>
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <Building className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -228,7 +228,7 @@ export default function Index() {
                   </div>
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <Verified className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -241,7 +241,7 @@ export default function Index() {
 
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <MailIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -252,7 +252,7 @@ export default function Index() {
                     </div>
                   </div>
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <Whatsapp className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
@@ -265,7 +265,7 @@ export default function Index() {
 
 
                   <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <KeyIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-3 mb-3 mr-2 " />
                       <input
                         value={senha}
@@ -308,8 +308,8 @@ export default function Index() {
                   </div>
 
 
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
-                    <div className="flex border-2 rounded-lg">
+                  <div className="flex md:min-w-[362px] flex-col md:mt-2">
+                    <div className="flex border-2 rounded-lg bg-white">
                       <KeyIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         value={confirmarSenha}
