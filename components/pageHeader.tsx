@@ -30,6 +30,7 @@ export default function PageHeader() {
     localStorage.removeItem("SessionMural")
     setUserLogged({ nome: "", id: 0, ativo: false })
     setOpen(false)
+    router.reload()
   }
 
 
