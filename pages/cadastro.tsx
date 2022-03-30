@@ -342,7 +342,7 @@ export default function Index() {
                   </a>
                 </div>
                 <div className="mt-4">
-                  <Info texto='<a href="https://api.whatsapp.com/send?phone=27992830038&text=Estou%20com%20d%C3%BAvidas%20para%20realizar%20o%20cadastro%20no%20site.">Caso haja alguma dúvida sobre o cadastro, entre em contato com nosso suporte clicando aqui</a>'></Info>
+                  <Info texto='<a target="_blank" rel="noreferrer" href="https://api.whatsapp.com/send?phone=27992830038&text=Estou%20com%20d%C3%BAvidas%20para%20realizar%20o%20cadastro%20no%20site.">Caso haja alguma dúvida sobre o cadastro, entre em contato com nosso suporte clicando aqui</a>'></Info>
                 </div>
               </div>
             </div>
