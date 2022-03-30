@@ -94,7 +94,7 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                        <div className="inline-block align-bottom  bg-white border border-gray-200 rounded-lg px-4 md:px-20 md:py-10 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        <div className="inline-block align-bottom  bg-white border border-gray-200 rounded-lg px-4 md:px-20 md:py-10 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle max-w-lg   w-full sm:p-6">
                             <h2 className="my-2 font-medium text-[32px] text-center">Fazer Login</h2>
 
 
@@ -128,13 +128,13 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                             </div>
 
 
-                            <div className="mt-6">
+                            <div className="mt-6 w-full flex">
                                 <button onClick={fazerLogin} className="transition-all duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg bg-blue-500 filter hover:bg-blue-600">
                                     <span className="text-white"> Fazer Login </span>
                                     <ArrowRightIcon className="w-5 text-white" />
                                 </button>
                             </div>
-                            <div className="mt-4 text-center">
+                            <div className="mt-4 text-center flex w-full">
                                 <a href="/cadastro" className="transition-all duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg border text-blue-500 border-blue-500 filter hover:border-blue-500 hover:bg-gray-50 hover:text-blue-600">
                                     <span>  Não possuo conta</span>
                                 </a>

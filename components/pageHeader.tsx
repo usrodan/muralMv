@@ -14,7 +14,7 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import { PersonCircle } from "@styled-icons/bootstrap/PersonCircle"
 import { Menu as MenuIcon } from "@styled-icons/evaicons-solid/Menu"
 import { XIcon } from '@heroicons/react/outline'
-import {PersonFill} from "@styled-icons/bootstrap/PersonFill"
+import { PersonFill } from "@styled-icons/bootstrap/PersonFill"
 import LoginModal from "@/components/LoginModal"
 import axios from "axios"
 import { toast } from "react-toastify"
@@ -42,6 +42,7 @@ export default function PageHeader() {
       toast.error(e, { position: 'bottom-center' })
     })
   }
+
 
   useEffect(() => {
     let CookieSession = JSON.parse(localStorage.getItem("SessionMural"))
@@ -147,21 +148,28 @@ export default function PageHeader() {
                         <Dialog.Title className="text-lg font-medium text-gray-900"> Olá, {userLogged.nome} </Dialog.Title>
                       </div>
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                        <a onClick={()=>setOpen(false)} href="/minhas-vagas"
+                        <a onClick={() => setOpen(false)} href="/minhas-vagas"
                           className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
-                        > 
+                        >
                           Minhas vagas
                         </a>
 
-                        <a  onClick={()=>setOpen(false)} href="/editar-perfil"
+                        <a onClick={() => setOpen(false)} href="/editar-perfil"
                           className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
-                        > 
+                        >
                           Editar Perfil
                         </a>
 
-                        <button  onClick={logout}
+                        {(userLogged.id == 10 || userLogged.id == 12 || userLogged.id == 8) &&
+                        <a onClick={() => setOpen(false)} href="/dashboard"
                           className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
-                        > 
+                        >
+                          Dashboard
+                        </a>}
+
+                        <button onClick={logout}
+                          className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
+                        >
                           Sair
                         </button>
                       </div>
@@ -230,6 +238,20 @@ export default function PageHeader() {
                           </a>
                         )}
                       </Menu.Item>
+
+
+                      {(userLogged.id == 10 || userLogged.id == 12 || userLogged.id == 8) &&
+                              <Menu.Item>
+                              {({ active }) => (
+                                <a href="dashboard"
+                                  className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
+                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                >
+      
+                                  Dashboard
+                                </a>
+                              )}
+                            </Menu.Item>}
                     </div>
 
                     <div className="px-1 py-1">

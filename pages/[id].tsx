@@ -56,16 +56,14 @@ const IndexPage = ({ buildTimestamp, mural }) => {
         title={mural.cargo}
         image={mural.image}
         description={`Veja essa vaga de ${mural.cargo} que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego`} />
-
+        
       <ReportModal id={mural.id} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} cargo={mural.cargo} />
       <ShareModal cargo={mural.cargo} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} />
       <ImagemModal alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
 
-
-
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2  border-t-2 border-white">
-          <div className='hidden md:flex'>
+          <div className='hidden md:flex w-full'>
             <Info texto='Viu alguma vaga por ai e deseja compartilhar com mais gente? Aqui no nosso “Mural de Vagas” você pode fazer isso rápido e fácil.' />
           </div>
           <section className="grid md:grid-cols-12 gap-8 ">

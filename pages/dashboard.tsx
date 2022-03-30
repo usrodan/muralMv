@@ -23,49 +23,30 @@ import MD5 from "crypto-js/md5"
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { timezoneBrazil } from '@/utils/timezoneBrazil';
+import SEO from '@/components/SEO';
 
 export default function Index() {
   const [items, setItems] = useState([])
   const [countImages, setCountImages] = useState(0)
   const [loadingImages, setLoadingImages] = useState(false)
   const [displayList, setDisplayList] = useState(false)
-
-  const [logged, setLogged] = useState(false)
+  const [userLogged, setUserLogged] = useState({ id: 0, nome: "", ativo: false, blocked: false }) 
 
   const [murais, setMurais] = useState([{ cargo: "mural.attributes.cargo", tipo: "mural.attributes.tipo", id: 0, date: "formatedData" }])
   const [dias, setDias] = useState([])
-  const [counter, setCounter] = useState(0)
-
-  const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
+  const [counter, setCounter] = useState(0) 
 
   const router = useRouter()
 
+  useEffect(() => { 
+      let CookieSession = JSON.parse(localStorage.getItem("SessionMural"))
+      CookieSession && CookieSession.token == String(MD5(CookieSession.user.username + CookieSession.user.id + CookieSession.user.email)) ? setUserLogged(CookieSession.user) : setUserLogged({ ativo: false, blocked: false, nome: "", id: 0 })
+  }, [router]) 
+
   useEffect(() => {
-    let acc = localStorage.getItem("SessionID")
-    acc && acc == "163954c102a5b3ad2ecddc40eee80fe8" ? setLogged(true) : setLogged(false)
-  }, [router])
-
-
-  function fazerLogin() {
-    if (MD5(email + senha).toString() == "163954c102a5b3ad2ecddc40eee80fe8") {
-      setLogged(true)
-      localStorage.setItem("SessionID", "163954c102a5b3ad2ecddc40eee80fe8")
-      setEmail("")
-      setSenha("")
-    }
-    else {
-      toast.error("Email ou senha inválidos.", {
-        position: 'bottom-center'
-      })
-    }
-  }
-
-  function logout() {
-    setLogged(false)
-    localStorage.setItem("SessionID", "")
-  }
-
+   console.log(userLogged)
+  }, [userLogged]) 
+  
   function titleize(str) {
     return str.replace(/\w\S*/g, function (str) {
       return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
@@ -90,16 +71,13 @@ export default function Index() {
         }
       `,
     });
-    data.murals.data.forEach(mural => {
-   
-      let formatedData = timezoneBrazil(mural.attributes.createdAt)                        
-
+    data.murals.data.forEach(mural => { 
+      let formatedData = timezoneBrazil(mural.attributes.createdAt) 
       posts.push({ cargo: mural.attributes.cargo, tipo: mural.attributes.tipo.data.attributes.tipo, id: mural.id, date: formatedData })
       if (!resultdias.includes(formatedData)) { 
         resultdias.push(formatedData);
       }
-    })
-    console.log(resultdias)
+    }) 
     setDias(resultdias)
     setMurais(posts)
   }
@@ -200,69 +178,12 @@ export default function Index() {
       }
     })
     setItems(notFoundImages)
-  }
-
-
-
+  }  
 
   return (
     <main className="flex flex-col gap-4 p-8 items-center ">
-      {!logged ?
-        <section className=" font-dm-sans bg-slate-light">
-
-          <div className="mx-6 max-w-default md:m-auto">
-            <div className="justify-center md:flex">
-              <div>
-                <div className="p-6 md:p-[60px] bg-white md:m-auto rounded-3xl md:max-w-[482px]">
-                  <h2 className="my-2 font-medium text-[32px] text-center">Fazer Login</h2>
-
-
-                  <div className="flex md:min-w-[362px] flex-col mt-6">
-                    <label className="text-base font-medium text-slate-body"> </label>
-
-                    <div className="flex border-2 rounded-lg">
-                      <MailIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                      <input
-                        className="w-full p-3 outline-none focus-within:outline-none focus:outline-none"
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex md:min-w-[362px] flex-col mt-6">
-                    <label className="text-base font-medium text-slate-body"> </label>
-
-                    <div className="flex border-2 rounded-lg">
-                      <KeyIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                      <input
-                        value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
-                        className="w-full p-3 outline-none focus-within:outline-none focus:outline-none"
-                        type="password"
-                        placeholder="Senha"
-                      />
-                    </div>
-                  </div>
-
-
-                  <div className="mt-6">
-                    <button onClick={fazerLogin} className="flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg bg-blue-500 filter hover:brightness-125">
-                      <span className="text-white"> Login </span>
-                      <ArrowRightIcon className="w-5 text-white" />
-                    </button>
-                  </div>
-                  <div className="mt-6 text-center">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        :
+       <SEO siteName="Mais Vagas ES" title="Dashboard" notIndexPage description="" />
+      { (userLogged.id == 10 || userLogged.id == 12 || userLogged.id == 8) ? 
         <div className="grid   gap-4 w-full max-w-7xl ">
           <nav className="flex justify-between" aria-label="Breadcrumb">
             <ol role="list" className="flex items-center space-x-4">
@@ -296,8 +217,7 @@ export default function Index() {
                   </div>
                 </li>
               ))}
-            </ol>
-            <a href="#" className='flex items-center text-gray-500 font-semibold gap-2' onClick={logout}><LogOut size={20} />Sair</a>
+            </ol> 
           </nav>
 
           <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -421,6 +341,12 @@ export default function Index() {
           }
           )}
         </div>
+        : <section className=" font-dm-sans bg-slate-light">
+        <div className="mx-6 max-w-default md:m-auto py-20">
+         <h1>Área restrita </h1>
+         <span>Faça login para continuar</span>
+         </div>
+      </section>  
       }
     </main>)
 

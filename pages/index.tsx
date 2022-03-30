@@ -85,7 +85,6 @@ const IndexPage = ({ buildTimestamp }) => {
         newMural.push(m)
       }
     })
-
     if (data.murals.data.length < limit) {
       setHasMore(false)
     } else {
