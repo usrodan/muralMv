@@ -63,7 +63,7 @@ const Grupos = () => {
             Grupos em <strong className="text-red-500 font-bold  text-sm">VERMELHO</strong> estão possivelmente cheios! (com 250 pessoas ou mais)
           </span>
 
-          <div className="grid md:grid-cols-4 gap-4 w-full max-w-7xl ">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-7xl ">
             {grupos && grupos.map(grupo => (
               <a href={grupo.url} target="_blank" rel="noreferrer" className={`text-white flex gap-4 items-center p-4 rounded-lg ${!grupo.cheio ? "bg-green-500" : "bg-red-500"}`} key={grupo.titulo}>
                 <Whatsapp size={35} />
