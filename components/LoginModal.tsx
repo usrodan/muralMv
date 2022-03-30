@@ -68,7 +68,7 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
     return (
         <Transition.Root show={ConfigsStore.loginModalIsOpen} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={close}>
-                <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div className="flex items-center text-gray-800 justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -94,15 +94,15 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                        <div className="inline-block align-bottom bg-white border border-gray-200 rounded-lg px-4 md:px-20 md:py-10 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        <div className="inline-block align-bottom  bg-white border border-gray-200 rounded-lg px-4 md:px-20 md:py-10 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                             <h2 className="my-2 font-medium text-[32px] text-center">Fazer Login</h2>
 
 
                             <div className="flex md:min-w-[362px] flex-col mt-6">
                                 <label className="text-base font-medium text-slate-body"> </label>
 
-                                <div className="flex border-2 rounded-lg">
-                                    <MailIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                                <div className="flex border-2 max-h-[55px] rounded-lg">
+                                    <MailIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                                     <input
                                         className="w-full p-3 rounded-md outline-none focus-within:outline-none focus:outline-none"
                                         placeholder="Email ou Nome de Usuário"
@@ -115,8 +115,8 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                             <div className="flex md:min-w-[362px] flex-col mt-6">
                                 <label className="text-base font-medium text-slate-body"> </label>
 
-                                <div className="flex border-2 rounded-lg">
-                                    <KeyIcon className="text-[#19313C] text-opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                                <div className="flex border-2  max-h-[55px] rounded-lg">
+                                    <KeyIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                                     <input
                                         value={senha}
                                         onChange={(e) => setSenha(e.target.value)}
