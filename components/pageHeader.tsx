@@ -9,9 +9,12 @@ import { Configs } from '@/configs'
 import { useRouter } from "next/router"
 import { useEffect, useRef, Fragment, useState } from "react"
 import { MD5 } from "crypto-js"
-import { Menu, Transition } from '@headlessui/react'
+import { Menu, Dialog, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { PersonCircle } from "@styled-icons/bootstrap/PersonCircle"
+import { Menu as MenuIcon } from "@styled-icons/evaicons-solid/Menu"
+import { XIcon } from '@heroicons/react/outline'
+import {PersonFill} from "@styled-icons/bootstrap/PersonFill"
 import LoginModal from "@/components/LoginModal"
 import axios from "axios"
 import { toast } from "react-toastify"
@@ -21,11 +24,15 @@ export default function PageHeader() {
   const router = useRouter()
   const [search, setSearch] = useState(null)
   const [userLogged, setUserLogged] = useState({ nome: "", id: 0, ativo: false })
-
+  const [open, setOpen] = useState(false)
 
   function logout() {
     localStorage.removeItem("SessionMural")
+    setUserLogged({ nome: "", id: 0, ativo: false })
+    setOpen(false)
   }
+
+
 
   function NovaValidacao() {
     axios.get(`/api/sendConfirmation/${userLogged.id}`).then(response => {
@@ -88,7 +95,83 @@ export default function PageHeader() {
   return (
     <>
       <LoginModal />
+      {userLogged.id > 0 &&
+        <Transition.Root show={open} as={Fragment}>
+          <Dialog as="div" className="fixed z-20 inset-0 overflow-hidden" onClose={setOpen}>
+            <div className="absolute inset-0 overflow-hidden">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-in-out duration-500"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in-out duration-500"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <Dialog.Overlay className="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              </Transition.Child>
+              <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <Transition.Child
+                  as={Fragment}
+                  enter="transform transition ease-in-out duration-500 sm:duration-700"
+                  enterFrom="translate-x-full"
+                  enterTo="translate-x-0"
+                  leave="transform transition ease-in-out duration-500 sm:duration-700"
+                  leaveFrom="translate-x-0"
+                  leaveTo="translate-x-full"
+                >
+                  <div className="pointer-events-auto relative w-screen max-w-md">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-in-out duration-500"
+                      enterFrom="opacity-0"
+                      enterTo="opacity-100"
+                      leave="ease-in-out duration-500"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
+                    >
+                      <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
+                        <button
+                          type="button"
+                          className="rounded-md text-white bg-orange-500 hover:text-white focus:outline-none  "
+                          onClick={() => setOpen(false)}
+                        >
+                          <span className="sr-only">Fechar</span>
+                          <XIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                      </div>
+                    </Transition.Child>
+                    <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                      <div className="px-4 sm:px-6">
+                        <Dialog.Title className="text-lg font-medium text-gray-900"> Olá, {userLogged.nome} </Dialog.Title>
+                      </div>
+                      <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                        <a onClick={()=>setOpen(false)} href="/minhas-vagas"
+                          className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
+                        > 
+                          Minhas vagas
+                        </a>
 
+                        <a  onClick={()=>setOpen(false)} href="/editar-perfil"
+                          className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
+                        > 
+                          Editar Perfil
+                        </a>
+
+                        <button  onClick={logout}
+                          className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
+                        > 
+                          Sair
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition.Root>
+      }
       <header className={"flex flex-col border-b border-gray-300 items-center font-semibold  w-full bg-white justify-center"}>
         <form onSubmit={makeSearch} className="hidden md:flex  flex-row gap-4 w-full max-w-7xl p-4">
           <a href="/" className="flex hover:opacity-60  hover:-mt-2 transition-all duration-500 ease-in-out w-32 justify-center"><Image src="/Mural.svg" className="w-40" alt="Mural MaisVagasES" width={126} height={38} /></a>
@@ -151,7 +234,7 @@ export default function PageHeader() {
                     <div className="px-1 py-1">
                       <Menu.Item>
                         {({ active }) => (
-                          <button  
+                          <button
                             onClick={logout}
                             className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
                               } group font-semibold flex rounded-md items-center w-full px-2 py-2 text-sm`}
@@ -183,6 +266,15 @@ export default function PageHeader() {
           <div className='flex gap-2 text-gray-600'>
             {router.pathname == "/" && <button onClick={handleFilter} className='p-2' >{configState.filterIsOpen ? <FilterFilled size={32} /> : <FilterAlt size={32} />}</button>}
             <button onClick={handleSearch} className='p-2'>{configState.searchIsOpen ? <SearchAlt size={32} /> : <Search size={32} />}</button>
+            {userLogged.id == 0 ?
+              <button onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className='p-2  px-3   bg-gray-100 rounded-md focus:bg-gray-200 hover:bg-gray-200'>
+                <PersonFill size={24} />
+              </button>
+              :
+              <button onClick={() => setOpen(!open)} className='p-2 px-3 bg-gray-100 rounded-md focus:bg-gray-200 hover:bg-gray-200'>
+                <MenuIcon size={24} />
+              </button>
+            }
           </div>
         </section>
         <section className="flex  md:hidden  flex-col gap-4 w-full max-w-7xl ">
