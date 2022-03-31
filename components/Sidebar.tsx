@@ -51,16 +51,22 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     router.pathname == "/" && refreshPage()
-  }, [configsState.type, configsState.city, configsState.search])
+  }, [configsState.type, configsState.city, configsState.search, configsState.page])
 
 
   function changeCity(str) {
-    Configs.update(s => { s.city = str })
+    Configs.update(s => { 
+      s.city = str
+      s.page = 1
+     })
     router.pathname != "/" ? router.push(`/?city=${str}`) : refreshPage()
   }
 
   function changeType(str) {
-    Configs.update(s => { s.type = str })
+    Configs.update(s => { 
+      s.type = str
+      s.page = 1 
+    })
     router.pathname != "/" ? router.push(`/?type=${str}`) : refreshPage()
   }
 
@@ -69,6 +75,7 @@ const Sidebar: React.FC = () => {
     configsState.search && queries.push(`"search": "${configsState.search}"`)
     configsState.city && queries.push(`"city": "${configsState.city}"`)
     configsState.type && queries.push(`"type": "${configsState.type}"`)
+    configsState.page > 1 && queries.push(`"page": "${configsState.page}"`)
 
     router.push({
       pathname: '/',

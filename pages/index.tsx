@@ -12,14 +12,16 @@ import { SpinnerCircularFixed } from "spinners-react";
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline"
 import Script from 'next/script';
 import Info from '@/components/Info';
+import { NavigateNext } from "@styled-icons/material-rounded/NavigateNext"
+import { NavigateBefore } from "@styled-icons/material-rounded/NavigateBefore"
 
 const IndexPage = ({ buildTimestamp }) => {
   const router = useRouter()
   const ConfigsStore = Configs.useState()
   const [mural, setMural] = useState([])
   const [loading, setLoading] = useState(true)
-  const { search, city, type } = router.query
-  const limit = 9
+  const { search, city, type, page } = router.query
+  const limit = 11
   const [start, setStart] = useState(0)
   const [hasMore, setHasMore] = useState(true)
 
@@ -30,6 +32,7 @@ const IndexPage = ({ buildTimestamp }) => {
       s.search = search && String(search)
       s.city = city && String(city)
       s.type = type && String(type)
+      s.page = page ? Number(page) : 1
     })
   }, [search, city, type])
 
@@ -45,8 +48,21 @@ const IndexPage = ({ buildTimestamp }) => {
     getData()
   }, [ConfigsStore.search, ConfigsStore.city, ConfigsStore.type, start])
 
-  function loadMore() {
-    setStart(start + limit)
+  useEffect(() => {
+    setStart(ConfigsStore.page * limit == 0 ? 1 : ConfigsStore.page * limit)
+  }, [ConfigsStore.page])
+
+
+  function proximaPagina() {
+    Configs.update(s => {
+      s.page = ConfigsStore.page + 1
+    })
+  }
+
+  function paginaAnterior() {
+    Configs.update(s => {
+      s.page = ConfigsStore.page - 1
+    })
   }
 
   async function getData() {
@@ -77,7 +93,7 @@ const IndexPage = ({ buildTimestamp }) => {
       }
     `,
     });
-
+    /* infinitescrool mantain old murals
     var newMural = start == 0 ? [] : mural
 
     data.murals.data.forEach(m => {
@@ -85,12 +101,14 @@ const IndexPage = ({ buildTimestamp }) => {
         newMural.push(m)
       }
     })
+    */
     if (data.murals.data.length < limit) {
       setHasMore(false)
     } else {
       setHasMore(true)
     }
-    setMural(newMural)
+
+    setMural(data.murals.data)
 
     setTimeout(() => {
       setLoading(false)
@@ -128,8 +146,8 @@ const IndexPage = ({ buildTimestamp }) => {
                   {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                 </Script>
               </div>
-              {loading && start == 0 ?
-                <div className="w-full gap-5 grid sm:grid-cols-2 lg:grid-cols-3">
+              {loading   ?
+                <div className="w-full gap-5 grid md:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (
                     <div key={i} className="flex  animate-pulse h-72 lg:h-80 xl:h-96 border border-gray-200   font-bold flex-col  rounded-lg bg-white">
                       <div className="rounded-t-lg object-cover bg-gray-200 h-52 lg:h-72 xl:h-80 w-full" />
@@ -148,31 +166,17 @@ const IndexPage = ({ buildTimestamp }) => {
                   )}
                 </div>
                 : mural.length ?
-                  <InfiniteScroll
+                  <div
                     className="w-full relative gap-5 grid sm:grid-cols-2 lg:grid-cols-3 "
-                    dataLength={mural.length}
-                    next={loadMore}
-                    hasMore={hasMore}
-                    loader={
-                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3  flex justify-center w-full">
-                        <SpinnerCircularFixed size={40} thickness={180} speed={150} color="#3B82F6" secondaryColor="rgba(255, 255, 255, 0.15)" />
-                      </div>
-                    }
-                    endMessage={
-                      <div className=" col-span-1 sm:col-span-2 lg:col-span-3  flex justify-center w-full">
-                        Não há mais vagas por enquanto! Volte em breve.
-                      </div>
-
-                    }
                   > {mural.map((item, index) => {
                     return (<>
                       {item.attributes.imagem && item.attributes.cargo && item.attributes.cidade && item.attributes.cidade.data && item.attributes.tipo && item.attributes.tipo.data && item.attributes.createdAt &&
                         <CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} color={item.attributes.tipo.data.attributes.cor} type={item.attributes.tipo.data.attributes.tipo} />
                       }
 
-                      {index == 2 && <div className='md:col-span-3'>
+                      {index == 2 && <div className='md:col-span-2 lg:col-span-3'>
                         <ins className="adsbygoogle"
-                          style={{ display: "block" }}
+                          style={{ display: "flex" }}
                           data-ad-client="ca-pub-6873518969054710"
                           data-ad-slot="9981136491"
                           data-ad-format="auto"
@@ -182,9 +186,9 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      {index == 6 || index == 13 || index == 20 || index == 25 || index == 32 || index == 40 && <div className=''>
+                      {index == 6 || index == 9  && <div className=''>
                         <ins className="adsbygoogle"
-                          style={{ display: "block", width: "350px", height: "430px" }}
+                          style={{ display: "flex"  }}
                           data-ad-client="ca-pub-6873518969054710"
                           data-ad-slot="5850319795"
                           data-ad-format="auto"
@@ -196,7 +200,7 @@ const IndexPage = ({ buildTimestamp }) => {
                     </>)
                   })}
 
-                  </InfiniteScroll>
+                  </div>
                   :
                   <div className="w-full">
                     <p> Nenhuma vaga encontrada com os filtros selecionados.</p>
@@ -209,6 +213,28 @@ const IndexPage = ({ buildTimestamp }) => {
                     }}>Limpar Filtros</strong>
                   </div>
               }
+              <nav className='grid grid-cols-7 gap-2 mt-4 text-gray-600 font-bold '>
+
+                <div
+                  className={` ${  Number(page) > 1 ? "flex" : "hidden" } col-span-2 transition-all cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md  duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2`}
+                  onClick={paginaAnterior}>
+                  <NavigateBefore size={30} /> 
+                  <span  className='hidden sm:flex'>Página anterior</span>
+                </div>
+                <div
+                  className={` ${ !page ||  Number(page) < 2 ? "flex" : "hidden" } col-span-2  `}
+                >  
+                </div>
+
+                <span className={`col-span-3 flex justify-center text-center items-center`}>Página {Number(page) > 1 ? page : 1 }</span>
+
+                <div
+                  className={`${ !hasMore && "hidden" } col-span-2 transition-all  cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2 `}
+                  onClick={proximaPagina}>
+                  <span className='hidden sm:flex'>Próxima página</span>
+                  <NavigateNext size={30} />
+                </div> 
+              </nav>
 
             </div>
           </section>
