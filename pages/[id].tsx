@@ -81,8 +81,8 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                     {//IMG QUADRADA OU HORIZONTAL
                       mural.imgW <= mural.imgH &&
                       <>
-                        <ins className="adsbygoogle"
-                          style={{ display: "block" }}
+                        <ins className="adsbygoogle flex" 
+                          //style={{ display: "block" }}
                           data-ad-client="ca-pub-6873518969054710"
                           data-ad-slot="4050152967"
                           data-ad-format="auto"

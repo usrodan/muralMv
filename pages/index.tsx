@@ -49,7 +49,7 @@ const IndexPage = ({ buildTimestamp }) => {
   }, [ConfigsStore.search, ConfigsStore.city, ConfigsStore.type, start])
 
   useEffect(() => {
-    setStart(ConfigsStore.page * limit == 0 ? 1 : ConfigsStore.page * limit)
+    setStart(ConfigsStore.page * limit == 0 ? 0 : (ConfigsStore.page * limit) - limit)
   }, [ConfigsStore.page])
 
 
