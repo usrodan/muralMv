@@ -188,7 +188,7 @@ export default function PageHeader() {
             <input placeholder="Pesquise uma vaga" value={search} onChange={(e) => setSearch(e.target.value)} className="w-full text-gray-400 bg-gray-100" />
           </div>
           <button type="submit" onClick={makeSearch} className="bg-slate-400 hover:bg-slate-500 text-white transition-all duration-500 ease-in-out flex justify-center items-center font-semibold gap-2 -ml-4 rounded-r-md py-2  px-4 "><Search size={16} />Pesquisar</button>
-          <a href="/enviar" className="flex transition-all duration-500 ease-in-out hover:bg-blue-600 justify-center items-center gap-2 text-white rounded-md bg-blue-500 w-96 text-center p-2"><UploadCloud size={20} /><span className="w-40">Enviar uma vaga</span></a>
+          <a href="/enviar" className="flex transition-all duration-500 ease-in-out hover:bg-blue-600 justify-center items-center gap-1 text-white rounded-md bg-blue-500 w-96 text-center p-2"><UploadCloud className="ml-2" size={20} /><span className="w-40">Enviar uma vaga</span></a>
 
           {userLogged.id > 0 ?
             <div className="text-right">

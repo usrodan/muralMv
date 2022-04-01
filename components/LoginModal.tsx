@@ -1,10 +1,8 @@
 import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react' 
-import { Configs } from '@/configs' 
-
-
+import { Dialog, Transition } from '@headlessui/react'
+import { Configs } from '@/configs'
 import React, { useEffect, useState } from 'react';
-import axios from "axios" 
+import axios from "axios"
 import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon';
 import MailIcon from '@heroicons/react/outline/MailIcon';
 import KeyIcon from '@heroicons/react/outline/KeyIcon';
@@ -17,10 +15,8 @@ interface Props {
 }
 const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
     const ConfigsStore = Configs.useState()
-
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
-
     const router = useRouter()
 
     function fazerLogin() {
@@ -41,8 +37,8 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                     localStorage.setItem("SessionMural", JSON.stringify({ token: String(MD5(response.data.user.username + response.data.user.id + response.data.user.email)), user: response.data.user }))
                     setEmail("")
                     setSenha("")
-                    Configs.update(s=>{s.loginModalIsOpen=false}) 
-                    router.reload()
+                    Configs.update(s => { s.loginModalIsOpen = false })
+                    router.push("/")
                 }
 
             }).catch(e => {
@@ -126,7 +122,7 @@ const LoginModal: React.FC<Props> = ({ url = "" }: Props) => {
                                     />
                                 </div>
                             </div>
-                           
+
                             <div className="mt-6 w-full flex">
                                 <button onClick={fazerLogin} className="transition-all duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg bg-blue-500 filter hover:bg-blue-600">
                                     <span className="text-white">Fazer Login </span>

@@ -89,7 +89,7 @@ const Pagina = () => {
       <SEO siteName="Mais Vagas ES" title="Alterar Senha" description="" />
       <main className='flex flex-col w-full items-center'>
 
-        <section className='w-full flex flex-col max-w-xl gap-4 items-center py-[60px]'>
+        <section className='w-full flex flex-col max-w-xl gap-4 items-center py-[60px] p-4'>
           <h2>Alterar senha</h2>
           <div className="flex md:min-w-[362px] w-full flex-col mt-2">
             <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
