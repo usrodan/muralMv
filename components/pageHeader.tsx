@@ -306,14 +306,14 @@ export default function PageHeader() {
               <div className="w-full text-gray-400 flex p-3 gap-2 items-center rounded-l-md bg-gray-100">
                 <input placeholder="Pesquise uma vaga" value={search} onChange={(e) => setSearch(e.target.value)} className="w-full text-gray-400 bg-gray-100" />
               </div>
-              <button type="submit" onClick={makeSearch} className="bg-slate-400 hover:bg-slate-500 text-white transition-all duration-500 ease-in-out flex justify-center items-center font-semibold gap-2 -ml-4 rounded-r-md py-2  px-4 ">
+              <button type="submit" onClick={makeSearch} className="bg-slate-400 hover:bg-slate-500 text-white transition-all duration-500 ease-in-out flex justify-center items-center font-medium gap-2 -ml-4 rounded-r-md py-2  px-4 ">
                 <Search size={16} />
                 Pesquisar
               </button>
             </form>
           </div>
           }
-          <a href="/enviar" className="flex text-xl  transition-all duration-500 ease-in-out	 hover:bg-blue-600 justify-center items-center  gap-2 text-white  bg-blue-500 w-full md:w-72 text-center p-3">
+          <a href="/enviar" className="flex text-xl  font-medium  transition-all duration-500 ease-in-out	 hover:bg-blue-600 justify-center items-center  gap-2 text-white  bg-blue-500 w-full md:w-72 text-center p-3">
             <UploadCloud size={30} />
             <span>Enviar uma vaga</span>
           </a>
