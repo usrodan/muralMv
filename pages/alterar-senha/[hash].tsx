@@ -64,7 +64,7 @@ const Pagina = () => {
             setSenha("")
             setConfirmarSenha("")
             localStorage.setItem("SessionMural", JSON.stringify({ token: String(MD5(response.data.username + response.data.id + response.data.email)), user: response.data }))
-                   
+
             router.push("/")
           }
         }).catch(e => {
@@ -81,16 +81,13 @@ const Pagina = () => {
     }
   }
 
-
-
-
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Alterar Senha" description="" />
       <main className='flex flex-col w-full items-center'>
 
         <section className='w-full flex flex-col max-w-xl gap-4 items-center py-[60px] p-4'>
-          <h2>Alterar senha</h2>
+        <h2 className="my-2 font-medium text-[32px] text-center">Recuperar senha</h2>
           <div className="flex md:min-w-[362px] w-full flex-col mt-2">
             <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
               <KeyIcon className="opacity-20 w-5 ml-4 mt-3 mb-3 mr-2 " />
