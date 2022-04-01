@@ -143,9 +143,9 @@ export default function PageHeader() {
                         </button>
                       </div>
                     </Transition.Child>
-                    <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                    <div className="flex h-full flex-col text-xl font-semibold text-gray-800 overflow-y-scroll bg-gray-50 py-6 shadow-xl">
                       <div className="px-4 sm:px-6">
-                        <Dialog.Title className="text-lg font-medium text-gray-900"> Olá, {userLogged.nome} </Dialog.Title>
+                        <Dialog.Title className="text-2xl  font-bold  text-gray-800"> Olá, {userLogged.nome} </Dialog.Title>
                       </div>
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
                         <a onClick={() => setOpen(false)} href="/minhas-vagas"
@@ -168,7 +168,7 @@ export default function PageHeader() {
                         </a>}
 
                         <button onClick={logout}
-                          className={` group flex rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
+                          className={` group flex font-semibold  rounded-md items-center w-full px-2 py-2 text-md focus:text-blue-500`}
                         >
                           Sair
                         </button>
@@ -187,8 +187,8 @@ export default function PageHeader() {
           <div className="w-full text-gray-400 flex p-2 gap-2 items-center rounded-l-md bg-gray-100">
             <input placeholder="Pesquise uma vaga" value={search} onChange={(e) => setSearch(e.target.value)} className="w-full text-gray-400 bg-gray-100" />
           </div>
-          <button type="submit" onClick={makeSearch} className="bg-slate-400 hover:bg-slate-500 text-white transition-all duration-500 ease-in-out flex justify-center items-center font-semibold gap-2 -ml-4 rounded-r-md py-2  px-4 "><Search size={16} />Pesquisar</button>
-          <a href="/enviar" className="flex transition-all duration-500 ease-in-out hover:bg-blue-600 justify-center items-center gap-1 text-white rounded-md bg-blue-500 w-96 text-center p-2"><UploadCloud className="ml-2" size={20} /><span className="w-40">Enviar uma vaga</span></a>
+          <button type="submit" onClick={makeSearch} className="bg-slate-400 hover:bg-slate-500 text-white transition-all duration-500 ease-in-out flex justify-center items-center text-sm font-medium gap-2 -ml-4 rounded-r-md py-2  px-4 "><Search size={16} />Pesquisar</button>
+          <a href="/enviar" className="flex text-sm font-medium  transition-all duration-500 ease-in-out hover:bg-blue-600 justify-center items-center gap-1 text-white rounded-md bg-blue-500 w-72 text-center p-2"><UploadCloud className="ml-2" size={20} /><span className="w-40">Enviar uma vaga</span></a>
 
           {userLogged.id > 0 ?
             <div className="text-right">
@@ -220,7 +220,7 @@ export default function PageHeader() {
                         {({ active }) => (
                           <a href="/minhas-vagas"
                             className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                              } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm`}
                           >
 
                             Minhas vagas
@@ -231,7 +231,7 @@ export default function PageHeader() {
                         {({ active }) => (
                           <a href="editar-perfil"
                             className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                              } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm`}
                           >
 
                             Editar Perfil
@@ -245,7 +245,7 @@ export default function PageHeader() {
                               {({ active }) => (
                                 <a href="dashboard"
                                   className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                    } group  font-medium  flex rounded-md items-center w-full px-2 py-2 text-sm`}
                                 >
       
                                   Dashboard
@@ -260,7 +260,7 @@ export default function PageHeader() {
                           <button
                             onClick={logout}
                             className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                              } group font-semibold flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                              } group   font-medium flex rounded-md items-center w-full px-2 py-2 text-sm`}
                           >
                             Sair
                           </button>
