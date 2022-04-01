@@ -7,11 +7,14 @@ export default async function handler(req, res) {
     var cod = await MD5(String(new Date()));
     var data = JSON.stringify({
       codigo: String(cod),
-    });
+    });  
+
+    var getuserId = await axios.get( `${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[email][$eq]=${req.query.email}`);
+    var userId = getuserId.data[0].id 
 
     var config = {
       method: "put",
-      url: `${process.env.NEXT_PUBLIC_STRAPI}/api/users/${req.query.id}`,
+      url: `${process.env.NEXT_PUBLIC_STRAPI}/api/users/${userId}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -21,9 +24,13 @@ export default async function handler(req, res) {
     var user = await axios(config);
     let htmlEmail = `
           <p> Olá ${user.data.nome},<br/>
-          Confirme o seu cadastro clicando no link abaixo:<br/>
-          https://mural.maisvagases.com.br/validar/${cod}</p>
+          Esqueceu a senha? Não se preocupe,<br/>
+          abaixo está um link para recuperar sua senha: <br/>
+          https://mural.maisvagases.com.br/alterar-senha/${cod}</p>
           <br/>
+          Caso não tenha solicitado alteração de senha,<br/>
+          por favor ignore esse email.<br/><br/>
+
           <p>Enviado através de https://mural.vaisvagases.com.br</p>
           `;
 
@@ -40,7 +47,7 @@ export default async function handler(req, res) {
     let info = await transporter.sendMail({
       from: '"Mais Vagas ES" <smtp@maisvagases.com.br>', // sender address
       to: user.data.email, // list of receivers
-      subject: `Confirmar e-mail - Mais Vagas ES `, // Subject line
+      subject: `Recuperar Senha - Mais Vagas ES `, // Subject line
       //text: "Hello world?", // plain text body
       html: htmlEmail, // html body
     });

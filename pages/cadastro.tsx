@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import axios from "axios"
-import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon';
-import MailIcon from '@heroicons/react/outline/MailIcon';
-import KeyIcon from '@heroicons/react/outline/KeyIcon';
-import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
+import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon'
+import MailIcon from '@heroicons/react/outline/MailIcon'
+import KeyIcon from '@heroicons/react/outline/KeyIcon'
+import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 import { MD5 } from "crypto-js"
-import slugify from '@/utils/slugify';
-import formatCNPJ from '@/utils/formatCNPJ';
-import validarCNPJ from '@/utils/validarCNPJ';
+import slugify from '@/utils/slugify'
+import formatCNPJ from '@/utils/formatCNPJ'
+import validarCNPJ from '@/utils/validarCNPJ'
 import { Person } from "@styled-icons/bootstrap/Person"
 import { Building } from "@styled-icons/bootstrap/Building"
 import { Verified } from "@styled-icons/octicons/Verified"
 import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
 import { EyeOff } from "@styled-icons/fluentui-system-regular/EyeOff"
 import { EyeShow } from "@styled-icons/fluentui-system-regular/EyeShow"
-import Info from '@/components/Info';
-import { Configs } from '@/configs';
+import Info from '@/components/Info'
+import { Configs } from '@/configs'
+import { forcaSenha } from "@/utils/forcaSenha"
+import { validateEmail } from "@/utils/validateEmail"
 import { SpinnerCircularFixed } from "spinners-react";
 
 export default function Index() {
@@ -59,7 +61,7 @@ export default function Index() {
   }, [empresa])
 
   useEffect(() => {
-    setMedidorSenha(ForcaSenha(senha))
+    setMedidorSenha(forcaSenha(senha))
   }, [senha])
 
   function formatWhatsapp(v) {
@@ -68,45 +70,6 @@ export default function Index() {
     v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca prênteses em volta dos dois primeiros dígitos
     v = v.replace(/(\d)(\d{4})$/, "$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
     return v;
-  }
-
-  function validateEmail(str) {
-    var lastAtPos = str.lastIndexOf('@');
-    var lastDotPos = str.lastIndexOf('.');
-    return (lastAtPos < lastDotPos && lastAtPos > 0 && str.indexOf('@@') == -1 && lastDotPos > 2 && (str.length - lastDotPos) > 2);
-  }
-
-  function ForcaSenha(p) {
-    var letrasMaiusculas = /[A-Z]/;
-    var letrasMinusculas = /[a-z]/;
-    var numeros = /[0-9]/;
-    var caracteresEspeciais = /[!|@|#|$|%|^|&|*|(|)|-|_]/;
-    var auxMaiuscula = 0;
-    var auxMinuscula = 0;
-    var auxNumero = 0;
-    var auxEspecial = 0;
-    var length = 0;
-    if (p.length >= 8) {
-      length = 1
-    }
-    for (var i = 0; i < p.length; i++) {
-
-      if (letrasMaiusculas.test(p[i])) {
-        auxMaiuscula = 1
-      }
-      if (letrasMinusculas.test(p[i])) {
-        auxMinuscula = 1
-      }
-
-      if (numeros.test(p[i])) {
-        auxNumero = 1
-      }
-
-      if (caracteresEspeciais.test(p[i])) {
-        auxEspecial = 1
-      }
-    }
-    return auxEspecial + auxNumero + auxMinuscula + auxMaiuscula + length
   }
 
   async function getCNPJ() {
@@ -135,7 +98,7 @@ export default function Index() {
           throw "Email Inválido";
         if (!senha)
           throw "Insira uma senha";
-        if (senha && ForcaSenha(senha) < 4)
+        if (senha && forcaSenha(senha) < 4)
           throw "Senha Fraca ";
         if (senha && senha != confirmarSenha)
           throw "As senhas não são iguais";
@@ -215,15 +178,15 @@ export default function Index() {
 
 
   return (
-    <main className="flex flex-col gap-4 text-gray-800  md:p-8 items-center ">
+    <main className="flex flex-col gap-4 text-gray-800  md:p-4 items-center ">
       <section className=" font-dm-sans bg-slate-light">
         <div className="mx-6 max-w-default md:m-auto">
           <div className="justify-center md:flex">
             <div>
-              <div className="p-6 md:p-[60px] border-gray-200 md:border lg:rounded-lg  md:bg-white md:m-auto    ">
+              <div className="p-6 md:p-[60px] lg:rounded-lg  md:m-auto    ">
                 <h2 className="my-2 font-medium text-[32px] text-center">Criar conta</h2>
-                <section className='grid lg:grid-cols-2 gap-4 '>
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
+                <section className='grid md:grid-cols-2 gap-4 '>
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Person className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
@@ -235,7 +198,7 @@ export default function Index() {
                     </div>
                   </div>
 
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
@@ -247,7 +210,7 @@ export default function Index() {
                     </div>
                   </div>
 
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
@@ -259,7 +222,7 @@ export default function Index() {
                     </div>
                   </div>
 
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Verified className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
@@ -272,7 +235,7 @@ export default function Index() {
                   </div>
 
 
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <MailIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
@@ -283,7 +246,7 @@ export default function Index() {
                       />
                     </div>
                   </div>
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Whatsapp className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
@@ -296,7 +259,7 @@ export default function Index() {
                   </div>
 
 
-                  <div className="flex md:min-w-[362px] flex-col mt-2">
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <KeyIcon className="opacity-20 w-5 ml-4 mt-3 mb-3 mr-2 " />
                       <input
@@ -339,7 +302,7 @@ export default function Index() {
                   </div>
 
 
-                  <div className="flex md:min-w-[362px] flex-col md:mt-2">
+                  <div className="flex md:min-w-[302px] flex-col md:mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <KeyIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
@@ -362,14 +325,14 @@ export default function Index() {
                     </button>
                     :
                     <button className="flex items-center cursor-not-allowed justify-center w-full px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
-                      <span className="text-white"> Cadastrar ... </span>
+                      <span className="text-white"> Criando conta ... </span>
                       <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
                     </button>
                   }
                 </div>
                 <div className="mt-4 text-center">
-                  <a href="#" onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className="transition-all duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg border text-blue-500 border-blue-500 filter hover:bg-blue-500 hover:text-white">
-                    <span>  Já possuo uma conta</span>
+                  <a href="#" onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className="transition-all bg-white duration-500 ease-in-out flex items-center justify-center w-full px-6 py-4 space-x-2 rounded-lg border text-blue-500 border-blue-500 filter hover:bg-blue-500 hover:text-white">
+                    <span> Já possuo uma conta</span>
                   </a>
                 </div>
                 <div className="mt-4">
