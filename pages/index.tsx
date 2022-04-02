@@ -183,11 +183,10 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      {index == 6 && <div className='max-h-[382px] overflow-hidden border border-gray-200 p-2 rounded-lg bg-white' style={{maxHeight:"382px !important"}}  >
-                      <div className='max-h-[350px] overflow-hidden' style={{maxHeight:"382px !important"}}>
+                      {index == 6 && <div className='max-h-[382px] overflow-hidden border border-gray-200 p-2 rounded-lg bg-white'   >
                         <div className='max-h-[350px] overflow-hidden'>
                           <ins className="adsbygoogle"
-                            style={{ display: "flex" }}
+                            style={{ display: "flex", maxHeight: "382px !important" }}
                             data-ad-client="ca-pub-6873518969054710"
                             data-ad-slot="5850319795"
                             data-ad-format="auto"
@@ -195,7 +194,6 @@ const IndexPage = ({ buildTimestamp }) => {
                           <Script id={`MURAL-CARDJOBS-${index}`}>
                             {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                           </Script>
-                        </div>
                         </div>
                       </div>}
                     </>)
@@ -240,7 +238,7 @@ const IndexPage = ({ buildTimestamp }) => {
             </div>
           </section>
         </div>
-      </main>
+      </main >
     </>);
 }
 
