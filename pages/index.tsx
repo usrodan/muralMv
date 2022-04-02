@@ -50,15 +50,20 @@ const IndexPage = ({ buildTimestamp }) => {
   }, [ConfigsStore.page])
 
   function proximaPagina() {
+
     Configs.update(s => {
       s.page = ConfigsStore.page + 1
-    })
+    });
+    //@ts-ignore
+    (adsbygoogle = window.adsbygoogle || []).push({ })
   }
 
   function paginaAnterior() {
     Configs.update(s => {
       s.page = ConfigsStore.page - 1
-    })
+    });
+       //@ts-ignore
+       (adsbygoogle = window.adsbygoogle || []).push({ })
   }
 
   async function getData() {
@@ -146,7 +151,21 @@ const IndexPage = ({ buildTimestamp }) => {
               {loading ?
                 <div className="w-full gap-5 grid md:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (
-                    <div key={i} className="flex  animate-pulse h-72 lg:h-80 xl:h-96 border border-gray-200   font-bold flex-col  rounded-lg bg-white">
+                    <section key={i}>
+                    <div  className="grid grid-cols-3 md:hidden animate-pulse  border border-gray-200   font-bold   rounded-lg bg-white">
+                      <div className="rounded-l-lg object-cover bg-gray-200 h-auto w-full" />
+                      <div className="w-full flex text-sm flex-col  col-span-2 gap-10 p-3">
+                        <div className=" bg-gray-200 h-5 w-full rounded-xl" />
+                        <div className="flex uppercase justify-between items-end gap-4  w-full">
+                          <span className="flex flex-col justify-between w-full gap-2">
+                            <div className=" bg-gray-200 h-3 w-full rounded-xl" />
+                            <div className=" bg-gray-200 h-3 w-full rounded-xl" />
+                          </span>
+                          <span className="bg-gray-200 h-3 w-full rounded-full" />
+                        </div>
+                      </div> 
+                    </div>
+                    <div  className="hidden md:flex  animate-pulse h-72 lg:h-80 xl:h-96 border border-gray-200   font-bold flex-col  rounded-lg bg-white">
                       <div className="rounded-t-lg object-cover bg-gray-200 h-52 lg:h-72 xl:h-80 w-full" />
                       <div className="w-full flex text-sm flex-col gap-2 p-2">
                         <div className=" bg-gray-200 h-5 w-full rounded-full" />
@@ -157,9 +176,9 @@ const IndexPage = ({ buildTimestamp }) => {
                           </span>
                           <span className="bg-gray-200 h-4 w-full rounded-full" />
                         </div>
-                      </div>
-
-                    </div>)
+                      </div> 
+                    </div>
+                    </section>)
                   )}
                 </div>
                 : mural.length ?
