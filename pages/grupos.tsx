@@ -1,6 +1,6 @@
 
 import SEO from '@/components/SEO';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import client from '@/utils/apollo'
 import { gql } from "@apollo/client";
 import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"

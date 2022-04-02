@@ -6,9 +6,7 @@ import CardJob from '@/components/CardJob';
 import { useRouter } from 'next/router';
 import { Configs } from '@/configs'
 import client from '@/utils/apollo'
-import { gql } from "@apollo/client";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { SpinnerCircularFixed } from "spinners-react";
+import { gql } from "@apollo/client"; 
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline"
 import Script from 'next/script';
 import Info from '@/components/Info';
@@ -18,10 +16,11 @@ import { NavigateBefore } from "@styled-icons/material-rounded/NavigateBefore"
 const IndexPage = ({ buildTimestamp }) => {
   const router = useRouter()
   const ConfigsStore = Configs.useState()
-  const [mural, setMural] = useState([])
+  const [mural, setMural] = useState([]) 
+  const [pagination, setPagination] = useState({total:0})
   const [loading, setLoading] = useState(true)
   const { search, city, type, page } = router.query
-  const limit = 11
+  const limit = 14
   const [start, setStart] = useState(0)
   const [hasMore, setHasMore] = useState(true)
 
@@ -36,13 +35,11 @@ const IndexPage = ({ buildTimestamp }) => {
     })
   }, [search, city, type])
 
-
   useEffect(() => {
     Configs.update(s => {
       s.pageType = "home"
     })
   }, [])
-
 
   useEffect(() => {
     getData()
@@ -51,7 +48,6 @@ const IndexPage = ({ buildTimestamp }) => {
   useEffect(() => {
     setStart(ConfigsStore.page * limit == 0 ? 0 : (ConfigsStore.page * limit) - limit)
   }, [ConfigsStore.page])
-
 
   function proximaPagina() {
     Configs.update(s => {
@@ -71,12 +67,12 @@ const IndexPage = ({ buildTimestamp }) => {
     ConfigsStore.search && allQueries.push(`cargo:{containsi: "${ConfigsStore.search}"}`)
     ConfigsStore.city && allQueries.push(`cidade:{slug:{eq:"${ConfigsStore.city}"}}`)
     ConfigsStore.type && allQueries.push(`tipo:{slug:{eq:"${ConfigsStore.type}"}}`)
-    var pagination = `pagination:{limit:${limit},start:${start}} ,`
+    var paginationQuery = `pagination:{limit:${limit},start:${start}} ,`
 
     const { data } = await client.query({
       query: gql` 
       query {
-        murals(${pagination} sort: ["createdAt:desc"],filters:{${allQueries.join(",")}}) {
+        murals(${paginationQuery} sort: ["createdAt:desc"],filters:{${allQueries.join(",")}}) {
           data {
             id 
             attributes {
@@ -89,24 +85,25 @@ const IndexPage = ({ buildTimestamp }) => {
               tipo{data{attributes{tipo,cor}}}
             }
           }
+          meta {
+            pagination {
+              page
+              pageSize
+              total
+              pageCount
+            }
+          }
         }
       }
     `,
-    });
-    /* infinitescrool mantain old murals
-    var newMural = start == 0 ? [] : mural
-
-    data.murals.data.forEach(m => {
-      if (newMural.indexOf(m) === -1) {
-        newMural.push(m)
-      }
-    })
-    */
+    }); 
     if (data.murals.data.length < limit) {
       setHasMore(false)
     } else {
       setHasMore(true)
     }
+
+    setPagination(data.murals.meta.pagination)
 
     setMural(data.murals.data)
 
@@ -186,7 +183,7 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      {index == 6 || index == 9  && <div className=''>
+                      {index == 6  && <div className=''>
                         <ins className="adsbygoogle"
                           style={{ display: "flex"  }}
                           data-ad-client="ca-pub-6873518969054710"
@@ -226,7 +223,7 @@ const IndexPage = ({ buildTimestamp }) => {
                 >  
                 </div>
 
-                <span className={`col-span-3 flex justify-center text-center items-center`}>Página {Number(page) > 1 ? page : 1 }</span>
+                <span className={`col-span-3 flex justify-center text-center items-center`}>Página {Number(page) > 1 ? page : 1 } de {pagination && Math.ceil(pagination.total / Number(limit))}</span>
 
                 <div
                   className={`${ !hasMore && "hidden" } col-span-2 transition-all  cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2 `}
