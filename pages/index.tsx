@@ -6,7 +6,7 @@ import CardJob from '@/components/CardJob';
 import { useRouter } from 'next/router';
 import { Configs } from '@/configs'
 import client from '@/utils/apollo'
-import { gql } from "@apollo/client"; 
+import { gql } from "@apollo/client";
 import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline"
 import Script from 'next/script';
 import Info from '@/components/Info';
@@ -16,8 +16,8 @@ import { NavigateBefore } from "@styled-icons/material-rounded/NavigateBefore"
 const IndexPage = ({ buildTimestamp }) => {
   const router = useRouter()
   const ConfigsStore = Configs.useState()
-  const [mural, setMural] = useState([]) 
-  const [pagination, setPagination] = useState({total:0})
+  const [mural, setMural] = useState([])
+  const [pagination, setPagination] = useState({ total: 0 })
   const [loading, setLoading] = useState(true)
   const { search, city, type, page } = router.query
   const limit = 14
@@ -96,7 +96,7 @@ const IndexPage = ({ buildTimestamp }) => {
         }
       }
     `,
-    }); 
+    });
     if (data.murals.data.length < limit) {
       setHasMore(false)
     } else {
@@ -143,7 +143,7 @@ const IndexPage = ({ buildTimestamp }) => {
                   {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                 </Script>
               </div>
-              {loading   ?
+              {loading ?
                 <div className="w-full gap-5 grid md:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (
                     <div key={i} className="flex  animate-pulse h-72 lg:h-80 xl:h-96 border border-gray-200   font-bold flex-col  rounded-lg bg-white">
@@ -183,16 +183,18 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      {index == 6  && <div className='max-h-[350px] overflow-hidden' style={{maxHeight:"350px !important"}}>
-                        <ins className="adsbygoogle"
-                          style={{ display: "flex"  }}
-                          data-ad-client="ca-pub-6873518969054710"
-                          data-ad-slot="5850319795"
-                          data-ad-format="auto"
-                          data-full-width-responsive="true"></ins>
-                        <Script id={`MURAL-CARDJOBS-${index}`} >
-                          {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
-                        </Script>
+                      {index == 6 && <div className='max-h-[380px] overflow-hidden border border-gray-200 p-2 rounded-lg bg-white'  >
+                        <div className='max-h-[350px] overflow-hidden'>
+                          <ins className="adsbygoogle"
+                            style={{ display: "flex" }}
+                            data-ad-client="ca-pub-6873518969054710"
+                            data-ad-slot="5850319795"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                          <Script id={`MURAL-CARDJOBS-${index}`}>
+                            {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
+                          </Script>
+                        </div>
                       </div>}
                     </>)
                   })}
@@ -213,24 +215,24 @@ const IndexPage = ({ buildTimestamp }) => {
               <nav className='grid grid-cols-7 gap-2 mt-4 text-gray-600 '>
 
                 <div
-                  className={` ${Number(page) > 1 ? "flex" : "hidden" } col-span-2 transition-all cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md  duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2`}
+                  className={` ${Number(page) > 1 ? "flex" : "hidden"} col-span-2 transition-all cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md  duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2`}
                   onClick={paginaAnterior}>
-                  <NavigateBefore size={30} /> 
-                  <span  className='hidden sm:flex'>Página anterior</span>
+                  <NavigateBefore size={30} />
+                  <span className='hidden sm:flex'>Página anterior</span>
                 </div>
                 <div
-                  className={`${ !page ||  Number(page) < 2 ? "flex" : "hidden"} col-span-2  `}
-                >  
+                  className={`${!page || Number(page) < 2 ? "flex" : "hidden"} col-span-2  `}
+                >
                 </div>
 
-                <span className={`col-span-3 flex justify-center text-center items-center`}>Página {Number(page) > 1 ? page : 1 } de {pagination && Math.ceil(pagination.total / Number(limit))}</span>
+                <span className={`col-span-3 flex justify-center text-center items-center`}>Página {Number(page) > 1 ? page : 1} de {pagination && Math.ceil(pagination.total / Number(limit))}</span>
 
                 <div
-                  className={`${ !hasMore && "hidden" } col-span-2 transition-all  cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2 `}
+                  className={`${!hasMore && "hidden"} col-span-2 transition-all  cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2 `}
                   onClick={proximaPagina}>
                   <span className='hidden sm:flex'>Próxima página</span>
                   <NavigateNext size={30} />
-                </div> 
+                </div>
               </nav>
 
             </div>
