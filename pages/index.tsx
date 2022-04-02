@@ -56,7 +56,7 @@ const IndexPage = ({ buildTimestamp }) => {
     setTimeout(() => { 
     //@ts-ignore
     (adsbygoogle = window.adsbygoogle || []).push({ })
-    }, 2000);
+    }, 2500);
   }
 
   function paginaAnterior() {
@@ -66,7 +66,7 @@ const IndexPage = ({ buildTimestamp }) => {
     setTimeout(() => { 
       //@ts-ignore
       (adsbygoogle = window.adsbygoogle || []).push({ })
-      }, 2000);
+      }, 2500);
   }
 
   async function getData() {
