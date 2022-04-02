@@ -213,16 +213,16 @@ const IndexPage = ({ buildTimestamp }) => {
                     }}>Limpar Filtros</strong>
                   </div>
               }
-              <nav className='grid grid-cols-7 gap-2 mt-4 text-gray-600 font-bold '>
+              <nav className='grid grid-cols-7 gap-2 mt-4 text-gray-600 '>
 
                 <div
-                  className={` ${  Number(page) > 1 ? "flex" : "hidden" } col-span-2 transition-all cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md  duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2`}
+                  className={` ${Number(page) > 1 ? "flex" : "hidden" } col-span-2 transition-all cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 rounded-md  duration-500 ease-in-out flex items-center justify-center w-full py-2 space-x-2`}
                   onClick={paginaAnterior}>
                   <NavigateBefore size={30} /> 
                   <span  className='hidden sm:flex'>Página anterior</span>
                 </div>
                 <div
-                  className={` ${ !page ||  Number(page) < 2 ? "flex" : "hidden" } col-span-2  `}
+                  className={`${ !page ||  Number(page) < 2 ? "flex" : "hidden"} col-span-2  `}
                 >  
                 </div>
 
