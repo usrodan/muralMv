@@ -54,16 +54,21 @@ const IndexPage = ({ buildTimestamp }) => {
     Configs.update(s => {
       s.page = ConfigsStore.page + 1
     });
+    setTimeout(() => { 
     //@ts-ignore
     (adsbygoogle = window.adsbygoogle || []).push({ })
+    }, 2000);
   }
 
   function paginaAnterior() {
     Configs.update(s => {
       s.page = ConfigsStore.page - 1
     });
-       //@ts-ignore
-       (adsbygoogle = window.adsbygoogle || []).push({ })
+    
+    setTimeout(() => { 
+      //@ts-ignore
+      (adsbygoogle = window.adsbygoogle || []).push({ })
+      }, 2000);
   }
 
   async function getData() {
