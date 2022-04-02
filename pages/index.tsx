@@ -185,9 +185,9 @@ const IndexPage = ({ buildTimestamp }) => {
 
                       {index == 6 && <div className='border border-gray-200 p-2 rounded-lg bg-white overflow-hidden'   >
                             <ins className="adsbygoogle"
-                              style={{ display: "inline-block"}}
+                              style={{ display: "flex"}}
                               data-ad-client="ca-pub-6873518969054710"
-                              data-ad-slot="9849639513" 
+                              data-ad-slot="5850319795" 
                               data-full-width-responsive="true"></ins>
                             <Script id={`MURAL-JOB-350*265-${index}`}>
                               {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
