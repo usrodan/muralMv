@@ -103,7 +103,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                       }
                       {//IMG VERTICAL
                         mural.imgW > mural.imgH &&
-                        <>
+                        <div className='hidden md:flex '>
                           <ins className="adsbygoogle"
                             style={{ display: "block" }}
                             data-ad-client="ca-pub-6873518969054710"
@@ -113,7 +113,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                           <Script id="VAGA-MURAL-INFERIOR" >
                             {`(adsbygoogle = window.adsbygoogle || []).push({ });`}
                           </Script>
-                        </>}
+                        </div>}
                     </div>
 
                     <div className="flex flex-col justify-between  ">
