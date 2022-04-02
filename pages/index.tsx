@@ -50,7 +50,6 @@ const IndexPage = ({ buildTimestamp }) => {
   }, [ConfigsStore.page])
 
   function proximaPagina() {
-
     Configs.update(s => {
       s.page = ConfigsStore.page + 1
     });
@@ -64,7 +63,6 @@ const IndexPage = ({ buildTimestamp }) => {
     Configs.update(s => {
       s.page = ConfigsStore.page - 1
     });
-    
     setTimeout(() => { 
       //@ts-ignore
       (adsbygoogle = window.adsbygoogle || []).push({ })
@@ -207,7 +205,7 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      {index == 6 && <div className='flex w-full h-full border border-gray-200 p-2 rounded-lg bg-white overflow-hidden'   >
+                      {index == 6 && <div className='flex w-full h-fulloverflow-hidden'   >
                             <ins className="adsbygoogle"
                               style={{ display: "flex", width:"100%", height: "100%", maxWidth:"286px", maxHeight:"373px"}}
                               data-ad-client="ca-pub-6873518969054710"
