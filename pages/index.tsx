@@ -183,9 +183,9 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      {index == 6 && <div className='border border-gray-200 p-2 rounded-lg bg-white overflow-hidden'   >
+                      {index == 6 && <div className='flex w-full h-full border border-gray-200 p-2 rounded-lg bg-white overflow-hidden'   >
                             <ins className="adsbygoogle"
-                              style={{ display: "flex"}}
+                              style={{ display: "flex", width:"100%", height: "100%", maxWidth:"286px", maxHeight:"373px"}}
                               data-ad-client="ca-pub-6873518969054710"
                               data-ad-slot="5850319795" 
                               data-full-width-responsive="true"></ins>
