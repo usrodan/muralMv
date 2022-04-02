@@ -183,7 +183,7 @@ const IndexPage = ({ buildTimestamp }) => {
                         </Script>
                       </div>}
 
-                      {index == 6  && <div className=''>
+                      {index == 6  && <div className='max-h-[350px]'>
                         <ins className="adsbygoogle"
                           style={{ display: "flex"  }}
                           data-ad-client="ca-pub-6873518969054710"
