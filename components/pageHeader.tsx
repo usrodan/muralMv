@@ -287,14 +287,14 @@ export default function PageHeader() {
         <section className="flex  md:hidden gap-4 w-full max-w-7xl p-4 items-center justify-between">
           <a href="/" className="flex hover:opacity-60  hover:-mt-2 transition-all duration-500 ease-in-out justify-center"><Image src="/Mural.svg" alt="Mural MaisVagasES" width={97} height={29} /></a>
           <div className='flex gap-2 text-gray-600'>
-            {router.pathname == "/" && <button onClick={handleFilter} className='p-2' >{configState.filterIsOpen ? <FilterFilled size={32} /> : <FilterAlt size={32} />}</button>}
-            <button onClick={handleSearch} className='p-2'>{configState.searchIsOpen ? <SearchAlt size={32} /> : <Search size={32} />}</button>
+            {router.pathname == "/" && <button aria-label="Filtros" onClick={handleFilter} className='p-2' >{configState.filterIsOpen ? <FilterFilled size={32} /> : <FilterAlt size={32} />}</button>}
+            <button aria-label="Pesquisar" onClick={handleSearch} className='p-2'>{configState.searchIsOpen ? <SearchAlt size={32} /> : <Search size={32} />}</button>
             {userLogged.id == 0 ?
-              <button onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className='p-2  px-3   bg-gray-100 rounded-md focus:bg-gray-200 hover:bg-gray-200'>
+              <button aria-label="Fazer Login" onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className='p-2  px-3   bg-gray-100 rounded-md focus:bg-gray-200 hover:bg-gray-200'>
                 <PersonFill size={24} />
               </button>
               :
-              <button onClick={() => setOpen(!open)} className='p-2 px-3 bg-gray-100 rounded-md focus:bg-gray-200 hover:bg-gray-200'>
+              <button aria-label="Abrir Menu" onClick={() => setOpen(!open)} className='p-2 px-3 bg-gray-100 rounded-md focus:bg-gray-200 hover:bg-gray-200'>
                 <MenuIcon size={24} />
               </button>
             }
@@ -306,7 +306,7 @@ export default function PageHeader() {
               <div className="w-full text-gray-400 flex p-3 gap-2 items-center rounded-l-md bg-gray-100">
                 <input placeholder="Pesquise uma vaga" value={search} onChange={(e) => setSearch(e.target.value)} className="w-full text-gray-400 bg-gray-100" />
               </div>
-              <button type="submit" onClick={makeSearch} className="bg-slate-400 hover:bg-slate-500 text-white transition-all duration-500 ease-in-out flex justify-center items-center font-medium gap-2 -ml-4 rounded-r-md py-2  px-4 ">
+              <button type="submit" aria-label="Pesquisar" onClick={makeSearch} className="bg-slate-400 hover:bg-slate-500 text-white transition-all duration-500 ease-in-out flex justify-center items-center font-medium gap-2 -ml-4 rounded-r-md py-2  px-4 ">
                 <Search size={16} />
                 Pesquisar
               </button>
