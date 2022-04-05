@@ -1,9 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import slugify from "@/utils/slugify"
 import client from '@/utils/apollo'
-import { zonedTimeToUtc } from 'date-fns-tz';
 import { gql } from "@apollo/client";
-import axios from "axios"
 import { format } from 'date-fns'
 import { Images } from "@styled-icons/entypo/Images"
 import { Trash } from "@styled-icons/bootstrap/Trash"
@@ -13,18 +11,14 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Show } from "@styled-icons/boxicons-regular/Show"
 import { Hide } from "@styled-icons/boxicons-regular/Hide"
-import Image from 'next/image'
-import { LogOut } from "@styled-icons/entypo/LogOut"
 import { List } from "@styled-icons/entypo/List"
-import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon';
-import MailIcon from '@heroicons/react/outline/MailIcon';
-import KeyIcon from '@heroicons/react/outline/KeyIcon';
 import MD5 from "crypto-js/md5"
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
 import { timezoneBrazil } from '@/utils/timezoneBrazil';
 import SEO from '@/components/SEO';
 import SidebarLogged from '@/components/SidebarLogged';
+import NotLoggedAdvice from '@/components/NotLoggedAdvice';
+import { Configs } from '@/configs';
 
 export default function Index() {
   const [items, setItems] = useState([])
@@ -44,16 +38,13 @@ export default function Index() {
     CookieSession && CookieSession.token == String(MD5(CookieSession.user.username + CookieSession.user.id + CookieSession.user.email)) ? setUserLogged(CookieSession.user) : setUserLogged({ ativo: false, blocked: false, nome: "", id: 0 })
   }, [router])
 
-  useEffect(() => {
-    console.log(userLogged)
-  }, [userLogged])
-
   function titleize(str) {
     return str.replace(/\w\S*/g, function (str) {
       return str.charAt(0).toUpperCase() + str.substr(1).toLowerCase();
     });
   }
   async function getDataMuralList() {
+    Configs.update(s => { s.loading = true })
     var posts = []
     var resultdias = []
     const { data } = await client.query({
@@ -81,6 +72,9 @@ export default function Index() {
     })
     setDias(resultdias)
     setMurais(posts)
+    setTimeout(() => {
+      Configs.update(s => { s.loading = false })
+    }, 1500);
   }
 
   const [selected, setSelected] = useState()
@@ -185,8 +179,6 @@ export default function Index() {
     <main className="flex flex-col gap-4  items-center ">
       <SEO siteName="Mais Vagas ES" title="Dashboard" notIndexPage description="" />
       {(userLogged.id == 10 || userLogged.id == 12 || userLogged.id == 8) ?
-
-
         <section className='flex flex-col  w-full items-center ' >
           <div className='grid md:grid-cols-12 gap-4 w-full max-w-7xl'>
             <div className="hidden md:flex col-span-3 w-full">
@@ -357,14 +349,7 @@ export default function Index() {
             </div>
           </div>
         </section>
-
-
-        : <section className=" font-dm-sans bg-slate-light">
-          <div className="mx-6 max-w-default md:m-auto py-20">
-            <h1>Área restrita </h1>
-            <span>Faça login para continuar</span>
-          </div>
-        </section>
+        : <NotLoggedAdvice/>
       }
     </main>)
 

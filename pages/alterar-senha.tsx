@@ -21,11 +21,12 @@ import formatCNPJ from '@/utils/formatCNPJ';
 import slugify from '@/utils/slugify';
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import NotLoggedAdvice from '@/components/NotLoggedAdvice';
 
 const AlterarSenha = () => {
 
   const router = useRouter()
-  const [loading, setLoading] = useState(false) 
+  const [loading, setLoading] = useState(false)
   const [username, setUsername] = useState("")
   const [senha, setSenha] = useState("")
   const [confirmarSenha, setConfirmarSenha] = useState("")
@@ -33,12 +34,12 @@ const AlterarSenha = () => {
   const [passwordTip, setPasswordTip] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
-  const configState = Configs.useState() 
+  const configState = Configs.useState()
 
   useEffect(() => {
     setMedidorSenha(forcaSenha(senha))
   }, [senha])
-
+ 
   async function salvarPerfil() {
     let error = false
     if (!loading) {
@@ -59,7 +60,7 @@ const AlterarSenha = () => {
         axios.post("/api/updatePassword", {
           hash: String(MD5("##@@$%&" + username + "##@@$%&" + configState.loggedUser.id + "##@@$%&")),
           username,
-          password:senha, 
+          password: senha,
           id: configState.loggedUser.id
         }).then(response => {
           toast.success("Senha alterada com sucesso!", { position: 'bottom-center' })
@@ -87,22 +88,23 @@ const AlterarSenha = () => {
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Editar Perfil" description="" />
-      <main className='flex flex-col  w-full items-center ' >
-        <div className='grid md:grid-cols-12 gap-4 w-full max-w-7xl'>
-          <div className="hidden md:flex col-span-3 w-full">
-            <SidebarLogged />
-          </div>
+      {configState.loggedUser.id > 0 ?
+        <main className='flex flex-col  w-full items-center ' >
+          <div className='grid md:grid-cols-12 gap-4 w-full max-w-7xl'>
+            <div className="hidden md:flex col-span-3 w-full">
+              <SidebarLogged />
+            </div>
 
-          <div className='col-span-9 w-full min-h-full p-4 md:pt-10 md:pl-8 md:mb-10'>
+            <div className='col-span-9 w-full min-h-full p-4 md:pt-10 md:pl-8 md:mb-10'>
 
-            <h1>Alterar Senha</h1>
+              <h1>Alterar Senha</h1>
 
-            <section className=' md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
-              <h2 className='text-xl'>Altere sua senha 😄</h2>  
+              <section className=' md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
+                <h2 className='text-xl'>Altere sua senha 😄</h2>
 
-              <section className='grid md:grid-cols-2 gap-4 '>
-             
-              <div className="flex md:min-w-[302px] flex-col mt-2">
+                <section className='grid md:grid-cols-2 gap-4 '>
+
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <KeyIcon className="opacity-20 w-5 ml-4 mt-3 mb-3 mr-2 " />
                       <input
@@ -162,30 +164,32 @@ const AlterarSenha = () => {
 
 
 
+                </section>
+
+                <div className="mt-6">
+                  {!loading ?
+                    <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
+                      <Save className="w-5 text-white" />
+                      <span className="text-white"> Salvar </span>
+                    </button>
+                    :
+                    <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
+                      <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
+                      <span className="text-white"> Salvando ... </span>
+                    </button>
+                  }
+                </div>
+
               </section>
 
-              <div className="mt-6">
-                {!loading ?
-                  <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
-                    <Save className="w-5 text-white" />
-                    <span className="text-white"> Salvar </span> 
-                  </button>
-                  :
-                  <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
-                    <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
-                    <span className="text-white"> Salvando ... </span>
-                  </button>
-                }
-              </div>
+            </div>
 
-            </section>
 
           </div>
 
-
-        </div>
-
-      </main>
+        </main> :
+        <NotLoggedAdvice/>
+      }
     </>);
 }
 

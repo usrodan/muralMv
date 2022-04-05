@@ -2,13 +2,14 @@
 import SEO from '@/components/SEO';
 import SidebarLogged from '@/components/SidebarLogged';
 import { Configs } from '@/configs'
-import { useRouter } from 'next/router'
-import CardJob from '@/components/CardJob';
+import { useRouter } from 'next/router' 
 import client from '@/utils/apollo'
 import { gql } from "@apollo/client";
 import React, { useEffect, useState } from 'react';
 import CardJobAdmin from '@/components/CardJobAdmin';
+import NotLoggedAdvice from '@/components/NotLoggedAdvice';
 const Pagina = () => {
+  const router = useRouter()
   const [mural, setMural] = useState([])
   const ConfigsStore = Configs.useState()
   const [loading, setLoading] = useState(true)
@@ -58,6 +59,7 @@ const Pagina = () => {
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Minhas Vagas" description="" />
+      {ConfigsStore.loggedUser.id > 0 ?
       <main className='flex flex-col  w-full items-center ' >
         <div className='grid md:grid-cols-12 gap-4 w-full max-w-7xl'>
         <div className="hidden md:flex col-span-3 w-full">
@@ -133,7 +135,9 @@ const Pagina = () => {
 
         </div>
 
-      </main>
+      </main> :
+        <NotLoggedAdvice/>
+      }
     </>);
 }
 

@@ -38,10 +38,15 @@ export default function Index() {
   const [senha, setSenha] = useState("")
   const [confirmarSenha, setConfirmarSenha] = useState("")
   const [medidorSenha, setMedidorSenha] = useState(0)
+  const [allowMultipleCNPJ, setAllowMultipleCNPJ] = useState(false)
 
   useEffect(() => {
     setCnpjUnformatted(cnpj.replace(".", "").replace(".", "").replace("/", "").replace("-", ""))
   }, [cnpj])
+
+  useEffect(() => {
+    router.query.recrutador && setAllowMultipleCNPJ(true)
+  }, [router])
 
   useEffect(() => {
     setWhatsappUnformatted(whatsapp.replace("(", "").replace(")", "").replace(" ", "").replace("-", ""))
@@ -123,9 +128,11 @@ export default function Index() {
         }
 
         if (validarCNPJ(cnpjUnformatted)) {
-          let cnpj_validation = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[cnpj][$eq]=${cnpjUnformatted}`)
-          if (cnpj_validation.data.length > 0)
-            throw "CNPJ já utilizado";
+          if (!allowMultipleCNPJ) {
+            let cnpj_validation = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI}/api/users/?filters[cnpj][$eq]=${cnpjUnformatted}`)
+            if (cnpj_validation.data.length > 0)
+              throw "CNPJ já utilizado";
+          }
         }
       }
       catch (e) {
@@ -181,8 +188,9 @@ export default function Index() {
           <div className="justify-center md:flex">
             <div>
               <div className="p-6 md:p-[60px] lg:rounded-lg  md:m-auto    ">
-                <h2 className="my-2 font-medium text-[32px] text-center">Criar conta</h2>
-                <section className='grid md:grid-cols-2 gap-4 '>
+              <h3 className="-mb-5 font-medium text-[18px] text-center">(Recrutador)</h3>
+                <h2 className="my-2 font-medium text-[32px] text-center">Criar conta</h2> 
+                <section className='grid md:grid-cols-2 gap-4 '> 
                   <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
                       <Person className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />

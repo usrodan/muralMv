@@ -19,37 +19,13 @@ import LoginModal from "@/components/LoginModal"
 import axios from "axios"
 import { toast } from "react-toastify"
 import SidebarLogged from "./SidebarLogged"
+import DoLogout from "@/utils/DoLogout"
 
 export default function PageHeader() {
   const configState = Configs.useState()
   const router = useRouter()
   const [search, setSearch] = useState(null)
-  const [userLogged, setUserLogged] = useState({ nome: "", id: 0, ativo: false })
-
-  function logout() {
-    localStorage.removeItem("SessionMural")
-    Configs.update(s => {
-      s.loggedUser = {
-        nome: "",
-        id: 0,
-        ativo: false,
-        email: "",
-        cnpj: "",
-        empresa: "",
-        blocked: false,
-        username: "",
-        whatsapp: "", 
-        imagem:{
-          id:0,
-          url:""
-        }
-      }
-    })
-    Configs.update(s => {
-      s.menuIsOpen = false
-    })
-    router.reload()
-  }
+  const [userLogged, setUserLogged] = useState({ nome: "", id: 0, ativo: false, imagem: { url: "" } })
 
   function handleMenu() {
     Configs.update(s => {
@@ -57,6 +33,10 @@ export default function PageHeader() {
     })
   }
 
+  function logout() {
+    DoLogout()
+    router.push("/")
+  }
 
   function NovaValidacao() {
     axios.get(`/api/sendConfirmation/${userLogged.id}`).then(response => {
@@ -68,30 +48,29 @@ export default function PageHeader() {
 
   useEffect(() => {
     let CookieSession = JSON.parse(localStorage.getItem("SessionMural"))
-    CookieSession && CookieSession.token == String(MD5(CookieSession.user.username + CookieSession.user.id + CookieSession.user.email)) ? setUserLogged(CookieSession.user) : setUserLogged({ ativo: false, nome: "", id: 0 })
+    CookieSession && CookieSession.token == String(MD5(CookieSession.user.username + CookieSession.user.id + CookieSession.user.email)) ? setUserLogged(CookieSession.user) : setUserLogged({ ativo: false, nome: "", id: 0, imagem: { url: "" } })
     if (CookieSession && CookieSession.user && CookieSession.user.id != 0) {
       axios.get(`/api/getUser/${CookieSession.user.id}`).then(response => {
         if (response.data) {
-
           Configs.update(s => {
             s.loggedUser = response.data
           })
           localStorage.setItem("SessionMural", JSON.stringify({ token: String(MD5(CookieSession.user.username + CookieSession.user.id + CookieSession.user.email)), user: response.data }))
           setTimeout(() => {
             Configs.update(s => { s.loading = false })
-          }, 1000);
+          }, 1500);
 
         } else {
           localStorage.removeItem("SessionMural")
           setTimeout(() => {
             Configs.update(s => { s.loading = false })
-          }, 1000);
+          }, 1500);
         }
       })
     } else {
       setTimeout(() => {
         Configs.update(s => { s.loading = false })
-      }, 1000);
+      }, 1500);
     }
   }, [router])
 
@@ -160,9 +139,7 @@ export default function PageHeader() {
                     </div>
 
                     <div className="flex h-full flex-col text-xl font-semibold text-gray-800 overflow-y-scroll bg-white p-6 shadow-xl">
-
                       <SidebarLogged />
-
                     </div>
                   </div>
                 </Transition.Child>
@@ -172,7 +149,6 @@ export default function PageHeader() {
         </Transition.Root>
       }
       <header className={"flex flex-col border-b border-gray-300 items-center font-semibold  w-full bg-white justify-center"}>
-
         <form onSubmit={makeSearch} className="hidden md:grid grid-cols-12 gap-4 w-full justify-end max-w-7xl py-4 ">
           <div className="col-span-3  flex text-center justify-center w-full">
             <a href="/" className=" flex hover:opacity-60  hover:-mt-2 transition-all duration-500 ease-in-out w-24 text-center justify-center">
@@ -187,7 +163,6 @@ export default function PageHeader() {
               <Search size={16} />
               Pesquisar
             </button>
-
             <a href="/enviar" className="flex text-sm font-medium  transition-all duration-500 ease-in-out hover:bg-blue-600 justify-center items-center gap-1 text-white rounded-md bg-blue-500 w-72 text-center p-2">
               <UploadCloud className="ml-2" size={20} />
               <span className="w-40">
@@ -197,12 +172,14 @@ export default function PageHeader() {
             {userLogged.id > 0 ?
               <div className="text-right ">
                 <Menu as="div" className="relative w-full inline-block text-left">
-                  <Menu.Button className="inline-flex  text-blue-500  justify-center w-full px-4 py-2 text-sm font-medium  border border-blue-500   rounded-md  hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                  <Menu.Button className="inline-flex  text-blue-500  justify-center items-center w-full px-4 py-2 text-sm font-medium  border border-blue-500   rounded-md  hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+
                     <PersonCircle
                       className="w-5 h-5 mr-2  hover:text-blue-600"
                       aria-hidden="true"
                     />
-                    <span className="w-22">{userLogged.nome.split(" ")[0]}</span>
+
+                    <span className="ml-2 w-22">{userLogged.nome.split(" ")[0]}</span>
                     <ChevronDownIcon
                       className="w-5 h-5 ml-2 -mr-1  hover:text-blue-600"
                       aria-hidden="true"
@@ -225,12 +202,10 @@ export default function PageHeader() {
                               className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
                                 } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             >
-
                               Editar Perfil
                             </a>
                           )}
                         </Menu.Item>
-
                         <Menu.Item>
                           {({ active }) => (
                             <a href="/minhas-vagas"
@@ -241,9 +216,6 @@ export default function PageHeader() {
                             </a>
                           )}
                         </Menu.Item>
-
-
-
                         {(userLogged.id == 10 || userLogged.id == 12 || userLogged.id == 8) &&
                           <Menu.Item>
                             {({ active }) => (
@@ -251,13 +223,11 @@ export default function PageHeader() {
                                 className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
                                   } group  font-medium  flex rounded-md items-center w-full px-2 py-2 text-sm`}
                               >
-
                                 Dashboard
                               </a>
                             )}
                           </Menu.Item>}
                       </div>
-
                       <div className="px-1 py-1">
                         <Menu.Item>
                           {({ active }) => (

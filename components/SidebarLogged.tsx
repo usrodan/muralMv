@@ -7,41 +7,22 @@ import { LockAlt } from "@styled-icons/boxicons-regular/LockAlt"
 import { Power } from "@styled-icons/bootstrap/Power"
 import { Dashboard } from "@styled-icons/remix-fill/Dashboard"
 import Image from "next/image"
+import DoLogout from '@/utils/DoLogout'
 
 const SidebarLogged: React.FC = () => {
   const router = useRouter()
   const configState = Configs.useState()
 
+  function logout(){
+    DoLogout()
+    router.push("/")
+  }
+
   function handleMenu() {
     Configs.update(s => {
       s.menuIsOpen = false
     })
-  }
-
-  function logout() {
-    localStorage.removeItem("SessionMural")
-    Configs.update(s => {
-      s.loggedUser = {
-        nome: "",
-        id: 0,
-        ativo: false,
-        email: "",
-        cnpj: "",
-        empresa: "",
-        blocked: false,
-        username: "",
-        whatsapp: "",
-        imagem:{
-          id:0,
-          url:""
-        }
-      }
-    })
-    Configs.update(s => {
-      s.menuIsOpen = false
-    })
-    router.reload()
-  }
+  } 
   return (
     <div className='py-8 md:py-20 md:px-8 gap-2 flex flex-col items-center w-full bg-white '>
       <Image className="rounded-full" src={configState.loggedUser.imagem.url || "/user.svg"} alt="Danilo" width={100} height={100} />

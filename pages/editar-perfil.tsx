@@ -22,6 +22,7 @@ import slugify from '@/utils/slugify';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone-uploader';
+import NotLoggedAdvice from '@/components/NotLoggedAdvice';
 
 const EditarPerfil = () => {
   const router = useRouter()
@@ -34,7 +35,7 @@ const EditarPerfil = () => {
   const [username, setUsername] = useState("")
   const configState = Configs.useState()
   const [uploading, setUploading] = useState(false)
-  const [image, setImage] = useState({ url: "",id:0 })
+  const [image, setImage] = useState({ url: "", id: 0 })
 
   const getUploadParams = () => {
     return { url: '/api/up' }
@@ -58,6 +59,7 @@ const EditarPerfil = () => {
     setWhatsapp(formatWhatsapp(configState.loggedUser.whatsapp))
     setImage(configState.loggedUser.imagem)
   }, [configState])
+
 
   async function salvarPerfil() {
     let error = false
@@ -87,7 +89,7 @@ const EditarPerfil = () => {
           empresa,
           nome,
           email,
-          imagem:image.id,
+          imagem: image.id,
           whatsapp: String(whatsapp).replace("(", "").replace(")", "").replace(" ", "").replace("-", ""),
           id: configState.loggedUser.id
         }).then(response => {
@@ -108,151 +110,154 @@ const EditarPerfil = () => {
   return (
     <>
       <SEO siteName="Mais Vagas ES" title="Editar Perfil" description="" />
-      <main className='flex flex-col  w-full items-center ' >
-        <div className='grid md:grid-cols-12 gap-4 w-full max-w-7xl'>
-          <div className="hidden md:flex col-span-3 w-full">
-            <SidebarLogged />
-          </div>
+      {configState.loggedUser.id > 0 ?
+        <main className='flex flex-col  w-full items-center ' >
+          <div className='grid md:grid-cols-12 gap-4 w-full max-w-7xl'>
+            <div className="hidden md:flex col-span-3 w-full">
+              <SidebarLogged />
+            </div>
 
-          <div className='col-span-9 w-full min-h-full p-4 md:pt-10 md:pl-8 md:mb-10'>
+            <div className='col-span-9 w-full min-h-full p-4 md:pt-10 md:pl-8 md:mb-10'>
 
-            <h1>Editar Perfil</h1>
+              <h1>Editar Perfil</h1>
 
-            <section className=' md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
-              <h2 className='text-xl'>Imagem do perfil</h2>
-              {image.url && !uploading ? 
-                <div className='flex gap-4  items-center'>
-                  <Image className="rounded-full" src={image.url} alt="Danilo" width={100} height={100} />
-                  <button onClick={() => setImage({url:"",id:0})} className='rounded-xl h-8 bg-red-100 text-sm text-red-700 p-2 px-3 flex items-center gap-2'><Trash size={16}/>Remover</button>
-                </div>
-                :
-                <Dropzone
-                  getUploadParams={getUploadParams}
-                  //@ts-ignore
-                  onChangeStatus={handleChangeStatus}
-                  maxFiles={1}
-                  multiple={false}
-                  canCancel={false}
-                  accept="image/*"
-                  inputContent={
-                    <span className='flex gap-4  items-center'>
-                      <Image className="rounded-full" src="/user.svg" alt="Danilo" width={100} height={100} />
-                      <div className='rounded-xl h-8 bg-blue-100 text-sm text-blue-700 p-2 px-3 flex items-center gap-2'><Camera size={16}/> Selecionar</div>
-                    </span>
+              <section className=' md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
+                <h2 className='text-xl'>Imagem do perfil</h2>
+                {image.url && !uploading ?
+                  <div className='flex gap-4  items-center'>
+                    <Image className="rounded-full" src={image.url} alt="Danilo" width={100} height={100} />
+                    <button onClick={() => setImage({ url: "", id: 0 })} className='rounded-xl h-8 bg-red-100 text-sm text-red-700 p-2 px-3 flex items-center gap-2'><Trash size={16} />Remover</button>
+                  </div>
+                  :
+                  <Dropzone
+                    getUploadParams={getUploadParams}
+                    //@ts-ignore
+                    onChangeStatus={handleChangeStatus}
+                    maxFiles={1}
+                    multiple={false}
+                    canCancel={false}
+                    accept="image/*"
+                    inputContent={
+                      <span className='flex gap-4  items-center'>
+                        <Image className="rounded-full" src="/user.svg" alt="Danilo" width={100} height={100} />
+                        <div className='rounded-xl h-8 bg-blue-100 text-sm text-blue-700 p-2 px-3 flex items-center gap-2'><Camera size={16} /> Selecionar</div>
+                      </span>
+                    }
+                    styles={{
+                      dropzone: { alignItems: "start" },
+                      dropzoneActive: { borderColor: 'green' },
+                      inputLabel: { justifyContent: "start" }
+                    }}
+                  />
+                }
+
+                <h2 className='text-xl mt-8'>Informações Pessoais</h2>
+
+                <section className='grid md:grid-cols-2 gap-4 '>
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
+                      <Person className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <input
+                        className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
+                        placeholder="Nome e Sobrenome"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-gray-100">
+                      <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <input
+                        className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
+                        placeholder="CNPJ"
+                        disabled
+                        value={cnpj}
+                        onChange={(e) => setCnpj(formatCNPJ(e.target.value))}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
+                      <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <input
+                        className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
+                        placeholder="Empresa"
+                        value={empresa}
+                        onChange={(e) => setEmpresa(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-gray-100">
+                      <Verified className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <input
+                        className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
+                        placeholder="Nome de Usuário"
+                        disabled
+                        value={username}
+                        onChange={(e) => setUsername(slugify(e.target.value))}
+                      />
+                    </div>
+                  </div>
+
+
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
+                      <MailIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <input
+                        className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex md:min-w-[302px] flex-col mt-2">
+                    <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
+                      <Whatsapp className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <input
+                        className="w-full p-3   rounded-md outline-none focus-within:outline-none focus:outline-none"
+                        placeholder="Whatsapp"
+                        value={whatsapp}
+                        onChange={(e) => setWhatsapp(formatWhatsapp(e.target.value))}
+                      />
+                    </div>
+                  </div>
+
+
+
+
+                </section>
+
+                <div className="mt-6">
+                  {!loading ?
+                    <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
+                      <Save className="w-5 text-white" />
+                      <span className="text-white"> Salvar </span>
+
+                    </button>
+                    :
+                    <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
+                      <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
+                      <span className="text-white"> Salvando ... </span>
+                    </button>
                   }
-                  styles={{
-                    dropzone: { alignItems: "start" },
-                    dropzoneActive: { borderColor: 'green' },
-                    inputLabel: { justifyContent: "start" }
-                  }}
-                />
-              }
-
-              <h2 className='text-xl mt-8'>Informações Pessoais</h2>
-
-              <section className='grid md:grid-cols-2 gap-4 '>
-                <div className="flex md:min-w-[302px] flex-col mt-2">
-                  <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
-                    <Person className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                    <input
-                      className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
-                      placeholder="Nome e Sobrenome"
-                      value={nome}
-                      onChange={(e) => setNome(e.target.value)}
-                    />
-                  </div>
                 </div>
-
-                <div className="flex md:min-w-[302px] flex-col mt-2">
-                  <div className="flex border-2  max-h-[55px]  rounded-lg bg-gray-100">
-                    <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                    <input
-                      className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
-                      placeholder="CNPJ"
-                      disabled
-                      value={cnpj}
-                      onChange={(e) => setCnpj(formatCNPJ(e.target.value))}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex md:min-w-[302px] flex-col mt-2">
-                  <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
-                    <Building className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                    <input
-                      className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
-                      placeholder="Empresa"
-                      value={empresa}
-                      onChange={(e) => setEmpresa(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex md:min-w-[302px] flex-col mt-2">
-                  <div className="flex border-2  max-h-[55px]  rounded-lg bg-gray-100">
-                    <Verified className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                    <input
-                      className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
-                      placeholder="Nome de Usuário"
-                      disabled
-                      value={username}
-                      onChange={(e) => setUsername(slugify(e.target.value))}
-                    />
-                  </div>
-                </div>
-
-
-                <div className="flex md:min-w-[302px] flex-col mt-2">
-                  <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
-                    <MailIcon className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                    <input
-                      className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="flex md:min-w-[302px] flex-col mt-2">
-                  <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
-                    <Whatsapp className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
-                    <input
-                      className="w-full p-3   rounded-md outline-none focus-within:outline-none focus:outline-none"
-                      placeholder="Whatsapp"
-                      value={whatsapp}
-                      onChange={(e) => setWhatsapp(formatWhatsapp(e.target.value))}
-                    />
-                  </div>
-                </div>
-
-
-
 
               </section>
 
-              <div className="mt-6">
-                {!loading ?
-                  <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
-                    <Save className="w-5 text-white" />
-                    <span className="text-white"> Salvar </span>
+            </div>
 
-                  </button>
-                  :
-                  <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
-                    <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
-                    <span className="text-white"> Salvando ... </span>
-                  </button>
-                }
-              </div>
-
-            </section>
 
           </div>
 
-
-        </div>
-
-      </main>
+        </main> :
+        <NotLoggedAdvice/>
+      }
     </>);
 }
 
