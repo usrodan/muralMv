@@ -128,4 +128,4 @@ const Contato = () => {
     </>);
 }
 
-export default Pagina;
+export default Contato;
