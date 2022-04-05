@@ -45,7 +45,8 @@ export default function Index() {
   }, [cnpj])
 
   useEffect(() => {
-    router.query.recrutador && setAllowMultipleCNPJ(true)
+    router.query.recrutador != undefined && setAllowMultipleCNPJ(true)
+    console.log(router.query.recrutador)
   }, [router])
 
   useEffect(() => {
