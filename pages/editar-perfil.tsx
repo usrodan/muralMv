@@ -4,7 +4,7 @@ import SidebarLogged from '@/components/SidebarLogged';
 import Image from "next/image"
 import { useEffect, useState } from 'react';
 import { MD5 } from "crypto-js";
-import { Person } from "@styled-icons/bootstrap/Person"
+import { PersonOutline } from "@styled-icons/material-sharp/PersonOutline"
 import { Building } from "@styled-icons/bootstrap/Building"
 import { Verified } from "@styled-icons/octicons/Verified"
 import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
@@ -117,16 +117,18 @@ const EditarPerfil = () => {
               <SidebarLogged />
             </div>
 
-            <div className='col-span-9 w-full min-h-full p-4 md:pt-10 md:pl-8 md:mb-10'>
+            <div className='col-span-9 w-full min-h-full p-4 xl:pr-0 md:pt-10 md:pl-8 md:mb-10'>
 
-              <h1>Editar Perfil</h1>
+              <h1 className='flex items-center gap-3'><PersonOutline size={40} /> Editar Perfil</h1>
 
               <section className=' md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
                 <h2 className='text-xl'>Imagem do perfil</h2>
                 {image.url && !uploading ?
                   <div className='flex gap-4  items-center'>
-                    <Image className="rounded-full" src={image.url} alt="Danilo" width={100} height={100} />
-                    <button onClick={() => setImage({ url: "", id: 0 })} className='rounded-xl h-8 bg-red-100 text-sm text-red-700 p-2 px-3 flex items-center gap-2'><Trash size={16} />Remover</button>
+                    <div className='rounded-full p-1 border-2  border-blue-500  flex justify-center items-centerbg-white'>
+                      <Image className="rounded-full" src={image.url} alt="Danilo" width={100} height={100} />
+                    </div>
+                    <button onClick={() => setImage({ url: "", id: 0 })} className='rounded-xl h-8 bg-red-100 text-sm text-red-700 hover:bg-red-500 hover:text-white p-2 px-3 flex items-center gap-2'><Trash size={16} />Remover</button>
                   </div>
                   :
                   <Dropzone
@@ -139,8 +141,10 @@ const EditarPerfil = () => {
                     accept="image/*"
                     inputContent={
                       <span className='flex gap-4  items-center'>
-                        <Image className="rounded-full" src="/user.svg" alt="Danilo" width={100} height={100} />
-                        <div className='rounded-xl h-8 bg-blue-100 text-sm text-blue-700 p-2 px-3 flex items-center gap-2'><Camera size={16} /> Selecionar</div>
+                        <div className='rounded-full hover:opacity-50 p-1 border-2  border-blue-500  flex justify-center items-centerbg-white'>
+                          <Image className="rounded-full" src="/user.svg" alt="Danilo" width={100} height={100} />
+                        </div>
+                        <div className='rounded-xl h-8 font-medium bg-blue-100 text-sm text-blue-700 hover:bg-blue-500 hover:text-white p-2 px-3 flex items-center gap-2'><Camera size={16} /> Selecionar</div>
                       </span>
                     }
                     styles={{
@@ -156,7 +160,7 @@ const EditarPerfil = () => {
                 <section className='grid md:grid-cols-2 gap-4 '>
                   <div className="flex md:min-w-[302px] flex-col mt-2">
                     <div className="flex border-2  max-h-[55px]  rounded-lg bg-white">
-                      <Person className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
+                      <PersonOutline className="opacity-20 w-5 ml-4 mt-4 mb-4 mr-2" />
                       <input
                         className="w-full p-3  rounded-md outline-none focus-within:outline-none focus:outline-none"
                         placeholder="Nome e Sobrenome"
@@ -233,15 +237,15 @@ const EditarPerfil = () => {
 
                 </section>
 
-                <div className="mt-6">
+                <div className="mt-4">
                   {!loading ?
-                    <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
+                    <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-3 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
                       <Save className="w-5 text-white" />
                       <span className="text-white"> Salvar </span>
 
                     </button>
                     :
-                    <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
+                    <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-3 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
                       <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
                       <span className="text-white"> Salvando ... </span>
                     </button>
@@ -256,7 +260,7 @@ const EditarPerfil = () => {
           </div>
 
         </main> :
-        <NotLoggedAdvice/>
+        <NotLoggedAdvice />
       }
     </>);
 }

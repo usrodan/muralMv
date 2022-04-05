@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Configs } from '@/configs'
 import { useRouter } from 'next/router'
-import { Person } from "@styled-icons/bootstrap/Person"
+import { PersonOutline } from "@styled-icons/material-sharp/PersonOutline"
 import { BriefcaseAlt } from "@styled-icons/boxicons-regular/BriefcaseAlt"
 import { LockAlt } from "@styled-icons/boxicons-regular/LockAlt"
-import { Power } from "@styled-icons/bootstrap/Power"
-import { Dashboard } from "@styled-icons/remix-fill/Dashboard"
+import { ShutDown as Power } from "@styled-icons/remix-line/ShutDown"
+import { Dashboard } from "@styled-icons/remix-line/Dashboard"
 import Image from "next/image"
 import DoLogout from '@/utils/DoLogout'
 
@@ -13,7 +13,7 @@ const SidebarLogged: React.FC = () => {
   const router = useRouter()
   const configState = Configs.useState()
 
-  function logout(){
+  function logout() {
     DoLogout()
     router.push("/")
   }
@@ -22,16 +22,19 @@ const SidebarLogged: React.FC = () => {
     Configs.update(s => {
       s.menuIsOpen = false
     })
-  } 
+  }
   return (
     <div className='py-8 md:py-20 md:px-8 gap-2 flex flex-col items-center w-full bg-white '>
-      <Image className="rounded-full" src={configState.loggedUser.imagem.url || "/user.svg"} alt="Danilo" width={100} height={100} />
+      <div className='rounded-full p-1 border-2  border-blue-500  flex justify-center items-centerbg-white'>
+        <Image className="rounded-full" src={configState.loggedUser.imagem.url || "/user.svg"} alt="Danilo" width={100} height={100} />
+      </div>
       <h2 className='text-xl'>{configState.loggedUser.nome}</h2>
+      <span className='text-sm font-regular -mt-3 text-gray-500'>{configState.loggedUser.empresa}</span>
 
-      <nav className='flex flex-col gap-3 mt-8 md:mt-16 w-full font-medium text-gray-700 '>
+      <nav className='flex flex-col gap-3 mt-8 md:mt-10 w-full font-medium text-gray-700 '>
         <a href="/editar-perfil"
           onClick={handleMenu} className={`${router.asPath == "/editar-perfil" && "bg-blue-100 text-blue-700"}  hover:bg-blue-100  hover:text-blue-700 w-full px-3 gap-2 py-2 flex items-center rounded-lg`}>
-          <Person size="24" />
+          <PersonOutline size="24" />
           Editar Perfil
         </a>
 

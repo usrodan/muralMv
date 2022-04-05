@@ -8,6 +8,8 @@ import { gql } from "@apollo/client";
 import React, { useEffect, useState } from 'react';
 import CardJobAdmin from '@/components/CardJobAdmin';
 import NotLoggedAdvice from '@/components/NotLoggedAdvice';
+import { BriefcaseAlt } from "@styled-icons/boxicons-regular/BriefcaseAlt"
+import Info from '@/components/Info';
 const Pagina = () => {
   const router = useRouter()
   const [mural, setMural] = useState([])
@@ -66,11 +68,12 @@ const Pagina = () => {
           <SidebarLogged />
           </div>
 
-          <div className='col-span-9 w-full min-h-full p-4 md:pt-10 md:pl-8 md:mb-10'>
+          <div className='col-span-9 w-full min-h-full p-4 xl:pr-0 md:pt-10 md:pl-8 md:mb-10'>
 
-            <h1>Minhas Vagas</h1>
+          <h1 className='flex items-center gap-3'><BriefcaseAlt size={40}/> Minhas Vagas</h1>
+            <Info texto='Em breve você poderá editar e excluir as suas vagas publicadas.'/>
 
-            <section className=' md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
+            <section className='mt-4 md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
             {loading ?
                 <div className="w-full gap-5 grid md:grid-cols-2 lg:grid-cols-3">
                   {Array(6).fill("").map((a, i) => (

@@ -6,19 +6,12 @@ import { MD5 } from "crypto-js";
 import KeyIcon from '@heroicons/react/outline/KeyIcon'
 import { EyeOff } from "@styled-icons/fluentui-system-regular/EyeOff"
 import { EyeShow } from "@styled-icons/fluentui-system-regular/EyeShow"
-import { Person } from "@styled-icons/bootstrap/Person"
-import { Building } from "@styled-icons/bootstrap/Building"
-import { Verified } from "@styled-icons/octicons/Verified"
-import { Whatsapp } from "@styled-icons/bootstrap/Whatsapp"
+import { LockAlt } from "@styled-icons/boxicons-regular/LockAlt"
 import { Save } from '@styled-icons/fluentui-system-regular/Save'
-import MailIcon from '@heroicons/react/outline/MailIcon'
 import { Configs } from '@/configs'
 import { forcaSenha } from "@/utils/forcaSenha"
-import { validateEmail } from "@/utils/validateEmail"
 import { SpinnerCircularFixed } from "spinners-react";
 import { useRouter } from 'next/router';
-import formatCNPJ from '@/utils/formatCNPJ';
-import slugify from '@/utils/slugify';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import NotLoggedAdvice from '@/components/NotLoggedAdvice';
@@ -27,7 +20,6 @@ const AlterarSenha = () => {
 
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [username, setUsername] = useState("")
   const [senha, setSenha] = useState("")
   const [confirmarSenha, setConfirmarSenha] = useState("")
   const [medidorSenha, setMedidorSenha] = useState(0)
@@ -39,7 +31,7 @@ const AlterarSenha = () => {
   useEffect(() => {
     setMedidorSenha(forcaSenha(senha))
   }, [senha])
- 
+
   async function salvarPerfil() {
     let error = false
     if (!loading) {
@@ -58,8 +50,8 @@ const AlterarSenha = () => {
 
       if (!error) {
         axios.post("/api/updatePassword", {
-          hash: String(MD5("##@@$%&" + username + "##@@$%&" + configState.loggedUser.id + "##@@$%&")),
-          username,
+          hash: String(MD5("##@@$%&" + configState.loggedUser.username + "##@@$%&" + configState.loggedUser.id + "##@@$%&")),
+          username: configState.loggedUser.username,
           password: senha,
           id: configState.loggedUser.id
         }).then(response => {
@@ -95,12 +87,12 @@ const AlterarSenha = () => {
               <SidebarLogged />
             </div>
 
-            <div className='col-span-9 w-full min-h-full p-4 md:pt-10 md:pl-8 md:mb-10'>
+            <div className='col-span-9 w-full min-h-full p-4 xl:pr-0 md:pt-10 md:pl-8 md:mb-10'>
 
-              <h1>Alterar Senha</h1>
+              <h1 className='flex items-center gap-3'><LockAlt size={40}/> Alterar Senha</h1>
 
               <section className=' md:p-10 gap-2 flex flex-col flex-1 w-full rounded-lg md:border border-gray-200 md:bg-white  '>
-                <h2 className='text-xl'>Altere sua senha 😄</h2>
+                <h2 className='text-xl'>Altere sua senha</h2>
 
                 <section className='grid md:grid-cols-2 gap-4 '>
 
@@ -161,19 +153,16 @@ const AlterarSenha = () => {
 
                     </div>
                   </div>
-
-
-
                 </section>
 
-                <div className="mt-6">
+                <div className="mt-4">
                   {!loading ?
-                    <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
+                    <button onClick={salvarPerfil} className="inline-flex w-full md:w-auto items-center justify-center px-6 py-3 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-500 filter hover:bg-blue-600">
                       <Save className="w-5 text-white" />
                       <span className="text-white"> Salvar </span>
                     </button>
                     :
-                    <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-4 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
+                    <button className="inline-flex w-full md:w-auto  items-center cursor-not-allowed justify-center px-6 py-3 space-x-2 rounded-lg transition-all duration-500 ease-in-out bg-blue-300 filter hover:bg-blue-400">
                       <SpinnerCircularFixed size={20} thickness={180} speed={150} color="#FFF" secondaryColor="rgba(255, 255, 255, 0.15)" />
                       <span className="text-white"> Salvando ... </span>
                     </button>
@@ -188,7 +177,7 @@ const AlterarSenha = () => {
           </div>
 
         </main> :
-        <NotLoggedAdvice/>
+        <NotLoggedAdvice />
       }
     </>);
 }

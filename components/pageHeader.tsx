@@ -14,7 +14,15 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import { PersonCircle } from "@styled-icons/bootstrap/PersonCircle"
 import { Menu as MenuIcon } from "@styled-icons/evaicons-solid/Menu"
 import { XIcon } from '@heroicons/react/outline'
+import { ChevronDown } from "@styled-icons/boxicons-solid/ChevronDown"
 import { PersonFill } from "@styled-icons/bootstrap/PersonFill"
+import { PersonOutline } from "@styled-icons/material-sharp/PersonOutline"
+import { BriefcaseAlt } from "@styled-icons/boxicons-regular/BriefcaseAlt"
+import { LockAlt } from "@styled-icons/boxicons-regular/LockAlt"
+import { ShutDown as Power } from "@styled-icons/remix-line/ShutDown"
+import { Dashboard } from "@styled-icons/remix-line/Dashboard"
+
+
 import LoginModal from "@/components/LoginModal"
 import axios from "axios"
 import { toast } from "react-toastify"
@@ -150,12 +158,12 @@ export default function PageHeader() {
       }
       <header className={"flex flex-col border-b border-gray-300 items-center font-semibold  w-full bg-white justify-center"}>
         <form onSubmit={makeSearch} className="hidden md:grid grid-cols-12 gap-4 w-full justify-end max-w-7xl py-4 ">
-          <div className="col-span-3  flex text-center justify-center w-full">
+          <div className="col-span-2 lg:col-span-3  flex text-center justify-center w-full">
             <a href="/" className=" flex hover:opacity-60  hover:-mt-2 transition-all duration-500 ease-in-out w-24 text-center justify-center">
               <Image src="/Mural.svg" className="w-24" alt="Mural MaisVagasES" width={126} height={38} />
             </a>
           </div>
-          <div className="col-span-9 w-full flex gap-3 pr-4 xl:pr-0 ">
+          <div className="col-span-10 lg:col-span-9 w-full flex gap-3 pr-4 xl:pr-0 ">
             <div className="  w-full text-gray-400 flex p-2 gap-2 items-center rounded-l-md bg-gray-100">
               <input placeholder="Pesquise uma vaga" value={search} onChange={(e) => setSearch(e.target.value)} className="w-full text-gray-400 bg-gray-100" />
             </div>
@@ -172,16 +180,20 @@ export default function PageHeader() {
             {userLogged.id > 0 ?
               <div className="text-right ">
                 <Menu as="div" className="relative w-full inline-block text-left">
-                  <Menu.Button className="inline-flex  text-blue-500  justify-center items-center w-full px-4 py-2 text-sm font-medium  border border-blue-500   rounded-md  hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-
+                  <Menu.Button className="inline-flex  text-blue-500 h-10 justify-center items-center w-full px-4 text-sm font-medium  border border-blue-500   rounded-md  hover:bg-blue-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                    {/*
                     <PersonCircle
                       className="w-5 h-5 mr-2  hover:text-blue-600"
                       aria-hidden="true"
-                    />
+                      /> */}
+                      <div className="p-0.5 rounded-full  border border-blue-500  flex bg-white ">  
+                     <Image className="rounded-full  " src={configState.loggedUser.imagem.url || "/user.svg"} alt="Danilo" width={30} height={30} />
+                     </div>
 
-                    <span className="ml-2 w-22">{userLogged.nome.split(" ")[0]}</span>
-                    <ChevronDownIcon
-                      className="w-5 h-5 ml-2 -mr-1  hover:text-blue-600"
+                    <span className="ml-2 truncate w-24 ">{configState.loggedUser.nome.split(" ")[0]}</span>
+                    <ChevronDown
+                    size={20}
+                      className="w-6 h-6 ml-2 -mr-1"
                       aria-hidden="true"
                     />
                   </Menu.Button>
@@ -196,12 +208,14 @@ export default function PageHeader() {
                   >
                     <Menu.Items className="absolute z-[12] right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <div className="px-1 py-1  ">
+
                         <Menu.Item>
                           {({ active }) => (
                             <a href="editar-perfil"
                               className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                                } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm gap-1`}
                             >
+                              <PersonOutline size={20} />
                               Editar Perfil
                             </a>
                           )}
@@ -210,19 +224,30 @@ export default function PageHeader() {
                           {({ active }) => (
                             <a href="/minhas-vagas"
                               className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                                } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                            >
+                                } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm gap-1`}
+                            > <BriefcaseAlt size={20} />
                               Minhas vagas
                             </a>
                           )}
                         </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a href="/alterar-senha"
+                              className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
+                                } group  font-medium flex rounded-md items-center w-full px-2 py-2 text-sm gap-1`}
+                            > <LockAlt size={20} />
+                              Alterar Senha
+                            </a>
+                          )}
+                        </Menu.Item>
+
                         {(userLogged.id == 10 || userLogged.id == 12 || userLogged.id == 8) &&
                           <Menu.Item>
                             {({ active }) => (
                               <a href="dashboard"
                                 className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                                  } group  font-medium  flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                              >
+                                  } group  font-medium  flex rounded-md items-center w-full px-2 py-2 text-sm gap-1`}
+                              ><Dashboard size={20} />
                                 Dashboard
                               </a>
                             )}
@@ -234,8 +259,8 @@ export default function PageHeader() {
                             <button
                               onClick={logout}
                               className={`${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                                } group   font-medium flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                            >
+                                } group font-medium flex rounded-md items-center w-full px-2 py-2 text-sm gap-1`}
+                            ><Power size={20} />
                               Sair
                             </button>
                           )}
@@ -247,13 +272,13 @@ export default function PageHeader() {
               </div>
               :
               <div className="text-right">
-                <a href="#" onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className="transition-all duration-500 ease-in-out flex items-center cursor-pointer justify-center w-full px-4 py-2 text-sm font-medium text-blue-500  border border-blue-500   rounded-md  hover:bg-blue-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <div onClick={() => Configs.update(s => { s.loginModalIsOpen = true })} className="transition-all  h-10 duration-500 ease-in-out flex items-center cursor-pointer justify-center w-full px-4 py-2 text-sm font-medium text-blue-500  border border-blue-500   rounded-md  hover:bg-blue-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                   <PersonCircle
                     className="w-5 h-5 mr-2  hover:text-blue-100"
                     aria-hidden="true"
                   />
                   <span className="w-24">Fazer Login</span>
-                </a>
+                </div>
               </div>
             }
           </div>
