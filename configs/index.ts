@@ -18,7 +18,23 @@ interface iConfig {
   shareModalIsOpen:boolean;
   imageModalIsOpen:boolean;
   loginModalIsOpen:boolean;
+  menuIsOpen:boolean,
   loading:boolean;
+  loggedUser:{
+    nome: string,
+     id: number,
+     ativo: boolean,
+     email: string,
+     cnpj:string,
+     empresa:string,
+     blocked:boolean,
+     username:string,
+     whatsapp:string,  
+     imagem:{
+      id:number,
+      url:string
+    }
+  }
 }
 
  
@@ -41,7 +57,23 @@ export const Configs = new Store<iConfig>({
   shareModalIsOpen:false,
   imageModalIsOpen:false,
   loginModalIsOpen:false,
+  menuIsOpen:false,
   loading:true,
+  loggedUser:{
+    nome: "",
+     id: 0,
+     ativo: false,
+     email: "",
+     cnpj:"",
+     empresa:"",
+     blocked:false,
+     username:"",
+     whatsapp:"",
+     imagem:{
+       id:0,
+       url:""
+     }
+  }
 });
  
 

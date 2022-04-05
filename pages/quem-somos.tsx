@@ -1,7 +1,7 @@
 
 import SEO from '@/components/SEO';
 import Image from 'next/image';
-const Pagina = () => {
+const QuemSomos = () => {
   const people = [
     {
       name: 'Ronaldo Rangel',
@@ -45,7 +45,6 @@ const Pagina = () => {
                 </div>
                 <div className="lg:col-span-2 relative pt-8 lg:-top-20">
                   <ul
-
                     className="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:gap-x-8"
                   >
                     {people.map((person) => (
@@ -93,4 +92,4 @@ const Pagina = () => {
     </>);
 }
 
-export default Pagina;
+export default QuemSomos;

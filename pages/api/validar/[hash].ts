@@ -1,11 +1,6 @@
 import axios from "axios";
-import { MD5 } from "crypto-js";
-
-export default async function handler(req, res) {
+export default async function validar(req, res) {
   try {
-    
-
-
     var data = JSON.stringify({
       ativo: true,
     });
@@ -29,7 +24,7 @@ export default async function handler(req, res) {
       data: data,
     };
      //@ts-ignore
-    var user = await axios(update);  
+    await axios(update);  
 
     return res.status(200).json(`Conta ativada com sucesso`);
   } catch (error) {

@@ -1,7 +1,7 @@
 import client from "@/utils/apollo";
 import { gql } from "@apollo/client";
 
-export default async function handler(req, res) {
+export default async function checkHash(req, res) {
   try {
     const { imageHash } = require("image-hash"); 
      imageHash(req.body.img.url, 16, true, async (error, data) => {

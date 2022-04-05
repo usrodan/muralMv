@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from "axios"
 import ArrowRightIcon from '@heroicons/react/outline/ArrowRightIcon'
-import MailIcon from '@heroicons/react/outline/MailIcon'
-import { useRouter } from 'next/router'
-import { toast } from 'react-toastify'
-import { MD5 } from "crypto-js"
+import MailIcon from '@heroicons/react/outline/MailIcon' 
+import { toast } from 'react-toastify' 
 import Info from '@/components/Info'
 import { SpinnerCircularFixed } from "spinners-react";
 import { validateEmail } from "@/utils/validateEmail"
 
-export default function Index() {
+export default function RecuperarSenhaPage() {
   const [emailEnviado, setEmailEnviado] = useState(false)
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")

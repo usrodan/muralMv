@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MD5 } from "crypto-js";
 
-export default async function handler(req, res) {
+export default async function sendConfirmation(req, res) {
   try {
     const nodemailer = require("nodemailer");
     var cod = await MD5(String(new Date()));
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
       },
     }); 
 
-    let info = await transporter.sendMail({
+     await transporter.sendMail({
       from: '"Mais Vagas ES" <smtp@maisvagases.com.br>', // sender address
       to: user.data.email, // list of receivers
       subject: `Confirmar e-mail - Mais Vagas ES `, // Subject line

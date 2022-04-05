@@ -41,12 +41,10 @@ export default function Index() {
 
   useEffect(() => {
     setCnpjUnformatted(cnpj.replace(".", "").replace(".", "").replace("/", "").replace("-", ""))
-
   }, [cnpj])
 
   useEffect(() => {
     setWhatsappUnformatted(whatsapp.replace("(", "").replace(")", "").replace(" ", "").replace("-", ""))
-
   }, [whatsapp])
 
   useEffect(() => {
@@ -54,7 +52,6 @@ export default function Index() {
       validarCNPJ(cnpj) ? getCNPJ() : toast.error("CNPJ Inválido", { position: 'bottom-center' })
     }
   }, [cnpjUnformatted])
-
 
   useEffect(() => {
     empresa && setUsername(slugify(empresa))

@@ -121,7 +121,7 @@ const IndexPage = ({ buildTimestamp }) => {
   }
   return (
     <>
-      <SEO siteName="Mais Vagas ES" title="Mural" description="" />
+      <SEO siteName="Mais Vagas ES" title="Mural" description="O Mais Vagas ES é oferecido gratuitamente com o intuito de ajudar a todos conseguirem seu primeiro emprego ou a se recolocar no mercado de trabalho. Para isso, diariamente postamos inúmeras vagas de emprego, estágios e concursos." />
       <main className="flex w-full justify-center">
         <div className="flex flex-col gap-4 w-full max-w-7xl p-2 ">
           <div className='hidden md:flex'>
@@ -192,7 +192,6 @@ const IndexPage = ({ buildTimestamp }) => {
                       {item.attributes.imagem && item.attributes.cargo && item.attributes.cidade && item.attributes.cidade.data && item.attributes.tipo && item.attributes.tipo.data && item.attributes.createdAt &&
                         <CardJob key={item.id} id={item.id} image={item.attributes.imagem.data.attributes.url} title={item.attributes.cargo} city={item.attributes.cidade.data.attributes.cidade} date={item.attributes.createdAt} color={item.attributes.tipo.data.attributes.cor} type={item.attributes.tipo.data.attributes.tipo} />
                       }
-
                       {index == 2 && <div className='md:col-span-2 lg:col-span-3'>
                         <ins className="adsbygoogle"
                           style={{ display: "flex" }}

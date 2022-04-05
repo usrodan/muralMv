@@ -1,12 +1,12 @@
 
 import SEO from '@/components/SEO';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Verified } from "@styled-icons/material-twotone/Verified"
 import { Error } from"@styled-icons/material-twotone/Error"
 import axios from 'axios'
 import { SpinnerCircularFixed } from "spinners-react";
 import { useRouter } from 'next/router';
-const Pagina = () => {
+const Validar = () => {
 
   const [loading, setLoading] = useState(true)
   const [ativo, setAtivo] = useState(false)
@@ -67,4 +67,4 @@ const Pagina = () => {
     </>);
 }
 
-export default Pagina;
+export default Validar;

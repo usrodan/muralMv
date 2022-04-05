@@ -1,6 +1,6 @@
 
 import SEO from '@/components/SEO';
-const Pagina = () => {
+const PoliticaDePrivacidade = () => {
   const urlSite = "Mural - MaisVagasES"
   const nomeSite = "https://mural.maisvagases.com.br"
   return (
@@ -60,4 +60,4 @@ const Pagina = () => {
     </>);
 }
 
-export default Pagina;
+export default PoliticaDePrivacidade;

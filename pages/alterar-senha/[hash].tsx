@@ -11,12 +11,10 @@ import { EyeShow } from "@styled-icons/fluentui-system-regular/EyeShow"
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify'
 import { MD5 } from "crypto-js"
-const Pagina = () => {
+const AlterarSenhaPage = () => {
 
   const [loading, setLoading] = useState(false)
-  const [ativo, setAtivo] = useState(false)
   const router = useRouter()
-
   const [passwordTip, setPasswordTip] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
@@ -165,4 +163,4 @@ const Pagina = () => {
     </>);
 }
 
-export default Pagina;
+export default AlterarSenhaPage;

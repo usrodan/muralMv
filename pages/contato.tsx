@@ -1,13 +1,14 @@
 
 import SEO from '@/components/SEO';
-import { Fragment, useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image'
 import Info from '@/components/Info';
 import { toast } from 'react-toastify';
 import { SendPlane } from "@styled-icons/remix-fill/SendPlane"
 
 import { SpinnerCircularFixed } from "spinners-react";
-const Pagina = () => {
+import { validateEmail } from '@/utils/validateEmail';
+const Contato = () => {
   const [nome, setNome] = useState("")
   const [email, setEmail] = useState("")
   const [mensagem, setMensagem] = useState("")
@@ -16,13 +17,7 @@ const Pagina = () => {
   const [segundo, setSegundo] = useState(Math.floor(Math.random() * 10) + 1)
   const [captcha, setCaptcha] = useState(null)
 
-  const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
+  
 
   function enviarEmail() {
     setLoading(true)

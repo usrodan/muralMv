@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+export default async function ReportVaga(req, res) {
   try {
     const nodemailer = require("nodemailer");
     let htmlEmail = `
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     });
 
     // send mail with defined transport object
-    let info = await transporter.sendMail({
+   await transporter.sendMail({
       from: '"Mural" <mural@maisvagases.com.br>', // sender address
       to: "us.rodan@gmail.com", // list of receivers
       subject: `Report Vaga - ${req.body.id} - ${req.body.motivo} `, // Subject line
