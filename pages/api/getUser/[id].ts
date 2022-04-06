@@ -1,4 +1,3 @@
-import axios from "axios";
 import client from "@/utils/apollo";
 import { gql } from "@apollo/client";
 
@@ -34,7 +33,6 @@ export default async function getUser(req, res) {
       `,
     });
     const d = response.data.usersPermissionsUsers.data[0].attributes
-
     const r = {
       id: req.query.id,
       username: d.username,
@@ -51,7 +49,6 @@ export default async function getUser(req, res) {
         url: d.imagem.data ? d.imagem.data.attributes.url : "",
       }
     };
-
     return res.status(200).json(r);
   } catch (error) {
     return res.status(200).json({ error: error.message });

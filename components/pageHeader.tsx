@@ -22,6 +22,8 @@ import { LockAlt } from "@styled-icons/boxicons-regular/LockAlt"
 import { ShutDown as Power } from "@styled-icons/remix-line/ShutDown"
 import { Dashboard } from "@styled-icons/remix-line/Dashboard"
 
+import client from "@/utils/apollo";
+import { gql } from "@apollo/client";
 
 import LoginModal from "@/components/LoginModal"
 import axios from "axios"
@@ -34,6 +36,57 @@ export default function PageHeader() {
   const router = useRouter()
   const [search, setSearch] = useState(null)
   const [userLogged, setUserLogged] = useState({ nome: "", id: 0, ativo: false, imagem: { url: "" } })
+
+  async function getUser(id) {
+    const response = await client.query({
+      query: gql` 
+      query {
+        usersPermissionsUsers(filters: { id: { eq: ${id} } }) {
+          data {
+            attributes {
+              username
+              imagem {          
+                data {
+                  id
+                  attributes {
+                    url
+                  }
+                }
+              }
+              nome
+              email
+              empresa
+              whatsapp
+              cnpj
+              confirmed
+              blocked
+              ativo
+            }
+          }
+        }
+      }
+      `,
+    });
+    const d = response.data.usersPermissionsUsers.data[0].attributes
+    const r = {
+      id,
+      username: d.username,
+      email: d.email,
+      confirmed: d.confirmed,
+      blocked: d.blocked,
+      nome: d.nome,
+      cnpj: d.cnpj,
+      whatsapp: d.whatsapp,
+      empresa: d.empresa,
+      ativo: d.ativo,
+      imagem: {
+        id: d.imagem.data ? d.imagem.data.id : 0,
+        url: d.imagem.data ? d.imagem.data.attributes.url : "",
+      }
+    };
+
+    return r
+  }
 
   function handleMenu() {
     Configs.update(s => {
@@ -58,6 +111,26 @@ export default function PageHeader() {
     let CookieSession = JSON.parse(localStorage.getItem("SessionMural"))
     CookieSession && CookieSession.token == String(MD5(CookieSession.user.username + CookieSession.user.id + CookieSession.user.email)) ? setUserLogged(CookieSession.user) : setUserLogged({ ativo: false, nome: "", id: 0, imagem: { url: "" } })
     if (CookieSession && CookieSession.user && CookieSession.user.id != 0) {
+      getUser(CookieSession.user.id).then(response => {
+        if (response) {
+          Configs.update(s => {
+            s.loggedUser = response
+          })
+          localStorage.setItem("SessionMural", JSON.stringify({ token: String(MD5(CookieSession.user.username + CookieSession.user.id + CookieSession.user.email)), user: response }))
+          setTimeout(() => {
+            Configs.update(s => { s.loading = false })
+          }, 1500);
+
+        } else {
+          localStorage.removeItem("SessionMural")
+          setTimeout(() => {
+            Configs.update(s => { s.loading = false })
+          }, 1500);
+        }
+
+
+      })
+      /*
       axios.get(`/api/getUser/${CookieSession.user.id}`).then(response => {
         if (response.data) {
           Configs.update(s => {
@@ -75,6 +148,7 @@ export default function PageHeader() {
           }, 1500);
         }
       })
+      */
     } else {
       setTimeout(() => {
         Configs.update(s => { s.loading = false })
@@ -186,13 +260,13 @@ export default function PageHeader() {
                       className="w-5 h-5 mr-2  hover:text-blue-600"
                       aria-hidden="true"
                       /> */}
-                      <div className="p-0.5 rounded-full  border border-blue-500  flex bg-white ">  
-                     <Image className="rounded-full  " src={configState.loggedUser.imagem.url || "/user.svg"} alt="Danilo" width={30} height={30} />
-                     </div>
+                    <div className="p-0.5 rounded-full  border border-blue-500  flex bg-white ">
+                      <Image className="rounded-full  " src={configState.loggedUser.imagem.url || "/user.svg"} alt="Danilo" width={30} height={30} />
+                    </div>
 
                     <span className="ml-2 truncate w-24 ">{configState.loggedUser.nome.split(" ")[0]}</span>
                     <ChevronDown
-                    size={20}
+                      size={20}
                       className="w-6 h-6 ml-2 -mr-1"
                       aria-hidden="true"
                     />
