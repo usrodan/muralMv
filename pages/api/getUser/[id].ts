@@ -2,6 +2,10 @@ import client from "@/utils/apollo";
 import { gql } from "@apollo/client";
 
 export default async function getUser(req, res) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=1, stale-while-revalidate=2"
+  );
   try {
     const response = await client.query({
       query: gql` 
