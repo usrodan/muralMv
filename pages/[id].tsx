@@ -214,25 +214,13 @@ export async function getServerSideProps({ params }) {
   `,
   });
   
-  let imgText = ""
-  
-  const tesseract = require("node-tesseract-ocr") 
-  tesseract
-    .recognize(data.mural.data.attributes.imagem.data.attributes.url)
-    .then((text) => {
-      imgText = text
-    })
-    .catch((error) => {
-      console.log(error)
-      imgText = ""
-    }) 
 
   return {
     props: {
       mural: {
         image: data.mural.data.attributes.imagem.data.attributes.url,
         cargo: data.mural.data.attributes.cargo,
-        descricao: data.mural.data.attributes.descricao || imgText,
+        descricao: data.mural.data.attributes.descricao,
         cidade: data.mural.data.attributes.cidade.data.attributes.cidade,
         tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
         cor: data.mural.data.attributes.tipo.data.attributes.cor,
