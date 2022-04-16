@@ -56,7 +56,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
         title={mural.cargo}
         image={mural.image}
         description={`Veja essa vaga de ${mural.cargo} que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego`} />
-        
+
       <ReportModal id={mural.id} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} cargo={mural.cargo} />
       <ShareModal cargo={mural.cargo} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} />
       <ImagemModal alt={mural.cargo} width={mural.imgW} height={mural.imgH} src={mural.image || "https://placehold.jp/ffffff/ffffff/256x310.png?text=%20"} />
@@ -81,7 +81,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
                     {//IMG QUADRADA OU HORIZONTAL
                       mural.imgW <= mural.imgH &&
                       <>
-                        <ins className="adsbygoogle flex" 
+                        <ins className="adsbygoogle flex"
                           //style={{ display: "block" }}
                           data-ad-client="ca-pub-6873518969054710"
                           data-ad-slot="4050152967"
@@ -213,13 +213,26 @@ export async function getServerSideProps({ params }) {
     }
   `,
   });
+  
+  let imgText = ""
+  
+  const tesseract = require("node-tesseract-ocr") 
+  tesseract
+    .recognize(data.mural.data.attributes.imagem.data.attributes.url)
+    .then((text) => {
+      imgText = text
+    })
+    .catch((error) => {
+      console.log(error)
+      imgText = ""
+    }) 
 
   return {
     props: {
       mural: {
         image: data.mural.data.attributes.imagem.data.attributes.url,
         cargo: data.mural.data.attributes.cargo,
-        descricao: data.mural.data.attributes.descricao,
+        descricao: data.mural.data.attributes.descricao || imgText,
         cidade: data.mural.data.attributes.cidade.data.attributes.cidade,
         tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
         cor: data.mural.data.attributes.tipo.data.attributes.cor,
