@@ -55,7 +55,7 @@ const IndexPage = ({ buildTimestamp, mural }) => {
       <SEO siteName="Mural - MaisVagasES"
         title={mural.cargo}
         image={mural.image}
-        description={`Veja essa vaga de ${mural.cargo} que encontrei no Mural do Mais Vagas ES. Quem sabe este não será seu próximo emprego`} />
+        description={mural.descricao} />
 
       <ReportModal id={mural.id} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} cargo={mural.cargo} />
       <ShareModal cargo={mural.cargo} url={`https://mural.maisvagases.com.br/${mural.id}-${slugify(mural.cargo)}`} />
