@@ -19,11 +19,26 @@ import Script from 'next/script';
 import ReactMarkdown from 'react-markdown'
 import Info from '@/components/Info';
 import { timezoneBrazil } from '@/utils/timezoneBrazil';
+import {createWorker} from "tesseract.js"
 
 
 const IndexPage = ({ buildTimestamp, mural }) => {
 
   let formatedData = timezoneBrazil(mural.data)
+
+  useEffect(()=>{
+    convertImageToText(mural.image)
+  },[mural.image])
+
+  async function convertImageToText(imgUrl){ 
+    const worker = createWorker();
+    await worker.load();
+    await worker.loadLanguage('eng');
+    await worker.initialize('eng');
+    const { data: { text } } = await worker.recognize(imgUrl);
+    console.log(text)
+    await worker.terminate();
+  }
 
   function openReport() {
     Configs.update(s => {
