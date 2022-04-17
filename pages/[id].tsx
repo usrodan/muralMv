@@ -214,26 +214,15 @@ export async function getServerSideProps({ params }) {
   `,
   });
 
-  let imgText = ""
+ 
 
-  const { createWorker } = require('tesseract.js');
-
-  const worker = createWorker();
-
-    await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
-    const { data: { text } } = await worker.recognize(data.mural.data.attributes.imagem.data.attributes.url);
-    imgText = text
-    await worker.terminate();
-  
 
   return {
     props: {
       mural: {
         image: data.mural.data.attributes.imagem.data.attributes.url,
         cargo: data.mural.data.attributes.cargo,
-        descricao: data.mural.data.attributes.descricao || imgText,
+        descricao: data.mural.data.attributes.descricao,
         cidade: data.mural.data.attributes.cidade.data.attributes.cidade,
         tipo: data.mural.data.attributes.tipo.data.attributes.tipo,
         cor: data.mural.data.attributes.tipo.data.attributes.cor,
