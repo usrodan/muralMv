@@ -19,26 +19,26 @@ import Script from 'next/script';
 import ReactMarkdown from 'react-markdown'
 import Info from '@/components/Info';
 import { timezoneBrazil } from '@/utils/timezoneBrazil';
-import {createWorker} from "tesseract.js"
+import Tesseract from "tesseract.js"
 
 
 const IndexPage = ({ buildTimestamp, mural }) => {
 
   let formatedData = timezoneBrazil(mural.data)
+  const worker = Tesseract.createWorker();
 
-  useEffect(()=>{
-    convertImageToText(mural.image)
-  },[mural.image])
+  useEffect(()=>{ 
+    //convertImageToText()
+  },[mural])
 
-  async function convertImageToText(imgUrl){ 
-    const worker = createWorker();
+  async function convertImageToText() {
     await worker.load();
     await worker.loadLanguage('eng');
     await worker.initialize('eng');
-    const { data: { text } } = await worker.recognize(imgUrl);
-    console.log(text)
+    let result = await worker.recognize(mural.image);
+    console.log(result.data);
     await worker.terminate();
-  }
+  } 
 
   function openReport() {
     Configs.update(s => {
@@ -228,10 +228,6 @@ export async function getServerSideProps({ params }) {
     }
   `,
   });
-
- 
-
-
   return {
     props: {
       mural: {
