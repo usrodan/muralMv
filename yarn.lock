@@ -3760,11 +3760,6 @@ node-releases@^2.0.2:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.2.tgz#7139fe71e2f4f11b47d4d2986aaf8c48699e0c01"
   integrity sha512-XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg==
 
-node-tesseract-ocr@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/node-tesseract-ocr/-/node-tesseract-ocr-2.2.1.tgz#465fea1a1acd6720efb582d5f6c2bcbb82cce94d"
-  integrity sha512-Q9cD79JGpPNQBxbi1fV+OAsTxYKLpx22sagsxSyKbu1u+t6UarApf5m32uVc8a5QAP1Wk7fIPN0aJFGGEE9DyQ==
-
 nodemailer@^6.7.2:
   version "6.7.3"
   resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.3.tgz#b73f9a81b9c8fa8acb4ea14b608f5e725ea8e018"
@@ -5312,7 +5307,7 @@ tesseract.js-core@^2.2.0:
   resolved "https://registry.yarnpkg.com/tesseract.js-core/-/tesseract.js-core-2.2.0.tgz#6ef78051272a381969fac3e45a226e85022cffef"
   integrity sha512-a8L+OJTbUipBsEDsJhDPlnLB0TY1MkTZqw5dqUwmiDSjUzwvU7HWLg/2+WDRulKUi4LE+7PnHlaBlW0k+V0U0w==
 
-tesseract.js@^2.1.4:
+tesseract.js@^2.1.4, tesseract.js@^2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/tesseract.js/-/tesseract.js-2.1.5.tgz#2f757ff059f249721096fe9f94029c349650902c"
   integrity sha512-7CIS3SWr7TXpeaH9+HS7iUtVbCfPFYOO3p6rkRAkdtsOtrbz6496x59na6SCbFAIaZulQxy8BjwSu3qL3AoDRg==

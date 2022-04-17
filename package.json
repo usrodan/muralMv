@@ -69,6 +69,8 @@
         "styled-components": "^5.3.1",
         "styled-icons": "^10.40.0",
         "tailwindcss-filters": "^3.0.0",
+        "tesseract.js": "^2.1.5",
+        "text-from-image": "^1.1.1",
         "use-clipboard-copy": "^0.2.0",
         "yarn": "^1.22.11",
         "yup": "^0.32.9"
