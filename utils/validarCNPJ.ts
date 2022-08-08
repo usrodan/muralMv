@@ -1,5 +1,5 @@
 export default function validarCNPJ(cnpj) {
- 
+    cnpj = String(cnpj)
     cnpj = cnpj.replace(/[^\d]+/g,'');
  
     if(cnpj == '') return false;

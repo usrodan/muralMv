@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "test": "jest --watch"
     },
     "repository": {
         "type": "git",
@@ -25,6 +26,8 @@
         "@lottiefiles/react-lottie-player": "^3.4.1",
         "@sendgrid/mail": "^7.4.6",
         "@tailwindcss/forms": "^0.3.3",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^12.1.4",
         "@tinymce/tinymce-react": "^3.12.6",
         "@unform/core": "^2.1.6",
         "@unform/web": "^2.1.6",
@@ -39,6 +42,7 @@
         "graphql": "^16.3.0",
         "h2m": "^0.7.0",
         "image-hash": "^5.0.2",
+        "jest": "^27.5.1",
         "jsdom": "^17.0.0",
         "mv": "^2.1.1",
         "next": "^12.1.0",

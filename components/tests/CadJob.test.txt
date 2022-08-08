@@ -1,0 +1,13 @@
+import { render, screen } from '@testing-library/react'
+import CardJob from '../CardJob'
+
+describe('Component - CadJob', () => {
+  it('Renderiza corretamente', () => {
+    const {debug} = render(<CardJob image={'http://placehold.jp/ffffff/ffffff/256x310.png?text=%20'} title={'Titulo'} city={'Vitória'} date={'10/12/2020'} type={'Efetivo'} id={'1'} />)
+    debug() 
+    expect(screen.getByText("Titulo")).toBeInTheDocument() 
+    expect(screen.getByText("Vitória")).toBeInTheDocument() 
+    expect(screen.getByText("Efetivo")).toBeInTheDocument() 
+    expect(screen.getByText("11/10/2020")).toBeInTheDocument()
+  })
+})

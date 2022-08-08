@@ -1,7 +1,4 @@
-import { useRouter } from "next/router"
 import { Configs } from '@/configs'
-
-
 const DoLogout = () =>  { 
     localStorage.removeItem("SessionMural")
     Configs.update(s => {
